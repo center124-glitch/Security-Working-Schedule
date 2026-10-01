@@ -10,7 +10,8 @@
 <title>SBK Security Working Schedule</title>
 <!-- v6 (30/09/2569): แถบสถานะซิงค์ + ส่งอัตโนมัติ + ตรวจความขัดแย้งหลายผู้ใช้ + timeout/ลองใหม่, ตารางเวรหลายเดือนแชร์ผ่าน Sheets + ตัวเลือกเดือน, แถบควบคุมติดหน้าจอ (◀ วันนี้ ▶ ความคืบหน้า), ตัวกรอง เหลือเช็ค, เลิกทำ, กันติ๊กวันอนาคต, ปิดช่อง XSS จาก localStorage. Code_v6.gs ใช้ -->
 <!-- v5 (30/09/2569): ตรวจทานระบบ — กราฟไม่ล่มทั้งแดชบอร์ดเมื่อโหลด Chart.js ไม่ได้, รายงานตัดรายการตามชื่อเต็ม, แจ้งผลชั่วคราวเมื่อเดือนยังไม่สิ้นสุด, ยืนยัน Sheets ไม่เตือนผิดเรื่องหมายเหตุยาว -->
-<!-- v4 (30/09/2569): เลือกสถานะ+หมายเหตุในหน้าต่างเดียว (แตะช่องว่าง = มา ทันที / แตะช่องที่มีสถานะ = เปิดหน้าต่างเลือก พร้อมคำอธิบายและปุ่มลัดหมายเหตุ), เปลี่ยนวันหยุด เลือกวันคู่ครั้งเดียวระบบบันทึกให้ทั้ง 2 วัน, ปุ่ม คนก่อน/ถัดไป, ธีมสีแยกหน้า: ฟอร์ม=เขียวเรียบ / แดชบอร์ด=น้ำเงิน. Code_v4.gs ใช้ต่อได้ ไม่ต้อง Deploy ใหม่ -->
+<!-- v7 (30/09/2569): ตรวจ Logic ทั้งระบบ — แก้ข้อมูลรั่วข้ามเดือน, ความขัดแย้งหายเมื่อรีโหลด, DT ถูกลบก่อนยืนยัน, กรองข้อมูลในเครื่องที่เสียหาย, ชื่อซ้ำ, ปี พ.ศ./ค.ศ., ตารางเวรอัปเดตข้ามเครื่อง, ตรวจเวอร์ชัน Script/นาฬิกาเครื่อง, รหัสตรวจสอบข้อมูลในรายงาน. ใช้คู่กับ Code_v7.gs -->
+<!-- v4 (30/09/2569):: เลือกสถานะ+หมายเหตุในหน้าต่างเดียว (แตะช่องว่าง = มา ทันที / แตะช่องที่มีสถานะ = เปิดหน้าต่างเลือก พร้อมคำอธิบายและปุ่มลัดหมายเหตุ), เปลี่ยนวันหยุด เลือกวันคู่ครั้งเดียวระบบบันทึกให้ทั้ง 2 วัน, ปุ่ม คนก่อน/ถัดไป, ธีมสีแยกหน้า: ฟอร์ม=เขียวเรียบ / แดชบอร์ด=น้ำเงิน. Code_v4.gs ใช้ต่อได้ ไม่ต้อง Deploy ใหม่ -->
 <!-- v3 (30/09/2569): นำเข้าตารางเวรอ่านรายชื่อครบทุกกลุ่ม (ไม่พึ่งแถวยอดรวม), เดาตำแหน่งเมื่อไม่มีแถวยอดรวม, สรุปผล+เทียบรายชื่อ เพิ่ม/ออก, อ่านเกณฑ์วันทำงานจากหมายเหตุ, จำตารางเวรล่าสุด -->
 <!-- v2 (30/09/2569): Splash นาฬิกา HH:MM:SS + แถบความคืบหน้า, สถานะ ลา, หมายเหตุทุกสถานะ (ซิงค์ Sheets), Header สีเด่น, รายงานมาตรฐานขึ้น -->
 <!-- SBK Security Working Schedule : หน้าฟอร์มตารางติ๊ก (ติ๊กได้ทุกช่อง: OT / ทำงานแทน / เปลี่ยนวันหยุด, พอดีหน้าจอ ไม่ต้องเลื่อนซ้ายขวา) + หน้าแดชบอร์ดสรุป (ไฟล์เดียว, ซิงค์ Google Sheets ผ่าน Apps Script เป็นทางเลือก) -->
@@ -257,6 +258,8 @@ const wdOf=(R,d)=>new Date(gy(R),R.month,d).getDay();// วันในสัป
 //  • กลุ่มเริ่มที่แถวหัว "Name" และสิ้นสุดเมื่อเจอ ยอดรวม / หัวกลุ่มถัดไป / หัวกะใหม่ / "บันทึกหมายเหตุ" / จบไฟล์
 //  • ถ้าไม่มีแถวยอดรวม จะเดาตำแหน่ง (หัวหน้า-ตรวจการ / รปภ.) จากคำในวงเล็บหลังชื่อ แล้วแจ้งเตือนให้ตรวจสอบ
 const SUPRE=/(ตรวจการ|หน\.|ผช\.|หัวหน้า|ผู้ช่วย)/;
+// ชื่อซ้ำในกะเดียวกัน (key = กะ|ชื่อ) จะทำให้ข้อมูลของ 2 คนปนกัน → เติม (2),(3) ต่อท้ายให้ไม่ซ้ำ (คืนรายชื่อเดิมที่ซ้ำ)
+function uniqNames(staff){const seen={},ren=[];staff.forEach(s=>{let k=s.shift+'|'+s.name,n=1;if(seen[k]){let nm;do{n++;nm=s.name+' ('+n+')';}while(seen[s.shift+'|'+nm]);ren.push(s.name);s.name=nm;k=s.shift+'|'+nm;}seen[k]=1;});return ren;}
 function parseRoster(rows){
  const t=v=>v==null?'':String(v).trim(),nz=v=>t(v).replace(/\s+/g,'').toLowerCase(),warn=[];
  let month=null,year=null,shift=null,inB=false,cur=[],staff=[],minDays=null,wk=null,dcol=35,unk={},noSh=false;
@@ -279,12 +282,14 @@ function parseRoster(rows){
  }
  flush();
  if(month==null||!staff.length)throw new Error('รูปแบบไฟล์ไม่ตรงกับตารางเวร (ไม่พบเดือน/รายชื่อ)');
+ if(!(year>1900&&year<2700))throw new Error('ปีในไฟล์ไม่ถูกต้อง ('+year+')');
  const days=new Date(year>2400?year-543:year,month+1,0).getDate();
  staff.forEach(s=>s.off=s.off.filter(d=>d<=days));
  if(wk){const R0={year,month};let bad=0;for(let d=1;d<=days;d++){const x=t(wk[d-1]);if(x&&x!==AB[wdOf(R0,d)])bad++;}
   if(bad)warn.push('หัวตารางวันในสัปดาห์ไม่ตรงกับปฏิทินจริง '+bad+' วัน — ตรวจสอบว่าเดือน/ปีในไฟล์ถูกต้อง');}
  const uk=Object.keys(unk);if(uk.length)warn.push('พบค่าอื่นที่ไม่ใช่ off ในช่องวัน: '+uk.slice(0,6).map(k=>'“'+k+'” ×'+unk[k]).join(', ')+' — ระบบไม่นับเป็นวันหยุด');
- return{month,year,days,staff,warn,minDays};}
+ const dup=uniqNames(staff);if(dup.length)warn.push('พบชื่อซ้ำในกะเดียวกัน '+dup.length+' คน ('+dup.slice(0,4).join(', ')+') — ระบบเติม (2) ต่อท้ายเพื่อไม่ให้ข้อมูลปนกัน กรุณาตรวจสอบชื่อในไฟล์');
+ return{month,year:year<2400?year+543:year,days,staff,warn,minDays};}
 // สถานะ: p มา | l สาย | a ขาด | v ลา (ไม่นับขาด ไม่นับในแผน เหมือน s) | s หยุดเปลี่ยน (วันปกติที่หยุดแทนวันหยุดเดิม: ไม่นับขาด ไม่นับในแผน)
 //   ช่อง off: o OT | c ทำงานแทนผู้อื่น | w มาทำแทนวันหยุดที่เปลี่ยน (ข้อมูลเก่า p/l บนวัน off ถือเป็น OT)
 const XOFF={p:'o',l:'o',o:'o',c:'c',w:'w'};
@@ -313,44 +318,64 @@ function auditData(R,A,NT){const o=[];let nn=0;R.staff.forEach(s=>{const k=s.shi
  if(si!==so)o.push(s.name+' — สลับมาทำ '+si+' วัน แต่หยุดเปลี่ยน '+so+' วัน (ควรเท่ากัน ยกเว้นสลับข้ามเดือน)');});
  if(nn)o.push('มี '+nn+' ช่อง (สาย/ขาด/ลา/หยุดเปลี่ยน/OT/ทำแทน/สลับ) ที่ยังไม่มีหมายเหตุ');return o;}
 function cleanRoster(o){const bad=()=>{throw new Error('ข้อมูลตารางเวรไม่ถูกต้อง')};if(!o||typeof o!=='object')bad();
- const month=+o.month,year=+o.year,days=+o.days;if(!(month>=0&&month<=11)||!((year>2400&&year<2700)||(year>1900&&year<2200))||!(days>=28&&days<=31)||!Array.isArray(o.staff)||o.staff.length>300)bad();
- const cl=s=>String(s==null?'':s).replace(/[<>&"'`]/g,'').replace(/\s+/g,' ').trim().slice(0,120);
+ const month=+o.month,year0=+o.year,days=+o.days;if(!(month>=0&&month<=11)||!((year0>2400&&year0<2700)||(year0>1900&&year0<2200))||!(days>=28&&days<=31)||!Array.isArray(o.staff)||o.staff.length>300)bad();
+ const year=year0<2400?year0+543:year0;// ปีเก็บเป็น พ.ศ. เสมอ — กันคีย์ข้อมูล/ชีตไม่ตรงกันระหว่างเครื่องที่ใช้ ค.ศ. กับ พ.ศ.
+ const cl=s=>String(s==null?'':s).replace(/[<>&\"'`]/g,'').replace(/\s+/g,' ').trim().slice(0,120);
  const staff=o.staff.map(s=>({name:cl(s&&s.name),shift:s&&s.shift==='night'?'night':'day',role:s&&s.role==='sup'?'sup':'guard',
   off:[...new Set((s&&Array.isArray(s.off)?s.off:[]).map(Number).filter(d=>Number.isInteger(d)&&d>=1&&d<=days))].sort((a,b)=>a-b),dayOff:cl(s&&s.dayOff)})).filter(s=>s.name);
- if(!staff.length)bad();const md=parseInt(o.minDays,10);return{month,year,days,staff,minDays:(md>=1&&md<=31)?md:null};}
+ if(!staff.length)bad();uniqNames(staff);const md=parseInt(o.minDays,10);return{month,year,days,staff,minDays:(md>=1&&md<=31)?md:null};}
 /*ENDCORE*/
 const DEFAULT={"month":4,"year":2569,"days":31,"staff":[{"name":"นาย สมชัย หาสุข (หน.แผนก)","shift":"day","role":"sup","off":[5,7,12,19,21,26],"dayOff":"อังคาร/พฤหัสบดี"},{"name":"นาย สิทธิเดช สืบศรี (ตรวจการอาวุโส)","shift":"day","role":"sup","off":[4,11,18,25],"dayOff":"จันทร์"},{"name":"นาย กฤษฎา ศรีมุม (ตรวจการ)","shift":"day","role":"sup","off":[5,12,19,26],"dayOff":"อังคาร"},{"name":"นาย สุนทร อินเดช (ตรวจการ)","shift":"day","role":"sup","off":[6,13,20,27],"dayOff":"พุธ"},{"name":"นาย ทัศนัย พาหา (ตรวจการ)","shift":"day","role":"sup","off":[7,14,21,28],"dayOff":"พฤหัสบดี"},{"name":"นาย อดิศักดิ์ มังกษัตริย์ (ผช.หน.แผก)","shift":"day","role":"sup","off":[1,8,15,22,29],"dayOff":"ศุกร์"},{"name":"นาย จักรินทร์ สินพันธ์ ( หน.ทีม )","shift":"day","role":"sup","off":[5,12,19,26],"dayOff":"อังคาร"},{"name":"นาย ดำรงศักดิ์ กลั่นจิตต์","shift":"day","role":"guard","off":[4,11,18,25],"dayOff":"จันทร์"},{"name":"นาย สุธรรม ทองปรวน","shift":"day","role":"guard","off":[4,11,18,25],"dayOff":"จันทร์"},{"name":"นาย อรัญ สุวรรณธาดา","shift":"day","role":"guard","off":[1,12,19,26],"dayOff":"อังคาร"},{"name":"นาย สุวัฒน์ สงพิมพ์","shift":"day","role":"guard","off":[5,12,19,26],"dayOff":"อังคาร"},{"name":"นาย สุธิราช พรหมพิทักษ์","shift":"day","role":"guard","off":[6,13,20,27],"dayOff":"พุธ"},{"name":"นาย วัชระ วิลานันท์","shift":"day","role":"guard","off":[6,13,20,27],"dayOff":"พุธ"},{"name":"นาย บีช จันทร์ตรี","shift":"day","role":"guard","off":[6,13,20,27],"dayOff":"พุธ"},{"name":"น.ส.อรณิชชา ปานกำเหนิด","shift":"day","role":"guard","off":[7,14,21,28],"dayOff":"พฤหัสบดี"},{"name":"นาย พีรวัฒน์ ฉลูศรี","shift":"day","role":"guard","off":[7,14,21,28],"dayOff":"พฤหัสบดี"},{"name":"นาย มาโนช ทุยเวียง","shift":"day","role":"guard","off":[7,14,21,28],"dayOff":"พฤหัสบดี"},{"name":"นาย พลภัทร วัฒนอเนก","shift":"day","role":"guard","off":[1,8,15,22,29],"dayOff":"ศุกร์"},{"name":"นาย ปัญญาณวัฒน์ อินเดช","shift":"day","role":"guard","off":[1,8,15,22,29],"dayOff":"ศุกร์"},{"name":"นาย นพฤทธิ์ กียะสูตร (ตรวจการ)","shift":"night","role":"sup","off":[7,14,21,28],"dayOff":"พฤหัสบดี"},{"name":"นาย นิพัต มุสันเที๊ยะ (ตรวจการ)","shift":"night","role":"sup","off":[4,11,18,25],"dayOff":"จันทร์"},{"name":"นาย นฤพล ธนินท์ณัฐกุล","shift":"night","role":"guard","off":[6,13,20,27],"dayOff":"พุธ"},{"name":"นาย สวัสดิ์ อ่อนน้อมดี","shift":"night","role":"guard","off":[1,8,15,22,29],"dayOff":"ศุกร์"},{"name":"นาย ธนบูรณ์ อวดปาก","shift":"night","role":"guard","off":[2,9,16,30],"dayOff":"เสาร์"},{"name":"นาย อนุวัฒน์ ฝายสุนย์","shift":"night","role":"guard","off":[5,12,19,26],"dayOff":"อังคาร"}]};
 const GAS_URL='https://script.google.com/macros/s/AKfycbw0mio8XKHybvw05qDbYX-rv6Db4hCOatgs8ZMywUKiArySKkmGkgxcmXe0JMlljOYz/exec';// URL เริ่มต้นของ Apps Script (แก้ทับได้ที่ปุ่ม ⚙️ ซิงค์ Sheets)
 function gasUrl(){return lsg('sbk_gas')||GAS_URL;}
 const RKL='sbk_roster_last';// คีย์เดิม (รุ่น v5) — ย้ายเข้าระบบหลายเดือนอัตโนมัติ
 let NET_MS=20000;// ทุกคำขอไป Sheets มี timeout และลองใหม่ 1 ครั้งเมื่อเครือข่ายสะดุด
-async function fx(u,o={},retry=0){for(let i=0;;i++){const c=new AbortController(),t=setTimeout(()=>c.abort(),NET_MS);try{return await fetch(u,{...o,signal:c.signal});}catch(e){if(i>=retry)throw e;await new Promise(r=>setTimeout(r,800*(i+1)));}finally{clearTimeout(t);}}}
-const thr=()=>{let v=parseInt($('dm').value,10);if(isNaN(v))v=24;return Math.min(31,Math.max(1,v));};// เกณฑ์วันทำงาน จำกัด 1-31 (ว่าง = 24)
+async function fx(u,o={},retry=0,ms){ms=ms||NET_MS;for(let i=0;;i++){const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);try{return await fetch(u,{...o,signal:c.signal});}catch(e){if(i>=retry)throw e;await new Promise(r=>setTimeout(r,800*(i+1)));}finally{clearTimeout(t);}}}
+const thr=()=>{let v=parseInt($('dm').value,10);if(isNaN(v))v=24;return Math.min(R&&R.days?R.days:31,Math.max(1,v));};// เกณฑ์วันทำงาน จำกัด 1-31 (ว่าง = 24)
 const RK=(y,m)=>'sbk_roster_'+y+'_'+m;
 const rosterJSON=r=>JSON.stringify({month:r.month,year:r.year,days:r.days,staff:r.staff,minDays:r.minDays||null});
-function storeRoster(r){lss(RK(r.year,r.month),rosterJSON(r));}
+function storeRoster(r){return lss(RK(r.year,r.month),rosterJSON(r));}
 function getRoster(y,m){const s=lsg(RK(y,m));if(s){try{return cleanRoster(JSON.parse(s));}catch(e){}}return(y===DEFAULT.year&&m===DEFAULT.month)?cleanRoster(DEFAULT):null;}
 function months(){const a={};a[DEFAULT.year+'_'+DEFAULT.month]=[DEFAULT.year,DEFAULT.month];try{for(let i=0;i<localStorage.length;i++){const m=localStorage.key(i).match(/^sbk_roster_(\d+)_(\d+)$/);if(m)a[m[1]+'_'+m[2]]=[+m[1],+m[2]];}}catch(e){}return Object.values(a).sort((x,y)=>y[0]*12+y[1]-(x[0]*12+x[1]));}
-const nowRoster=()=>{const n=new Date(),y=n.getFullYear()+543,m=n.getMonth();return getRoster(y,m)||getRoster(y-543,m);};
+const nowRoster=()=>{const n=nowD(),y=n.getFullYear()+543,m=n.getMonth();return getRoster(y,m)||getRoster(y-543,m);};
 function pickBoot(){try{const o=lsg(RKL);if(o){const r=cleanRoster(JSON.parse(o));storeRoster(r);lss('sbk_last',r.year+'_'+r.month);lss(RKL,'');}}catch(e){}
  let r=nowRoster();if(!r){const l=lsg('sbk_last').split('_');if(l.length===2)r=getRoster(+l[0],+l[1]);}return r||cleanRoster(DEFAULT);}// เก็บตารางเวรที่นำเข้าล่าสุดไว้ในเครื่อง (เดิมรีเฟรชแล้วกลับไปตารางเวรตัวอย่าง)
 const SPLASH_MS=3200,IDLE_MS=4*60*1000;// เข้าอัตโนมัติหลังโชว์โลโก้ 3.2 วินาที (ช่วง 2-4 วิ) | ไม่มีการใช้งาน 4 นาที (ช่วง 3-5 นาที) จะกลับมาหน้าโลโก้
-let R=DEFAULT,A={},DT={},NT={},sel=null,day=1,tab='all',fq='',CH={},saving=false,hf=1,shOn=false,RM={},CF={},lastSync=null,syncSt='idle',autoOn=(function(){try{return localStorage.getItem('sbk_auto')!=='0'}catch(e){return true}})(),onlyTodo=false,autoT=null,autoFail=0,lastSig='',pulling=false;
-const $=id=>document.getElementById(id),key=s=>s.shift+'|'+s.name,SK=()=>'sbk_att2_'+R.year+'_'+R.month;
+let R=DEFAULT,A={},DT={},NT={},sel=null,day=1,tab='all',fq='',CH={},saving=false,hf=1,shOn=false,RM={},CF={},lastSync=null,syncSt='idle',autoOn=(function(){try{return localStorage.getItem('sbk_auto')!=='0'}catch(e){return true}})(),onlyTodo=false,autoT=null,autoFail=0,lastSig='',pulling=false,gen=0,pulledOK=false,ORPH=0,CLK=0,SCRIPT_V='';const NEED_V='v7';
+const $=id=>document.getElementById(id),key=s=>s.shift+'|'+s.name,SK=()=>'sbk_att2_'+R.year+'_'+R.month,SKof=(y,m)=>'sbk_att2_'+y+'_'+m;
+const nowD=()=>new Date(Date.now()+CLK);// เวลาปัจจุบัน (ปรับตามเวลาเซิร์ฟเวอร์ถ้านาฬิกาเครื่องคลาดเคลื่อน)
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const ST={p:'✓',l:'ส',a:'✗',v:'ลา'},SN={p:'มา',l:'สาย',a:'ขาด',v:'ลา'},LBL={p:'มา',l:'สาย',a:'ขาด',v:'ลา',s:'หยุดเปลี่ยน',o:'OT',c:'ทำแทน',w:'สลับมาทำ'},esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),yTh=()=>R.year>2400?R.year:R.year+543;
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-const lsg=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}},lss=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const lsg=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}},lss=(k,v)=>{try{localStorage.setItem(k,v);return true}catch(e){return false}};
 function toast(m,ok=true,act){const t=$('ts');t.textContent=m;if(act){const b=document.createElement('button');b.textContent=act.t;b.onclick=()=>{t.style.display='none';act.f();};t.appendChild(b);}t.style.background=ok?'#6B7F5B':'#A63D2F';t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',act?9000:ok?3200:5200);}
-function load(){sel=null;shOn=false;try{const o=JSON.parse(lsg(SK())||'{}');A=o.a||{};DT=o.dt||{};NT=o.n||{};RM=o.rm||{};}catch(e){A={};DT={};NT={};RM={};}}
+// ตรวจสอบรูปแบบข้อมูลที่อ่านจากเครื่อง: ตัดสถานะที่ไม่รู้จัก/โครงสร้างผิดทิ้ง (กันตัวเลขเพี้ยนหรือโปรแกรมล้มจากข้อมูลเสีย)
+function cleanState(o){const isO=x=>x&&typeof x==='object'&&!Array.isArray(x),a={},n={},dt={},rm={};o=isO(o)?o:{};
+ if(isO(o.a))for(const k in o.a){if(!/^(day|night)\|./.test(k)||!isO(o.a[k]))continue;const m={};for(const d in o.a[k]){const v=o.a[k][d],dn=+d;if(Number.isInteger(dn)&&dn>=1&&dn<=31&&typeof v==='string'&&OKS.has(v))m[dn]=v;}if(Object.keys(m).length)a[k]=m;}
+ if(isO(o.n))for(const k in o.n){if(!/^(day|night)\|./.test(k)||!isO(o.n[k]))continue;const m={};for(const d in o.n[k]){const dn=+d,v=o.n[k][d];if(Number.isInteger(dn)&&dn>=1&&dn<=31&&typeof v==='string'&&v)m[dn]=v.slice(0,120);}if(Object.keys(m).length)n[k]=m;}
+ if(isO(o.dt))for(const q in o.dt)if(o.dt[q]&&/^(day|night)\|.+\|\d{1,2}$/.test(q))dt[q]=1;
+ if(isO(o.rm))for(const q in o.rm)if(typeof o.rm[q]==='string')rm[q]=o.rm[q];
+ return{a,n,dt,rm};}
+function load(){sel=null;shOn=false;let raw=lsg(SK()),o=null;try{o=raw?JSON.parse(raw):{};}catch(e){o=null;if(raw){lss(SK()+'_bad',raw);toast('ข้อมูลเช็คชื่อในเครื่องอ่านไม่ได้ (เสียหาย) — สำรองไว้แล้ว และจะดึงจาก Google Sheets ใหม่',false);}}
+ const c=cleanState(o);A=c.a;DT=c.dt;NT=c.n;RM=c.rm;}
 function save(){try{localStorage.setItem(SK(),JSON.stringify({a:A,dt:DT,n:NT,rm:RM}));}catch(e){toast('บันทึกในเบราว์เซอร์ไม่ได้ กรุณาส่งออก Excel เก็บไว้',false);}scheduleAuto();renderSync();}
-function initMonth(){load();CF={};lastSig='';fillMonths();const n=new Date();day=(gy(R)===n.getFullYear()&&R.month===n.getMonth())?n.getDate():1;
+function initMonth(){gen++;pulledOK=false;clearTimeout(autoT);load();CF={};lastSig='';fillMonths();const n=nowD();day=(gy(R)===n.getFullYear()&&R.month===n.getMonth())?n.getDate():1;
  $('fd').innerHTML=Array.from({length:R.days},(_,i)=>`<option value="${i+1}">${i+1} ${MON[R.month]} (${TH[wdOf(R,i+1)]})</option>`).join('');$('fd').value=day;
  $('sub').textContent='ประจำเดือน '+MON[R.month]+' '+yTh()+' • '+R.staff.length+' คน';rf();}
 /* ================= หน้าฟอร์ม (ตารางติ๊ก) ================= */
 const mkRows=(fs,fr,q)=>{const M=thr();return R.staff.filter(s=>(fs==='all'||s.shift===fs)&&(fr==='all'||s.role===fr)&&(!q||s.name.includes(q))).map(s=>({s,i:R.staff.indexOf(s),t:stats(R,s,A[key(s)]||{},M,lastDay())}));};
 const OKS=new Set(['p','l','a','s','v','o','c','w']);
 const OTC=()=>document.documentElement.dataset.theme==='dark'?'#8DB6EA':'#1F4E8C';
-function lastDay(){const n=new Date(),ym=gy(R)*12+R.month,cm=n.getFullYear()*12+n.getMonth();return ym<cm?R.days:ym===cm?Math.min(n.getDate(),R.days):0;}
+function syncNotes(){const o=[],n=Object.keys(DT).length,c=Object.keys(CF).length;
+ if(n)o.push('มี '+n+' ช่องที่ยังไม่ส่งขึ้น Google Sheets — ข้อมูลของเครื่องอื่นอาจยังไม่ตรงกับตัวเลขนี้');
+ if(c)o.push('มี '+c+' ช่องขัดแย้งกับผู้ใช้อื่นที่ยังไม่ได้เลือก — ตัวเลขอาจเปลี่ยนเมื่อเลือกแล้ว');
+ if(ORPH)o.push('Google Sheets มีข้อมูล '+ORPH+' รายการของชื่อที่ไม่อยู่ในตารางเวรเดือนนี้ (ชื่อสะกดไม่ตรง?) — ไม่ถูกนับ');return o;}
+// รหัสตรวจสอบข้อมูล (FNV-1a 32 บิต) จากสถานะ+หมายเหตุทุกช่อง — พิมพ์ลงรายงาน ใช้ยืนยันภายหลังว่ารายงานตรงกับข้อมูลชุดไหน
+function dataHash(rows,M){let h=0x811c9dc5;const f=s=>{for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}};f(R.year+'|'+R.month+'|'+M+'|'+R.days);
+ rows.forEach(r=>{const k=key(r.s),a=A[k]||{},n=NT[k]||{};f('\n'+k+'|'+r.s.off.join(','));for(let d=1;d<=R.days;d++)f('|'+(a[d]||'')+(a[d]&&n[d]?'~'+n[d]:''));});return h.toString(16).toUpperCase().padStart(8,'0');}
+function monthWarn(){const n=nowD(),cm=n.getFullYear()*12+n.getMonth(),ym=gy(R)*12+R.month;if(ym===cm)return'';
+ return ym<cm?(nowRoster()?'<span class="wnx">ℹ️ กำลังดูเดือน '+MON[R.month]+' (ย้อนหลัง)</span>':'<span class="wnx">⚠️ ยังไม่ได้นำเข้าตารางเวรเดือนปัจจุบัน ('+MON[n.getMonth()]+') — เปิดอยู่เป็นเดือน '+MON[R.month]+'</span>'):'<span class="wnx">⚠️ ตารางเวรที่เปิดอยู่เป็นเดือนในอนาคต</span>';}
+function lastDay(){const n=nowD(),ym=gy(R)*12+R.month,cm=n.getFullYear()*12+n.getMonth();return ym<cm?R.days:ym===cm?Math.min(n.getDate(),R.days):0;}
 function partialDays(rows){const p=[];for(let d=1;d<=lastDay();d++){const sc=rows.filter(r=>!r.s.off.includes(d)&&!['s','v'].includes((A[key(r.s)]||{})[d])),un=sc.filter(r=>!(A[key(r.s)]||{})[d]).length;if(sc.length&&un)p.push(d+(un===sc.length?' (ทั้งวัน)':` (ขาด ${un} คน)`));}return p;}
 const narrow=()=>window.innerWidth<900;// จอแคบ (มือถือ) แสดงครึ่งเดือนต่อหน้า เพื่อให้พอดีจอโดยไม่ต้องเลื่อนซ้ายขวา
 const rng=()=>narrow()?[[1,11],[12,22],[23,R.days]][hf-1]:[1,R.days];// มือถือ: แบ่ง 3 ช่วง ให้ช่องกดใหญ่พอ
@@ -360,7 +385,7 @@ function rf(){const all=mkRows(tab,'all',fq),rows=onlyTodo?all.filter(r=>!r.s.of
  $('fg').className=onlyTodo?'todo':'';$('fg').innerHTML=grid(rows,true);$('hfw').hidden=!narrow();document.querySelectorAll('.hb').forEach(b=>b.classList.toggle('on',+b.dataset.h===hf));
  const nn=all.reduce((x,r)=>{const a=A[key(r.s)]||{},n=NT[key(r.s)]||{};for(let d=1;d<=R.days;d++){const e=r.s.off.includes(d)?XOFF[a[d]]:a[d];if(e&&NEED.has(e)&&!n[d])x++;}return x;},0);
  $('fp').innerHTML=`วันที่ ${day}${day>lastDay()?' <b>(ยังมาไม่ถึง)</b>':''}: เช็คแล้ว <b>${done}/${need.length}</b> คน${nn?` • <span class="wnx" title="สถานะสาย/ขาด/ลา/หยุดเปลี่ยน/OT/ทำแทน/สลับ ควรมีหมายเหตุ">⚠️ ยังไม่มีหมายเหตุ ${nn} ช่อง</span>`:''}`;
- $('pgf').style.width=(need.length?Math.round(done*100/need.length):0)+'%';renderSync();renderNote();}
+ {const w=monthWarn();if(w)$('fp').innerHTML+=' • '+w;}$('pgf').style.width=(need.length?Math.round(done*100/need.length):0)+'%';renderSync();renderNote();}
 function goDay(d){d=Math.min(R.days,Math.max(1,d));day=d;if(narrow())hf=d<=11?1:d<=22?2:3;$('fd').value=d;if(shOn&&sel)sel={i:sel.i,d};rf();}
 // v4: แตะช่องว่างวันปกติ = "มา" ทันที (1 ครั้ง) | แตะช่องที่มีสถานะแล้ว หรือช่อง off = เปิดหน้าต่างเลือกสถานะ+หมายเหตุ (openSheet)
 function tick(i,d){const s=R.staff[i],k=key(s),off=s.off.includes(d);A[k]=A[k]||{};const cur=A[k][d]||'';
@@ -384,36 +409,53 @@ function renderSync(){const n=Object.keys(DT).length,cf=Object.keys(CF).length;l
  document.querySelectorAll('.sy').forEach(e=>{e.className='sy '+c;e.textContent=t;});$('fb').classList.toggle('bad',!$('fb').value.trim()&&n>0);}
 function syncClick(){if(Object.keys(CF).length)openConf();else if(Object.keys(DT).length)sendSync(false);else pull(false,false);}
 // ส่งอัตโนมัติหลังแก้ไข 6 วินาที (ต้องกรอกชื่อผู้บันทึก) — ล้มเหลวจะรอนานขึ้นเรื่อยๆ (15/30/60/120 วินาที)
-function scheduleAuto(){clearTimeout(autoT);if(!autoOn||!$('fb')||!$('fb').value.trim()||!Object.keys(DT).some(x=>!CF[x]))return;
- const w=autoFail?Math.min(120000,15000*2**(autoFail-1)):6000;autoT=setTimeout(async()=>{if(shOn||saving||document.hidden||!navigator.onLine){scheduleAuto();return;}await sendSync(true);scheduleAuto();},w);}
+function scheduleAuto(){clearTimeout(autoT);if(!autoOn||!$('fb')||!$('fb').value.trim()||!pulledOK||!Object.keys(DT).some(x=>!CF[x]))return;// ไม่ส่งอัตโนมัติจนกว่าจะดึงข้อมูลล่าสุดสำเร็จ (กันส่งทับโดยไม่เห็นความขัดแย้ง)
+ const w=autoFail?Math.min(120000,15000*2**(autoFail-1)):6000,g=gen;autoT=setTimeout(async()=>{if(g!==gen)return;if(shOn||saving||pulling||document.hidden||!navigator.onLine){scheduleAuto();return;}await sendSync(true);scheduleAuto();},w);}
+// รายการรอส่งของทุกเดือนที่เก็บในเครื่อง { 'ปี_เดือน': จำนวนช่อง }
+function pendingMap(){const o={};try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i),m=k&&k.match(/^sbk_att2_(\d+)_(\d+)$/);if(!m)continue;const y=+m[1],mo=+m[2];let n=0;if(y===R.year&&mo===R.month)n=Object.keys(DT).length;else{try{n=Object.keys(cleanState(JSON.parse(localStorage.getItem(k)||'{}')).dt).length;}catch(e){}}if(n)o[y+'_'+mo]=n;}}catch(e){}return o;}
+async function flushBeforeLeave(){if(!Object.keys(DT).length)return;if($('fb').value.trim()&&navigator.onLine){toast('กำลังส่งข้อมูลเดือน '+MON[R.month]+' ก่อนสลับ…');await sendSync(true);}
+ const left=Object.keys(DT).length;if(left)toast('เดือน '+MON[R.month]+' ยังมี '+left+' ช่องรอส่ง — เก็บไว้ในเครื่องไม่หาย กลับมาเดือนนี้เพื่อส่ง',false);}
+// ส่งขึ้น Sheets: ล็อกปี/เดือนไว้ตั้งแต่ต้น (สลับเดือนระหว่างส่งไม่ทำให้ข้อมูลไปผิดเดือน) | ลบรายการรอส่ง "หลังตรวจยืนยันกับ Sheets แล้ว" เท่านั้น
 async function sendSync(auto){if(saving)return;const url=gasUrl(),by=$('fb').value.trim();
  if(!by){renderSync();if(!auto){toast('กรุณากรอกชื่อผู้บันทึกก่อนส่งขึ้น Sheets',false);$('fb').focus();}return;}lss('sbk_by',by);
  if(!navigator.onLine){renderSync();if(!auto)toast('ออฟไลน์ — ข้อมูลเก็บในเครื่องแล้ว จะส่งให้อัตโนมัติเมื่อกลับมาออนไลน์',false);return;}
+ if(!auto&&!pulledOK){for(let i=0;i<80&&pulling;i++)await sleep(100);if(!pulledOK)await pull(true,true);if(saving)return;}// ส่งด้วยมือครั้งแรก: ดึงข้อมูลล่าสุดก่อน เพื่อตรวจความขัดแย้ง
  const ks=Object.keys(DT).filter(x=>!CF[x]);if(!ks.length){if(!auto){const c=Object.keys(CF).length;toast(c?'ยังมีช่องที่ขัดแย้งกับผู้ใช้อื่น — กรุณาตรวจสอบก่อนส่ง':'ไม่มีรายการที่รอส่ง',!c);}return;}
- const byDay={},sent=[];ks.forEach(x=>{const j=x.lastIndexOf('|'),k=x.slice(0,j),p=k.indexOf('|'),d=+x.slice(j+1),s=(A[k]||{})[d]||'',nt=s?((NT[k]||{})[d]||''):'';(byDay[d]=byDay[d]||[]).push({day:d,shift:k.slice(0,p),name:k.slice(p+1),status:s,note:nt});sent.push({k,d,s,nt,x});});
+ const g=gen,Y=R.year,Mo=R.month,sent=[];
+ ks.forEach(x=>{const j=x.lastIndexOf('|'),k=x.slice(0,j),p=k.indexOf('|'),d=+x.slice(j+1);if(p<1||!(d>=1&&d<=31))return;const s=(A[k]||{})[d]||'',nt=s?((NT[k]||{})[d]||''):'';sent.push({k,d,s,nt,x,shift:k.slice(0,p),name:k.slice(p+1)});});
+ if(!sent.length)return;
  saving=true;$('bv').disabled=true;$('bv').textContent='⏳ กำลังส่ง...';setSync('busy');let ok=true;const et=m=>{if(!auto||autoFail<=1)toast(m,false);};
- // ส่งทีละวัน (ใส่ day ทั้งระดับ payload และรายแถว เข้ากันได้กับ Code.gs ทุกเวอร์ชัน) แล้วอ่านกลับด้วย doGet เพื่อยืนยันว่าเขียนลงชีตจริง
- try{for(const d of Object.keys(byDay)){await fx(url,{method:'POST',mode:'no-cors',body:JSON.stringify({year:R.year,month:R.month,day:+d,by,rows:byDay[d]})},1);sent.filter(z=>z.d==d).forEach(z=>{if(((A[z.k]||{})[z.d]||'')===z.s&&((NT[z.k]||{})[z.d]||'')===z.nt)delete DT[z.x];});save();}
-  const v=await verify(sent);
-  if(!v){ok=false;autoFail++;et(`ส่งแล้ว ${sent.length} ช่อง แต่ตรวจยืนยันกับ Sheets ไม่ได้ — กด “ดึงข้อมูลล่าสุด” เพื่อตรวจซ้ำ`);}
-  else if(v.bad.length){ok=false;autoFail++;v.bad.forEach(z=>DT[z.x]=1);save();et(`Sheets ไม่ตรงกับที่ส่ง ${v.bad.length}/${sent.length} ช่อง (เก็บไว้ส่งใหม่) — ตรวจสอบ Code.gs และสิทธิ์ Deploy เป็น Anyone`);}
-  else{autoFail=0;lastSync=new Date();sent.forEach(z=>{RM[z.x]=sg(z.s,z.nt.slice(0,120));});if(!auto)toast(`ส่งและตรวจยืนยันกับ Sheets ครบ ${sent.length} ช่อง`);}}
+ try{const rows=sent.map(z=>({day:z.d,shift:z.shift,name:z.name,status:z.s,note:z.nt}));
+  for(let i=0;i<rows.length;i+=60)await fx(url,{method:'POST',mode:'no-cors',body:JSON.stringify({year:Y,month:Mo,by,rows:rows.slice(i,i+60)})},1,40000);// ส่งเป็นชุดละไม่เกิน 60 ช่อง (เร็วและไม่หมดเวลา) — ส่งซ้ำได้ ไม่เกิดข้อมูลซ้ำ
+  const v=await verify(sent,Y,Mo);
+  if(g!==gen){/* สลับเดือน/นำเข้าตารางใหม่ระหว่างส่ง: ไม่แตะข้อมูลของหน้าจอปัจจุบัน รายการของเดือนเดิมยังค้างในเครื่องและจะถูกส่งซ้ำเมื่อกลับไปเดือนนั้น */}
+  else if(!v){ok=false;autoFail++;et(`ส่งแล้ว ${sent.length} ช่อง แต่ตรวจยืนยันกับ Sheets ไม่ได้ — ระบบเก็บรายการไว้และจะส่งซ้ำให้ (ไม่ทำให้ข้อมูลซ้ำ)`);}
+  else{const bad=new Set(v.bad.map(z=>z.x));sent.forEach(z=>{if(bad.has(z.x))return;RM[z.x]=sg(z.s,z.nt.slice(0,120));
+    if(((A[z.k]||{})[z.d]||'')===z.s&&(z.s?((NT[z.k]||{})[z.d]||''):'')===z.nt)delete DT[z.x];});save();// ช่องที่ผู้ใช้แก้ระหว่างส่งจะยังค้างในรายการ ส่งรอบถัดไป
+   if(bad.size){ok=false;autoFail++;et(`Sheets ไม่ตรงกับที่ส่ง ${bad.size}/${sent.length} ช่อง (เก็บไว้ส่งใหม่) — ตรวจสอบ Code.gs และสิทธิ์ Deploy เป็น Anyone`);}
+   else{autoFail=0;lastSync=new Date();if(!auto)toast(`ส่งและตรวจยืนยันกับ Sheets ครบ ${sent.length} ช่อง`);}}}
  catch(e){ok=false;autoFail++;et((e&&e.name==='AbortError'?'หมดเวลารอ Google Sheets ตอบกลับ':'ส่งไม่สำเร็จ')+' (ข้อมูลที่ยังไม่ส่งยังอยู่ในเครื่อง) ตรวจสอบอินเทอร์เน็ตหรือ URL แล้วลองใหม่');}
- saving=false;$('bv').disabled=false;$('bv').textContent='💾 ส่งขึ้น Sheets';setSync(ok?'ok':'err');rf();}
-async function verify(sent){try{const j=await(await fx(gasUrl()+'?year='+R.year+'&month='+R.month+'&_='+Date.now(),{},1)).json();if(!j.ok)return null;
+ saving=false;$('bv').disabled=false;$('bv').textContent='💾 ส่งขึ้น Sheets';setSync(ok?'ok':'err');if(g===gen)rf();else renderSync();}
+async function verify(sent,Y,Mo){try{const j=await(await fx(gasUrl()+'?year='+Y+'&month='+Mo+'&_='+Date.now(),{},1)).json();if(!j||!j.ok||!Array.isArray(j.rows))return null;
  const m={},mn={};j.rows.forEach(r=>{const q=r.shift+'|'+r.name+'|'+r.day;m[q]=String(r.status||'');mn[q]=String(r.note||'');});return{bad:sent.filter(z=>(m[z.k+'|'+z.d]||'')!==z.s||(mn[z.k+'|'+z.d]||'')!==z.nt.slice(0,200))};}catch(e){return null;}}
 // ดึงข้อมูลจาก Sheets: ไม่ทับช่องที่แก้ค้างส่ง — ถ้าผู้ใช้อื่นแก้ช่องเดียวกันหลังจากที่เราเห็นล่าสุด จะเก็บเป็น "ความขัดแย้ง" ให้เลือก | ไม่วาดหน้าใหม่ถ้าข้อมูลไม่เปลี่ยน
-async function pull(silent,quiet){if(pulling||(quiet&&saving))return;pulling=true;const url=gasUrl();if(!silent){$('fl').disabled=true;$('fl').textContent='⏳ กำลังดึง...';}if(!quiet&&syncSt!=='busy')setSync('busy');
- try{const j=await(await fx(url+'?year='+R.year+'&month='+R.month+'&_='+Date.now(),{},1)).json();if(!j.ok)throw new Error(j.error||'ตอบกลับไม่ถูกต้อง');
+async function pull(silent,quiet){if(pulling||(quiet&&saving))return;pulling=true;const g=gen,Y=R.year,Mo=R.month,url=gasUrl();
+ if(!silent){$('fl').disabled=true;$('fl').textContent='⏳ กำลังดึง...';}if(!quiet&&syncSt!=='busy')setSync('busy');
+ try{const j=await(await fx(url+'?year='+Y+'&month='+Mo+'&_='+Date.now(),{},1)).json();if(!j||!j.ok||!Array.isArray(j.rows))throw new Error((j&&j.error)||'ตอบกลับไม่ถูกต้อง');
+  if(g!==gen||Y!==R.year||Mo!==R.month)return;// สลับเดือน/นำเข้าตารางใหม่ระหว่างรอ → ทิ้งผลลัพธ์ (ไม่เขียนข้อมูลเดือนหนึ่งลงอีกเดือน)
+  const names=new Set(R.staff.map(key));let orph=0;
   const sig=j.rows.map(r=>r.day+'|'+r.shift+'|'+r.name+'|'+r.status+'|'+r.note).join('\n'),changed=sig!==lastSig;lastSig=sig;
-  j.rows.forEach(r=>{const k=r.shift+'|'+r.name,dn=+r.day,st=String(r.status||''),q=k+'|'+dn,nt=st?String(r.note||'').slice(0,120):'';if(!(dn>=1&&dn<=R.days)||(st&&!OKS.has(st)))return;
+  j.rows.forEach(r=>{const k=r.shift+'|'+r.name,dn=+r.day,st=String(r.status||''),q=k+'|'+dn,nt=st?String(r.note||'').slice(0,120):'';
+   if(!Number.isInteger(dn)||dn<1||dn>R.days||(st&&!OKS.has(st)))return;
+   if(!names.has(k)){orph++;return;}// ชื่อไม่อยู่ในตารางเวรเดือนนี้ (สะกดไม่ตรง/คนออก) — ไม่นำมานับ แต่แจ้งเตือน
    const rs=sg(st,nt);
-   if(DT[q]){const ls=sg((A[k]||{})[dn]||'',(NT[k]||{})[dn]||'');if(rs===ls){delete CF[q];RM[q]=rs;return;}if(RM[q]!==rs){CF[q]={s:st,n:nt,by:String(r.by||'')};RM[q]=rs;}return;}
+   if(DT[q]){const ls=sg((A[k]||{})[dn]||'',(NT[k]||{})[dn]||'');if(rs===ls){delete CF[q];RM[q]=rs;return;}
+    if(RM[q]!==rs)CF[q]={s:st,n:nt,by:String(r.by||'')};else delete CF[q];return;}// ไม่อัปเดต RM ตอนพบความขัดแย้ง → รีโหลดหน้าแล้วยังเห็นความขัดแย้งเดิมจนกว่าจะเลือก
    delete CF[q];RM[q]=rs;A[k]=A[k]||{};st?A[k][dn]=st:delete A[k][dn];NT[k]=NT[k]||{};nt?NT[k][dn]=nt:delete NT[k][dn];});
-  save();lastSync=new Date();syncSt='ok';if(changed||!quiet){rf();if(!$('pd').hidden)rd();}renderSync();if(Object.keys(CF).length&&!quiet)openConf();
-  if(!quiet)toast(silent?'โหลดข้อมูลล่าสุดจาก Google Sheets แล้ว':'ดึงข้อมูลล่าสุดสำเร็จ ('+j.rows.length+' รายการ)');}
- catch(e){syncSt='err';renderSync();if(!quiet)toast(silent?'เชื่อมต่อ Google Sheets ไม่ได้ ใช้ข้อมูลในเครื่องแทน':'ดึงข้อมูลไม่สำเร็จ: '+(e.name==='AbortError'?'หมดเวลารอการตอบกลับ':e.message)+' — ตรวจสอบว่า Deploy เป็น Anyone และ URL ถูกต้อง',false);}
- pulling=false;if(!silent){$('fl').disabled=false;$('fl').textContent='⬇️ ดึงข้อมูลล่าสุด';}}
+  ORPH=orph;pulledOK=true;save();lastSync=new Date();syncSt='ok';if(changed||!quiet){rf();if(!$('pd').hidden)rd();}renderSync();if(Object.keys(CF).length&&!quiet)openConf();
+  if(!quiet)toast(silent?'โหลดข้อมูลล่าสุดจาก Google Sheets แล้ว':'ดึงข้อมูลล่าสุดสำเร็จ ('+j.rows.length+' รายการ)'+(orph?' • ข้ามข้อมูลชื่อที่ไม่อยู่ในตารางเวร '+orph+' รายการ':''));}
+ catch(e){if(g===gen){syncSt='err';renderSync();if(!quiet)toast(silent?'เชื่อมต่อ Google Sheets ไม่ได้ ใช้ข้อมูลในเครื่องแทน':'ดึงข้อมูลไม่สำเร็จ: '+(e.name==='AbortError'?'หมดเวลารอการตอบกลับ':e.message)+' — ตรวจสอบว่า Deploy เป็น Anyone และ URL ถูกต้อง',false);}}
+ finally{pulling=false;if(!silent){$('fl').disabled=false;$('fl').textContent='⬇️ ดึงข้อมูลล่าสุด';}}}
 /* ---------- ความขัดแย้งระหว่างผู้ใช้ ---------- */
 function openConf(){const ks=Object.keys(CF);if(!ks.length){$('cf').hidden=true;return;}
  $('cfl').innerHTML=ks.map(q=>{const j=q.lastIndexOf('|'),k=q.slice(0,j),d=+q.slice(j+1),nm=k.slice(k.indexOf('|')+1),lo=(A[k]||{})[d]||'',ln=(NT[k]||{})[d]||'',c=CF[q],f=(s,n)=>(s?LBL[s]||s:'ว่าง (ล้างช่อง)')+(n?' — '+esc(n):'');
@@ -421,14 +463,48 @@ function openConf(){const ks=Object.keys(CF);if(!ks.length){$('cf').hidden=true;
 function resolveConf(q,mine){const c=CF[q];if(!c)return;if(!mine){const j=q.lastIndexOf('|'),k=q.slice(0,j),d=+q.slice(j+1);A[k]=A[k]||{};c.s?A[k][d]=c.s:delete A[k][d];NT[k]=NT[k]||{};c.n?NT[k][d]=c.n:delete NT[k][d];delete DT[q];}RM[q]=sg(c.s,c.n);delete CF[q];}
 function resolveAll(mine){Object.keys(CF).forEach(q=>resolveConf(q,mine));save();rf();openConf();toast(mine?'เก็บข้อมูลของคุณไว้ทั้งหมด — จะส่งขึ้น Sheets ตามรอบ':'ใช้ข้อมูลจาก Sheets ทั้งหมดแล้ว');}
 /* ---------- ตารางเวรหลายเดือน: เก็บถาวรในเครื่อง + แชร์ผ่าน Google Sheets (แผ่นงาน Roster) ---------- */
-function fillMonths(){const a=months();$('mo').innerHTML=a.map(x=>`<option value="${x[0]}_${x[1]}">${MON[x[1]]} ${x[0]>2400?x[0]:x[0]+543}</option>`).join('');$('mo').value=R.year+'_'+R.month;$('mo').hidden=a.length<2;}
-function switchMonth(v){const[y,m]=v.split('_').map(Number),r=getRoster(y,m);if(!r){toast('ไม่พบตารางเวรเดือนนี้',false);fillMonths();return;}closeSheet(true);R=r;lss('sbk_last',y+'_'+m);if(r.minDays)$('dm').value=r.minDays;initMonth();if(!$('pd').hidden)rd();pull(true,true);}
-async function pushRoster(r){const url=gasUrl(),str=rosterJSON(r);try{await fx(url,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'roster',year:r.year,month:r.month,by:$('fb').value.trim()||'ผู้นำเข้า',roster:str})},1);
- const j=await(await fx(url+'?roster=1&year='+r.year+'&month='+r.month+'&_='+Date.now(),{},1)).json();return !!(j.ok&&j.roster===str);}catch(e){return false;}}
-async function syncRosters(){try{const j=await(await fx(gasUrl()+'?rosters=1&_='+Date.now(),{},1)).json();if(!j.ok||!Array.isArray(j.list))return;
- for(const it of j.list){const y=+it.year,m=+it.month;if(lsg(RK(y,m)))continue;const r=await(await fx(gasUrl()+'?roster=1&year='+y+'&month='+m+'&_='+Date.now(),{},1)).json();
-  if(r.ok&&r.roster){try{storeRoster(cleanRoster(JSON.parse(r.roster)));}catch(e){}}}
- fillMonths();const t=nowRoster();if(t&&(t.year!==R.year||t.month!==R.month)&&!Object.keys(DT).length&&!shOn){R=t;lss('sbk_last',t.year+'_'+t.month);if(t.minDays)$('dm').value=t.minDays;initMonth();if(!$('pd').hidden)rd();pull(true,true);toast('โหลดตารางเวรเดือน '+MON[t.month]+' '+yTh()+' จาก Google Sheets แล้ว');}}catch(e){}}
+const RV=(y,m)=>'sbk_rv_'+y+'_'+m,RP=(y,m)=>'sbk_rp_'+y+'_'+m;// RV = เวลาแก้ไขตารางเวรบน Sheets ที่เครื่องนี้เห็นล่าสุด | RP = ตารางเวรที่นำเข้าแล้วแต่ยังส่งขึ้น Sheets ไม่สำเร็จ
+function fillMonths(){const a=months(),pm=pendingMap();$('mo').innerHTML=a.map(x=>{const n=pm[x[0]+'_'+x[1]];return`<option value="${x[0]}_${x[1]}">${MON[x[1]]} ${x[0]>2400?x[0]:x[0]+543}${n?' • รอส่ง '+n:''}</option>`;}).join('');$('mo').value=R.year+'_'+R.month;$('mo').hidden=a.length<2;}
+async function switchMonth(v){const[y,m]=v.split('_').map(Number);if(y===R.year&&m===R.month)return;
+ if(saving){toast('กำลังส่งข้อมูลอยู่ รอสักครู่แล้วสลับเดือนอีกครั้ง',false);fillMonths();return;}
+ const r=getRoster(y,m);if(!r){toast('ไม่พบตารางเวรเดือนนี้',false);fillMonths();return;}
+ await flushBeforeLeave();if(saving){fillMonths();return;}
+ closeSheet(true);R=r;lss('sbk_last',y+'_'+m);if(r.minDays)$('dm').value=r.minDays;initMonth();if(!$('pd').hidden)rd();pull(true,true);}
+async function metaRoster(y,m){try{const j=await(await fx(gasUrl()+'?rosters=1&_='+Date.now(),{},1)).json();const it=j&&j.ok&&(j.list||[]).find(x=>+x.month===m&&(+x.year===y||+x.year===y-543));if(it)lss(RV(y,m),String(it.at||''));}catch(e){}}
+async function pushRoster(r){const url=gasUrl(),str=rosterJSON(r);
+ if(str.length>44000){lss(RP(r.year,r.month),'');return'ตารางเวรใหญ่เกินไปที่จะแชร์ผ่าน Sheets ('+str.length+' ตัวอักษร)';}
+ lss(RP(r.year,r.month),'1');
+ try{await fx(url,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'roster',year:r.year,month:r.month,by:$('fb').value.trim()||'ผู้นำเข้า',roster:str})},1,40000);
+  const j=await(await fx(url+'?roster=1&year='+r.year+'&month='+r.month+'&_='+Date.now(),{},1)).json();
+  if(!(j&&j.ok&&j.roster===str))return'ตรวจยืนยันกับ Sheets แล้วไม่ตรง (ตรวจสอบว่าวาง Code_v7.gs และ Deploy เป็น New version แล้ว)';
+  lss(RP(r.year,r.month),'');await metaRoster(r.year,r.month);return true;}
+ catch(e){return'ส่งไม่สำเร็จ ('+(e&&e.name==='AbortError'?'หมดเวลา':'ออฟไลน์หรือ URL ไม่ถูกต้อง')+')';}}
+function pendingRosters(){const o=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i),m=k&&k.match(/^sbk_rp_(\d+)_(\d+)$/);if(m&&localStorage.getItem(k))o.push([+m[1],+m[2]]);}}catch(e){}return o;}
+// ซิงค์ตารางเวร: (1) ส่งขึ้นที่ค้างอยู่ (2) ถ้าเดือนไหนบน Sheets ถูกแก้/เพิ่มโดยเครื่องอื่น → ใช้ฉบับล่าสุด (เก็บฉบับเดิมสำรองไว้) | เดือนที่เปิดอยู่ถูกอัปเดตจะเปลี่ยนให้ทันที
+async function syncRosters(){try{
+ for(const[y,m]of pendingRosters()){const r=getRoster(y,m);if(r)await pushRoster(r);else lss(RP(y,m),'');}
+ const j=await(await fx(gasUrl()+'?rosters=1&_='+Date.now(),{},1)).json();if(!j||!j.ok||!Array.isArray(j.list))return;const upd=[];
+ for(const it of j.list){const y=+it.year,m=+it.month,at=String(it.at||'');if(!(m>=0&&m<=11)||!(y>1900))continue;const yy=y<2400?y+543:y;
+  if(lsg(RP(yy,m)))continue;if(at&&lsg(RK(yy,m))&&lsg(RV(yy,m))===at)continue;
+  const r=await(await fx(gasUrl()+'?roster=1&year='+y+'&month='+m+'&_='+Date.now(),{},1)).json();if(!(r&&r.ok&&r.roster))continue;
+  let nr;try{nr=cleanRoster(JSON.parse(r.roster));}catch(e){continue;}
+  const old=getRoster(nr.year,nr.month);
+  if(!old||rosterJSON(old)!==rosterJSON(nr)){if(old&&lsg(RK(nr.year,nr.month)))lss('sbk_rbak_'+nr.year+'_'+nr.month,rosterJSON(old));storeRoster(nr);upd.push({r:nr,by:String(it.by||'')});}
+  lss(RV(nr.year,nr.month),at);}
+ fillMonths();
+ const cur=upd.find(u=>u.r.year===R.year&&u.r.month===R.month);
+ if(cur&&!shOn){closeSheet(true);R=cur.r;if(R.minDays)$('dm').value=R.minDays;rf();if(!$('pd').hidden)rd();toast('ตารางเวรเดือน '+MON[R.month]+' ถูกอัปเดตจากเครื่องอื่น'+(cur.by?' (โดย '+cur.by+')':'')+' — ใช้ฉบับล่าสุดแล้ว');}
+ const t=nowRoster();if(t&&(t.year!==R.year||t.month!==R.month)&&!Object.keys(DT).length&&!shOn){R=t;lss('sbk_last',t.year+'_'+t.month);if(t.minDays)$('dm').value=t.minDays;initMonth();if(!$('pd').hidden)rd();pull(true,true);toast('โหลดตารางเวรเดือน '+MON[t.month]+' '+yTh()+' จาก Google Sheets แล้ว');}
+}catch(e){}}
+// ตรวจเวอร์ชัน Apps Script และนาฬิกาเครื่อง (วันที่ "ถึงแล้ว/ยังมาไม่ถึง" และรายงานอิงเวลาเครื่อง)
+async function checkScript(){let el=$('scv');if(!el&&$('st')){el=document.createElement('div');el.id='scv';el.className='lg';el.style.marginTop='6px';$('st').appendChild(el);}
+ try{const t0=Date.now(),j=await(await fx(gasUrl()+'?ping=1&_='+t0,{},1)).json(),t1=Date.now();SCRIPT_V=(j&&j.version)||'';let msg,bad=false;
+  if(!SCRIPT_V){msg='⚠️ Google Apps Script ยังเป็นเวอร์ชันเก่า — วาง Code_v7.gs แล้ว Deploy เป็น New version เพื่อใช้ตารางเวรร่วมกัน / แจ้งผู้แก้ไข / ตรวจเวลาเครื่อง';bad=true;}
+  else if(SCRIPT_V!==NEED_V){msg='⚠️ Google Apps Script เป็นเวอร์ชัน '+SCRIPT_V+' — แนะนำให้อัปเดตเป็น '+NEED_V+' (Code_v7.gs)';bad=true;}
+  else msg='✅ Google Apps Script เวอร์ชัน '+SCRIPT_V+' (ล่าสุด)';
+  if(j&&j.now){const sv=new Date(j.now).getTime();if(isFinite(sv)){const df=sv+(t1-t0)/2-t1;if(Math.abs(df)>10*60*1000){CLK=df;msg+=' • ⚠️ นาฬิกาเครื่องนี้คลาดเคลื่อนประมาณ '+Math.round(Math.abs(df)/60000)+' นาที — ระบบใช้เวลาจาก Google แทนในการนับวัน แนะนำให้ตั้งเวลาเครื่องใหม่';bad=true;lastSig='';rf();}else CLK=0;}}
+  if(el)el.textContent=msg;if(bad)toast(msg.slice(0,140),false);}
+ catch(e){if(el)el.textContent='ตรวจสอบเวอร์ชัน Google Apps Script ไม่ได้ (ออฟไลน์หรือ URL ไม่ถูกต้อง)';}}
 /* ================= สรุปผลการนำเข้าตารางเวร ================= */
 function showImport(N,prev){const c=$('ir'),G=[['day','sup','☀️ กลางวัน • หัวหน้า/ตรวจการ'],['day','guard','☀️ กลางวัน • รปภ.'],['night','sup','🌙 กลางคืน • หัวหน้า/ตรวจการ'],['night','guard','🌙 กลางคืน • รปภ.']];
  const kk=s=>s.shift+'|'+s.name,ps=new Set(prev.staff.map(kk)),ns=new Set(N.staff.map(kk));
@@ -542,7 +618,7 @@ function rd(){const M=thr(),q=$('dq').value.trim(),fs=$('ds').value,fr=$('dr').v
  const AU=audit(R).map(x=>'ตารางเวร: '+x).concat(auditData(R,A,NT)),bc=badCells(R,A),pdy=partialDays(rows);
  if(bc)AU.push(`มี ${bc} ช่องที่สถานะไม่สอดคล้องกับตารางเวร (เช่น หลังนำเข้าตารางเวรใหม่) — ตรวจสอบและแก้ในหน้าฟอร์ม`);
  if(pdy.length)AU.push(`วันที่ข้อมูลยังไม่ครบ (นับถึงวันที่ ${lastDay()}): `+pdy.slice(0,12).join(', ')+(pdy.length>12?` ... รวม ${pdy.length} วัน`:''));
- if(lastDay()<R.days)AU.unshift('เดือนนี้ยังไม่สิ้นสุด — ข้อมูลถึงวันที่ '+lastDay()+' ผล “ถึงเกณฑ์” เป็นผลชั่วคราว');
+ syncNotes().forEach(x=>AU.push(x));if(lastDay()<R.days)AU.unshift('เดือนนี้ยังไม่สิ้นสุด — ข้อมูลถึงวันที่ '+lastDay()+' ผล “ถึงเกณฑ์” เป็นผลชั่วคราว');
  $('au').innerHTML=(AU.length?AU:['ไม่พบความผิดปกติของข้อมูล']).map(x=>'<li>'+x+'</li>').join('');
  const G=[['day','sup','☀️ กลางวัน • หัวหน้า/ตรวจการ'],['day','guard','☀️ กลางวัน • รปภ.'],['night','sup','🌙 กลางคืน • หัวหน้า/ตรวจการ'],['night','guard','🌙 กลางคืน • รปภ.']];
  $('gt').innerHTML=G.map(g=>{const b=rows.filter(r=>r.s.shift===g[0]&&r.s.role===g[1]);if(!b.length)return'';const f=k=>b.reduce((x,r)=>x+r.t[k],0);return`<tr><td>${g[2]}</td><td>${b.length}</td><td>${f('mark')}/${f('plan')}</td><td>${f('attReg')}</td><td>${f('late')}</td><td>${f('abs')}</td><td>${f('ot')}</td><td>${f('cover')}</td><td>${f('swIn')}</td><td>${f('swOut')}</td><td>${f('leave')}</td><td><b>${pc(f('attReg'),f('mark'))}%</b></td></tr>`;}).join('');
@@ -552,7 +628,7 @@ function rd(){const M=thr(),q=$('dq').value.trim(),fs=$('ds').value,fr=$('dr').v
  $('spx').innerHTML=SP.map(x=>`<tr><td>${x.d} ${AB[wdOf(R,x.d)]}</td><td>${esc(x.s.name)}</td><td>${x.s.shift==='day'?'กลางวัน':'กลางคืน'}</td><td><span class="bd ${x.e==='a'?'no':x.e==='p'?'ok':'wn'}">${LBL[x.e]}</span></td><td style="white-space:normal">${x.n?esc(x.n):'<i style="color:var(--mu)">— ยังไม่มีหมายเหตุ —</i>'}</td></tr>`).join('');
  $('gr').innerHTML=grid(rows);window._rows=rows;}
 /* ================= รายงาน A4 แนวนอน (PDF/JPEG) ================= */
-function rpPages(){const M=thr(),rows=mkRows('all','all',''),sm=f=>rows.reduce((x,r)=>x+f(r.t),0),nf=x=>Number(x).toLocaleString('th-TH'),n=new Date();
+function rpPages(){const M=thr(),rows=mkRows('all','all',''),hs=dataHash(rows,M),sm=f=>rows.reduce((x,r)=>x+f(r.t),0),nf=x=>Number(x).toLocaleString('th-TH'),n=nowD();
  const pc=(a,b)=>b?(Math.round(a*1000/b)/10).toFixed(1):'-',mo=MON[R.month]+' '+yTh(),pd=n.getDate()+' '+MON[n.getMonth()]+' '+(n.getFullYear()+543),tm=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0'),no='SBK-SEC-'+yTh()+'-'+String(R.month+1).padStart(2,'0');
  const K=[['พนักงาน',nf(rows.length),'คน'],['อัตรามาทำงาน',pc(sm(t=>t.attReg),sm(t=>t.mark)),'%'],['มาสาย',nf(sm(t=>t.late)),'ครั้ง'],['ขาดงาน',nf(sm(t=>t.abs)),'ครั้ง'],['ลา',nf(sm(t=>t.leave)),'คน-วัน'],['ทำวันหยุด (OT/แทน/สลับ)',nf(sm(t=>t.extra)),'คน-วัน'],['ถึงเกณฑ์ '+M+' วัน',rows.filter(r=>r.t.pass).length+'/'+rows.length,'คน']];
  const G=[['day','sup','กะกลางวัน • หัวหน้า/ตรวจการ'],['day','guard','กะกลางวัน • รปภ.'],['night','sup','กะกลางคืน • หัวหน้า/ตรวจการ'],['night','guard','กะกลางคืน • รปภ.']];
@@ -564,7 +640,7 @@ function rpPages(){const M=thr(),rows=mkRows('all','all',''),sm=f=>rows.reduce((
  if(fl.length)O.push('ต้องมาทำวันหยุดเพิ่มจึงจะครบเกณฑ์ '+M+' วัน: '+fl.map(sn).join(', '));{const lv=rows.filter(r=>r.t.leave);if(lv.length)O.push('ลา: '+lv.map(r=>sn(r)+' '+r.t.leave+' วัน').join(', '));}if(!O.length)O.push('ยังไม่มีรายการมาสาย ขาดงาน ลา หรือเปลี่ยนวันหยุด');
  audit(R).forEach(x=>Q.push('ตารางเวร: '+x));auditData(R,A,NT).forEach(x=>Q.push(x));if(bc)Q.push(bc+' ช่องมีสถานะไม่สอดคล้องกับตารางเวร');
  if(pdy.length)Q.push('วันที่ข้อมูลยังไม่ครบ (นับถึงวันที่ '+lastDay()+'): '+pdy.slice(0,10).join(', ')+(pdy.length>10?' ... รวม '+pdy.length+' วัน':''));if(!Q.length)Q.push('ไม่พบความผิดปกติของข้อมูล');
- if(lastDay()<R.days)Q.unshift('รายงานฉบับชั่วคราว: เดือนนี้ยังไม่สิ้นสุด ข้อมูลถึงวันที่ '+lastDay()+' — ผล “ถึงเกณฑ์” และอัตราต่าง ๆ จะสรุปแน่นอนเมื่อสิ้นเดือน');
+ syncNotes().forEach(x=>Q.push(x));if(lastDay()<R.days)Q.unshift('รายงานฉบับชั่วคราว: เดือนนี้ยังไม่สิ้นสุด ข้อมูลถึงวันที่ '+lastDay()+' — ผล “ถึงเกณฑ์” และอัตราต่าง ๆ จะสรุปแน่นอนเมื่อสิ้นเดือน');
  const cap=x=>{if(x.length<=230)return x;const c=x.slice(0,225),i=Math.max(c.lastIndexOf(', '),c.lastIndexOf('; '));return (i>40?c.slice(0,i):c)+' … และอื่น ๆ';},li=a=>{const b=a.length>6?a.slice(0,6).concat('… และอื่น ๆ รวม '+a.length+' รายการ (ดูรายละเอียดในหน้าถัดไป/แดชบอร์ด)'):a;return'<ul>'+b.map(x=>'<li>'+cap(x)+'</li>').join('')+'</ul>';};
  const P=[`<div class="rk">${K.map(k=>`<div><small>${k[0]}</small><b>${k[1]}</b><small>${k[2]}</small></div>`).join('')}</div>
   <div class="rs">สรุปแยกตามกะและตำแหน่ง</div><table><tr><th>กลุ่ม</th><th>คน</th><th>มา</th><th>สาย</th><th>ขาด</th><th>OT</th><th>ทำแทน</th><th>สลับมาทำ</th><th>หยุดเปลี่ยน</th><th>ลา</th><th>อัตรามา</th></tr>${gt}</table>
@@ -576,8 +652,8 @@ function rpPages(){const M=thr(),rows=mkRows('all','all',''),sm=f=>rows.reduce((
   const SPx=specials(rows),per2=16;
   for(let s=0;s<SPx.length;s+=per2){const ch=SPx.slice(s,s+per2);P.push(`<div class="rs">รายการพิเศษและหมายเหตุ ${s?'(ต่อ)':''}</div><table><tr><th>วันที่</th><th>ชื่อ-สกุล</th><th>กะ</th><th>สถานะ</th><th>หมายเหตุ</th></tr>${ch.map(x=>`<tr><td>${x.d} ${AB[wdOf(R,x.d)]}</td><td>${esc(sn({s:x.s}))}</td><td>${x.s.shift==='day'?'กลางวัน':'กลางคืน'}</td><td>${LBL[x.e]}</td><td>${x.n?esc(x.n.length>70?x.n.slice(0,69)+'…':x.n):'-'}</td></tr>`).join('')}</table>`);lr=ch.length;}
   if(lr>13)P.push('<div class="rs">การรับรองรายงาน</div>'+sg);else P[P.length-1]+=sg;
- const cpl=pc(sm(t=>t.markTo),sm(t=>t.planTo)),dr=!(sm(t=>t.planTo)>0&&sm(t=>t.markTo)>=sm(t=>t.planTo)),stt=dr?'ฉบับร่าง (ข้อมูลครบ '+cpl+'%)':'ฉบับสมบูรณ์ (ข้อมูลครบ 100%)';
- return P.map((b,i)=>`<div class="pg${dr?' dr':''}"><div class="rh"><div><b>รายงานสรุปการปฏิบัติงานเจ้าหน้าที่รักษาความปลอดภัย</b><br><small>ฝ่ายรักษาความปลอดภัย ศูนย์การค้า SBK • ประจำเดือน ${mo} • เลขที่ ${no}</small></div><div style="text-align:right"><small>${stt}<br>วันที่จัดทำ ${pd} • หน้า ${i+1}/${P.length}</small></div></div>${b}<div class="rf">SBK Security Working Schedule • ข้อมูล ณ วันที่ ${pd} เวลา ${tm} น. • เลขที่รายงาน ${no}</div></div>`).join('');}
+ const cpl=pc(sm(t=>t.markTo),sm(t=>t.planTo)),dr=!(sm(t=>t.planTo)>0&&sm(t=>t.markTo)>=sm(t=>t.planTo))||Object.keys(DT).length>0||Object.keys(CF).length>0,stt=dr?'ฉบับร่าง ('+(Object.keys(DT).length||Object.keys(CF).length?'มีรายการค้างซิงค์ • ':'')+'ข้อมูลครบ '+cpl+'%)':'ฉบับสมบูรณ์ (ข้อมูลครบ 100%)';
+ return P.map((b,i)=>`<div class="pg${dr?' dr':''}"><div class="rh"><div><b>รายงานสรุปการปฏิบัติงานเจ้าหน้าที่รักษาความปลอดภัย</b><br><small>ฝ่ายรักษาความปลอดภัย ศูนย์การค้า SBK • ประจำเดือน ${mo} • เลขที่ ${no}</small></div><div style="text-align:right"><small>${stt}<br>วันที่จัดทำ ${pd} • หน้า ${i+1}/${P.length}</small></div></div>${b}<div class="rf">SBK Security Working Schedule • ข้อมูล ณ วันที่ ${pd} เวลา ${tm} น. • เลขที่รายงาน ${no} • รหัสตรวจสอบข้อมูล ${hs}</div></div>`).join('');}
 async function exportReport(kind){const b=$(kind==='pdf'?'bp':'bj'),t0=b.textContent;
  if(typeof html2canvas==='undefined'||(kind==='pdf'&&!(window.jspdf&&window.jspdf.jsPDF))){toast('โหลดไลบรารีส่งออกรายงานไม่สำเร็จ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่',false);return;}
  b.disabled=true;b.textContent='⏳ กำลังสร้าง...';
@@ -615,7 +691,7 @@ function handleEvents(){
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&shOn)closeSheet();});
  $('bv').onclick=()=>sendSync(false);
   $('dPrev').onclick=()=>goDay(day-1);$('dNext').onclick=()=>goDay(day+1);
-  $('dToday').onclick=()=>{const n=new Date();if(gy(R)===n.getFullYear()&&R.month===n.getMonth())goDay(n.getDate());else toast('ตารางเวรที่เปิดอยู่ไม่ใช่เดือนปัจจุบัน',false);};
+  $('dToday').onclick=()=>{const n=nowD();if(gy(R)===n.getFullYear()&&R.month===n.getMonth())goDay(n.getDate());else toast('ตารางเวรที่เปิดอยู่ไม่ใช่เดือนปัจจุบัน',false);};
   $('todo').onclick=()=>{onlyTodo=!onlyTodo;$('todo').setAttribute('aria-pressed',onlyTodo);rf();};
   $('auto').checked=autoOn;$('auto').onchange=e=>{autoOn=e.target.checked;lss('sbk_auto',autoOn?'1':'0');renderSync();scheduleAuto();toast(autoOn?'เปิดส่งอัตโนมัติ — ส่งขึ้น Sheets ให้เองหลังแก้ไข 6 วินาที':'ปิดส่งอัตโนมัติ — ต้องกด “ส่งขึ้น Sheets” เอง');};
   $('fb').addEventListener('input',()=>{lss('sbk_by',$('fb').value.trim());renderSync();scheduleAuto();});
@@ -625,20 +701,23 @@ function handleEvents(){
   $('cfl').onclick=e=>{const b=e.target.closest('button[data-a]');if(!b)return;resolveConf(b.closest('.cfr').dataset.q,b.dataset.a==='m');save();rf();openConf();};
   const hp=$('hp'),hv=lsg('sbk_help');hp.open=hv?hv==='0':window.innerWidth>=700;hp.addEventListener('toggle',()=>lss('sbk_help',hp.open?'0':'1'));// มือถือ: พับวิธีใช้ไว้ก่อน ให้ตารางขึ้นมาเร็ว
   document.addEventListener('keydown',e=>{if(spOn||shOn||$('pf').hidden||!$('cf').hidden)return;const t=e.target&&e.target.tagName;if(t==='INPUT'||t==='SELECT'||t==='TEXTAREA')return;if(e.key==='ArrowLeft'){e.preventDefault();goDay(day-1);}else if(e.key==='ArrowRight'){e.preventDefault();goDay(day+1);}});
-  window.addEventListener('online',()=>{renderSync();pull(true,true);scheduleAuto();});window.addEventListener('offline',renderSync);
+  window.addEventListener('online',()=>{renderSync();pull(true,true);scheduleAuto();syncRosters();});window.addEventListener('offline',renderSync);
  ['ds','dr'].forEach(i=>$(i).onchange=rd);$('dq').oninput=rd;$('dm').oninput=rd;$('dm').addEventListener('change',()=>{$('dm').value=thr();rd();});
  $('bt').onclick=()=>{const d=document.documentElement,dk=d.dataset.theme==='dark';d.dataset.theme=dk?'light':'dark';$('bt').textContent=dk?'🌙 โหมดมืด':'☀️ โหมดสว่าง';if(!$('pd').hidden)rd();};
  $('bi').onclick=()=>$('fi').click();$('bp').onclick=()=>exportReport('pdf');$('bj').onclick=()=>exportReport('jpg');
- $('fi').onchange=async e=>{const f=e.target.files[0];if(!f)return;$('bi').disabled=true;$('bi').textContent='⏳ กำลังนำเข้า...';
+ $('fi').onchange=async e=>{const f=e.target.files[0];if(!f)return;if(saving){toast('กำลังส่งข้อมูลอยู่ รอสักครู่แล้วนำเข้าอีกครั้ง',false);e.target.value='';return;}$('bi').disabled=true;$('bi').textContent='⏳ กำลังนำเข้า...';
    try{const wb=XLSX.read(await f.arrayBuffer(),{type:'array'});let N=null;const er=[];
     // ลองทุกชีตตามลำดับ ใช้ชีตแรกที่เป็นตารางเวรได้ (ไฟล์อาจมีชีตสรุปนำหน้า)
     for(const nm of wb.SheetNames){const ws=wb.Sheets[nm];if(!ws||!ws['!ref'])continue;
      try{const rg=XLSX.utils.decode_range(ws['!ref']);rg.s.c=0;rg.s.r=0;// ชีตเริ่มที่ B1 ต้องบังคับเริ่ม A ไม่งั้น index เลื่อน
       N=parseRoster(XLSX.utils.sheet_to_json(ws,{header:1,defval:null,range:rg}));N.sheet=nm;break;}catch(x){er.push('ชีต “'+nm+'”: '+x.message);}}
     if(!N)throw new Error(er[0]||'ไม่พบชีตที่เป็นตารางเวร');
+    const warn0=N.warn,sheet0=N.sheet;N=Object.assign(cleanRoster(N),{warn:warn0,sheet:sheet0,minDays:N.minDays||null});// ผ่านตัวกรองเดียวกับที่เครื่องอื่นจะใช้ (ปี พ.ศ., ชื่อไม่ซ้ำ, ตัดอักขระอันตราย)
+    if(N.year!==R.year||N.month!==R.month)await flushBeforeLeave();
     const prev=R;R=N;if(N.minDays)$('dm').value=N.minDays;
-    N.minDays=N.minDays||thr();storeRoster(N);lss('sbk_last',N.year+'_'+N.month);
-    initMonth();if(!$('pd').hidden)rd();showImport(N,prev);pushRoster(N).then(ok=>{const e=$('irs');if(e)e.innerHTML=ok?'☁️ บันทึกตารางเวรขึ้น Google Sheets แล้ว — เครื่องอื่นจะเห็นตารางเวรนี้เองและเลือกเดือนได้':'⚠️ บันทึกตารางเวรในเครื่องนี้แล้ว แต่ส่งขึ้น Google Sheets ไม่สำเร็จ — เครื่องอื่นจะยังไม่เห็น (ตรวจสอบ Code_v6.gs และอินเทอร์เน็ต แล้วนำเข้าอีกครั้ง)';});toast('นำเข้าตารางเวรสำเร็จ ('+N.staff.length+' คน)'+(N.warn.length?' • มี '+N.warn.length+' ข้อสังเกต':''));}
+    N.minDays=N.minDays||thr();const stored=storeRoster(N);lss('sbk_last',N.year+'_'+N.month);
+    initMonth();if(!$('pd').hidden)rd();showImport(N,prev);if(!stored)toast('พื้นที่เก็บข้อมูลในเบราว์เซอร์เต็ม — เก็บตารางเวรไม่ได้ กรุณาล้างข้อมูลเว็บที่ไม่ใช้',false);
+    pushRoster(N).then(res=>{const e=$('irs');if(e)e.innerHTML=res===true?'☁️ บันทึกตารางเวรขึ้น Google Sheets และตรวจยืนยันแล้ว — เครื่องอื่นจะได้ตารางเวรนี้เองและเลือกเดือนได้':'⚠️ บันทึกตารางเวรในเครื่องนี้แล้ว แต่ส่งขึ้น Google Sheets ไม่สำเร็จ: '+esc(res)+' — ระบบจะลองส่งให้อีกครั้งอัตโนมัติเมื่อเปิดแอป/กลับมาออนไลน์';});toast('นำเข้าตารางเวรสำเร็จ ('+N.staff.length+' คน)'+(N.warn.length?' • มี '+N.warn.length+' ข้อสังเกต':''));}
    catch(err){toast('นำเข้าไม่สำเร็จ: '+err.message+' — กรุณาใช้ไฟล์ตารางเวรรูปแบบเดิม',false);}
    $('bi').disabled=false;$('bi').textContent='📥 นำเข้าตารางเวร';e.target.value='';};
  $('bx').onclick=()=>{try{rd();const M=thr(),head=['กะ','ตำแหน่ง','ชื่อ-สกุล',...Array.from({length:R.days},(_,i)=>i+1),'Day Off','วันทำงาน(รวมนอกตาราง)','OT','ทำแทน','สลับมาทำ','หยุดเปลี่ยน','ลา','มาสาย','ขาด','ผลตามเกณฑ์'];
@@ -666,8 +745,8 @@ function initSplash(){const s=$('sp');s.style.setProperty('--spms',SPLASH_MS+'ms
  ['pointerdown','pointermove','keydown','wheel','touchstart','scroll','input'].forEach(ev=>window.addEventListener(ev,()=>{if(!spOn)lastAct=Date.now();},{passive:true,capture:true}));
  // เช็คด้วยเวลาจริง (ไม่ใช่นับถอยหลัง) เพื่อให้ทำงานถูกต้องแม้แท็บอยู่เบื้องหลังหรือเครื่องหลับ / ไม่ล็อกระหว่างกำลังส่งข้อมูลหรือสร้างรายงาน
  const chk=()=>{if(spOn)return;if(saving||['bp','bj','fl','bi'].some(i=>$(i).disabled)){lastAct=Date.now();return;}if(Date.now()-lastAct>=IDLE_MS)showSplash('idle');};
- setInterval(chk,5000);setInterval(()=>{if(!spOn&&!document.hidden&&!saving&&!shOn&&$('cf').hidden)pull(true,true);},2*60*1000);// รีเฟรชข้อมูลจาก Sheets ทุก 2 นาทีขณะเปิดใช้งาน
- window.addEventListener('beforeunload',e=>{if(Object.keys(DT).length){e.preventDefault();e.returnValue='';}});// เตือนก่อนปิดหน้าถ้ายังมีช่องที่ยังไม่ส่งขึ้น Sheets
+ setInterval(chk,5000);setInterval(()=>{if(!spOn&&!document.hidden&&!saving&&!shOn&&$('cf').hidden)pull(true,true);},2*60*1000);setInterval(()=>{if(!spOn&&!document.hidden&&navigator.onLine)syncRosters();},10*60*1000);// รีเฟรชข้อมูลจาก Sheets ทุก 2 นาทีขณะเปิดใช้งาน
+ window.addEventListener('beforeunload',e=>{if(Object.keys(pendingMap()).length){e.preventDefault();e.returnValue='';}});// เตือนก่อนปิดหน้าถ้ายังมีช่องที่ยังไม่ส่งขึ้น Sheets
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)chk();});showSplash('boot');}
 // manifest สร้างตอนรัน (แอปเป็นไฟล์เดียว) — ชื่อ/ไอคอนตอน Add to Home Screen ใช้ได้; ปุ่ม "ติดตั้งแอป" แบบเต็มของ Chrome ต้องโฮสต์ผ่าน HTTPS
 function initManifest(){try{const ic=s=>({src:document.querySelector('link[rel="icon"][sizes="'+s+'"]').href,sizes:s,type:'image/png',purpose:'any maskable'}),u=location.href.split('#')[0];
@@ -675,5 +754,5 @@ function initManifest(){try{const ic=s=>({src:document.querySelector('link[rel="
  const l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'}));document.head.appendChild(l);}catch(e){}}
 // เปิดหน้าใหม่: ใช้ตารางเวรที่นำเข้าล่าสุด (ถ้าข้อมูลที่เก็บไว้ครบถ้วน) ไม่งั้นใช้ตัวอย่างที่ฝังไว้
 R=pickBoot();if(R.minDays)$('dm').value=R.minDays;
-handleEvents();initMonth();pull(true);syncRosters();initManifest();initSplash();window.__spOK=true;// โหลดข้อมูลล่าสุดจาก Google Sheets ตอนเปิดหน้า
+handleEvents();initMonth();pull(true);syncRosters();checkScript();initManifest();initSplash();window.__spOK=true;// โหลดข้อมูลล่าสุดจาก Google Sheets ตอนเปิดหน้า
 </script></body></html>
