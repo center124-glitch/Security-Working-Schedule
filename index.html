@@ -518,6 +518,7 @@ html[data-theme=dark] .lkbar.lk{background:rgba(229,56,59,.18);color:#FFB4A8;bor
 #tip .tc{margin:2px 0}#tip .tn{background:rgba(255,201,60,.24);border-radius:8px;padding:4px 8px;margin-top:5px}#tip .tn.no{background:rgba(229,56,59,.12);color:#B42318}#tip hr{border:0;border-top:1px dashed var(--bd);margin:6px 0}#tip .th{font-size:12px;color:var(--mu)}
 @media(max-width:700px){#ab .abr{margin-left:0;width:100%;display:grid;grid-template-columns:1fr auto;gap:6px}#ab .abr #blk{grid-column:1 / 2}#ab .abr #bun{grid-column:2 / 3}#ab .abr .sy{display:none}#ab .abr #bv{grid-column:1 / 3}.tbx{grid-template-columns:1fr}.tbb{grid-template-columns:repeat(auto-fit,minmax(104px,1fr))}.seg{width:100%;display:grid;grid-template-columns:repeat(4,1fr)}.seg button{padding:8px 2px;font-size:12.5px;white-space:nowrap}.lg2{display:none}.tbf #fq{flex-basis:100%;order:2}.seg{order:1}.fbw{order:3;flex:1 1 200px}.tbf .au{order:4}.gset{order:5}.gset summary{padding:6px 10px}.gset{margin-left:0;width:100%}.gset summary{display:block;text-align:center}.gset .gpop{left:0;right:0}.lkbar button,.lkbar .cd{margin-left:0}.lkbar button{width:100%;padding:10px}}
 @media(min-width:701px) and (max-width:1020px){.tbx{grid-template-columns:3fr 2fr}#ab .abr{width:100%;justify-content:flex-end}}
+.dw{border-left-color:#A63D2F!important;display:flex;flex-direction:column;gap:6px}.dw[hidden]{display:none}.dwr{display:flex;gap:8px;align-items:flex-start;justify-content:space-between;font-size:14px;line-height:1.5}.dwr>span{flex:1;min-width:0;overflow-wrap:anywhere}.dwr button{flex:none;padding:2px 9px;min-height:30px}.dwr span button{margin:2px 4px 2px 0;padding:2px 8px}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lg" viewBox="0 0 512 512"><defs><linearGradient id="lgb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#19D18D"/><stop offset=".55" stop-color="#0A9F78"/><stop offset="1" stop-color="#0B73A8"/></linearGradient>
 <linearGradient id="lgs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#CFF7E6"/></linearGradient></defs>
@@ -549,11 +550,12 @@ html[data-theme=dark] .lkbar.lk{background:rgba(229,56,59,.18);color:#FFB4A8;bor
 </header>
 <div class="card" id="st" hidden>
  <div class="sec">เชื่อมต่อ Google Sheets (ไม่บังคับ)</div>
- <div class="bar" style="margin:0"><input id="fu" placeholder="วาง Web App URL ของ Apps Script (…/exec)" style="flex:1;min-width:220px"><button id="fk">💾 บันทึก URL</button><button id="fl">⬇️ ดึงข้อมูลล่าสุด</button></div>
- <div class="lg">ถ้าไม่ตั้งค่า ข้อมูลจะเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น</div>
+ <div class="bar" style="margin:0"><input id="fu" placeholder="วาง Web App URL ของ Apps Script (…/exec)" style="flex:1;min-width:220px"><input id="fkey" type="password" autocomplete="off" placeholder="รหัสเชื่อมต่อ (ถ้ามี)" style="width:210px" aria-label="รหัสเชื่อมต่อ API_KEY"><button id="fk">💾 บันทึกและทดสอบ</button><button id="fl">⬇️ ดึงข้อมูลล่าสุด</button></div>
+ <div class="lg">ถ้าไม่ตั้งค่า ข้อมูลจะเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น • รหัสเชื่อมต่อ: ใช้เมื่อผู้ดูแลตั้ง Script Property ชื่อ API_KEY ใน Apps Script (Code_v12) — ทุกเครื่องต้องใส่รหัสเดียวกัน</div>
 </div>
 <div class="card nb" id="ir" style="border-left-color:#6B7F5B" hidden></div>
 <div class="card nb" id="clk" role="alert" style="border-left-color:#E08A2B" hidden></div>
+<div class="card nb dw" id="dw" role="alert" hidden></div>
 <div class="nav"><div class="navt" role="tablist"><button id="nf" class="on">📝 ฟอร์มเช็คชื่อ</button><button id="nd">📊 แดชบอร์ดสรุป</button></div><div class="hstrip" id="hstrip" aria-label="วันหยุดของเดือน"></div><button id="bhc" class="bhc" title="ปฏิทินวันหยุดทั้งปี + เพิ่มวันหยุด">📅 <span class="bl">ปฏิทินวันหยุด</span></button></div>
 
 <!-- ===== หน้าฟอร์ม ===== -->
@@ -662,6 +664,7 @@ html[data-theme=dark] .lkbar.lk{background:rgba(229,56,59,.18);color:#FFB4A8;bor
  <div class="shf"><button id="shPrev" aria-label="คนก่อนหน้า">◀ ก่อน</button><button id="shNext" aria-label="คนถัดไป">ถัดไป ▶</button><span class="sp"></span><button id="shClr">🧹 ล้างช่องนี้</button><button id="shDone" class="on">✔ เสร็จ</button></div>
 </div></div>
 <script>
+/* v26 — ตรวจทานความแม่นยำ/ความปลอดภัย: ช่องค้างส่งไม่หายจนกว่า Sheets ยืนยัน • ส่งเป็นชุด • รหัสเชื่อมต่อ API_KEY (Code_v12) • กันหลายแท็บเขียนทับ • สำรองข้อมูลในเครื่องที่เสีย • OT/ทำแทน/สลับบนวันปกตินับเป็นมา • เกณฑ์วันทำงานแก้ได้อีกครั้ง • เลิกทำไม่ข้ามเดือน • ตรวจ URL เข้ม • จำนวนวันตามปฏิทินจริง • เตือนค้างส่งเดือนอื่น • เปิดไม่สำเร็จแสดงสาเหตุ */
 /*CORE*/
 const TH=['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'],AB=['อา','จ','อ','พ','พฤ','ศ','ส'];
 const MON=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
@@ -702,6 +705,7 @@ function parseRoster(rows){
  }
  flush();
  if(month==null||!staff.length)throw new Error('รูปแบบไฟล์ไม่ตรงกับตารางเวร (ไม่พบเดือน/รายชื่อ)');
+ if(year>1900&&year<2400){warn.push('ปีในไฟล์เป็น ค.ศ. '+year+' — ระบบแปลงเป็น พ.ศ. '+(year+543)+' ให้ตรงกับข้อมูลของเครื่องอื่น');year+=543;}
  const days=new Date(year>2400?year-543:year,month+1,0).getDate();
  staff.forEach(s=>s.off=s.off.filter(d=>d<=days));
  if(wk){const R0={year,month};let bad=0;for(let d=1;d<=days;d++){const x=t(wk[d-1]);if(x&&x!==AB[wdOf(R0,d)])bad++;}
@@ -712,13 +716,13 @@ function parseRoster(rows){
 //   ช่อง off: o OT | c ทำงานแทนผู้อื่น | w มาทำแทนวันหยุดที่เปลี่ยน (ข้อมูลเก่า p/l บนวัน off ถือเป็น OT)
 const LVS=new Set(['v','i','b','h','e']);// ชนิดของ "ลา": v ลาทั่วไป (ป่วย/กิจ/อื่น ๆ) | h ลาพักร้อน | e ลาแทนวันหยุดประจำปี (ลา Extra) — ทั้ง 3 ชนิดนับเหมือนกัน (ไม่ขาด ไม่นับในแผน) แต่แยกยอดในรายงาน
 const XOFF={p:'o',l:'o',o:'o',c:'c',w:'w'};
-const here=(off,v)=>off?!!XOFF[v]:(v==='p'||v==='l');// มาปฏิบัติงานจริงในวันนั้นหรือไม่
+const here=(off,v)=>off?!!XOFF[v]:(v==='p'||v==='l'||v==='o'||v==='c'||v==='w');// มาปฏิบัติงานจริงในวันนั้นหรือไม่
 // upTo = วันที่ล่าสุดที่ "ควรเช็คแล้ว" (ใช้คิดความครบถ้วนของข้อมูล ไม่ให้วันในอนาคตทำให้เปอร์เซ็นต์เพี้ยน)
 function stats(R,s,a,min,upTo){const U=upTo==null?R.days:upTo;let attReg=0,late=0,abs=0,mark=0,plan=0,ot=0,cover=0,swIn=0,swOut=0,leave=0,lvI=0,lvB=0,lvH=0,lvE=0,planTo=0,markTo=0;
  for(let d=1;d<=R.days;d++){const v=a[d];
   if(s.off.includes(d)){const x=XOFF[v];if(x==='o')ot++;else if(x==='c')cover++;else if(x==='w')swIn++;continue;}
   if(v==='s'){swOut++;continue;}if(LVS.has(v)){leave++;if(v==='i')lvI++;else if(v==='b')lvB++;else if(v==='h')lvH++;else if(v==='e')lvE++;continue;}
-  plan++;if(d<=U)planTo++;if(!v)continue;mark++;if(d<=U)markTo++;if(v==='p'||v==='l')attReg++;if(v==='l')late++;if(v==='a')abs++;}
+  plan++;if(d<=U)planTo++;if(!v)continue;mark++;if(d<=U)markTo++;if(v==='p'||v==='l'||v==='o'||v==='c'||v==='w')attReg++;/* v26: o/c/w บนวันปกติ = มาทำงาน */if(v==='l')late++;if(v==='a')abs++;}
  const extra=ot+cover+swIn,att=attReg+extra,max=plan-abs+extra;// max = วันทำงานสูงสุดถ้ามาครบทุกวันปกติ (ยังไม่รวมวันหยุดที่จะมาทำเพิ่ม)
  return{att,attReg,late,abs,mark,plan,ot,cover,swIn,swOut,leave,lvI,lvB,lvH,lvE,lvV:leave-lvI-lvB-lvH-lvE,extra,max,planTo,markTo,pass:att>=min,fail:max<min&&att<min};}
 // ตรวจว่าวัน off ตรงกับ "Day Off" ประจำหรือไม่ (จับข้อมูลพิมพ์ผิดในตารางเวร) — เป็นข้อสังเกต ไม่ใช่ข้อผิดพลาดแน่นอน (เช่นหยุดสลับสัปดาห์)
@@ -767,7 +771,7 @@ function auditData(R,A,NT){const o=[];let nn=0;R.staff.forEach(s=>{const k=s.shi
    if(fz.length)o.push('พบชื่อใกล้เคียงกับเดือนก่อน '+fz.length+' คู่ ระบบถือเป็นคนเดียวกัน — กรุณาตรวจสอบ: '+fz.slice(0,4).map(z=>'“'+z.b+'” ≈ “'+z.a+'”').join(', ')+(fz.length>4?' …':''));}}
  return o;}
 function cleanRoster(o){const bad=()=>{throw new Error('ข้อมูลตารางเวรไม่ถูกต้อง')};if(!o||typeof o!=='object')bad();
- const month=+o.month,year=+o.year,days=+o.days;if(!(month>=0&&month<=11)||!((year>2400&&year<2700)||(year>1900&&year<2200))||!(days>=28&&days<=31)||!Array.isArray(o.staff)||o.staff.length>300)bad();
+ const month=+o.month,year=+o.year,days=new Date(year>2400?year-543:year,month+1,0).getDate();/* v26: คำนวณจากปฏิทินจริง ไม่เชื่อ o.days (เช่น ก.พ. ระบุ 31) */if(!(month>=0&&month<=11)||!((year>2400&&year<2700)||(year>1900&&year<2200))||!(days>=28&&days<=31)||!Array.isArray(o.staff)||o.staff.length>300)bad();
  const cl=s=>String(s==null?'':s).replace(/[<>&"'`]/g,'').replace(/\s+/g,' ').trim().slice(0,120);
  const staff=o.staff.map(s=>({name:cl(s&&s.name),shift:s&&s.shift==='night'?'night':'day',role:s&&s.role==='sup'?'sup':'guard',
   off:[...new Set((s&&Array.isArray(s.off)?s.off:[]).map(Number).filter(d=>Number.isInteger(d)&&d>=1&&d<=days))].sort((a,b)=>a-b),dayOff:cl(s&&s.dayOff)})).filter(s=>s.name);
@@ -775,10 +779,14 @@ function cleanRoster(o){const bad=()=>{throw new Error('ข้อมูลตา
 /*ENDCORE*/
 const DEFAULT={"month":4,"year":2569,"days":31,"staff":[{"name":"นาย สมชัย หาสุข (หน.แผนก)","shift":"day","role":"sup","off":[5,7,12,19,21,26],"dayOff":"อังคาร/พฤหัสบดี"},{"name":"นาย สิทธิเดช สืบศรี (ตรวจการอาวุโส)","shift":"day","role":"sup","off":[4,11,18,25],"dayOff":"จันทร์"},{"name":"นาย กฤษฎา ศรีมุม (ตรวจการ)","shift":"day","role":"sup","off":[5,12,19,26],"dayOff":"อังคาร"},{"name":"นาย สุนทร อินเดช (ตรวจการ)","shift":"day","role":"sup","off":[6,13,20,27],"dayOff":"พุธ"},{"name":"นาย ทัศนัย พาหา (ตรวจการ)","shift":"day","role":"sup","off":[7,14,21,28],"dayOff":"พฤหัสบดี"},{"name":"นาย อดิศักดิ์ มังกษัตริย์ (ผช.หน.แผก)","shift":"day","role":"sup","off":[1,8,15,22,29],"dayOff":"ศุกร์"},{"name":"นาย จักรินทร์ สินพันธ์ ( หน.ทีม )","shift":"day","role":"sup","off":[5,12,19,26],"dayOff":"อังคาร"},{"name":"นาย ดำรงศักดิ์ กลั่นจิตต์","shift":"day","role":"guard","off":[4,11,18,25],"dayOff":"จันทร์"},{"name":"นาย สุธรรม ทองปรวน","shift":"day","role":"guard","off":[4,11,18,25],"dayOff":"จันทร์"},{"name":"นาย อรัญ สุวรรณธาดา","shift":"day","role":"guard","off":[1,12,19,26],"dayOff":"อังคาร"},{"name":"นาย สุวัฒน์ สงพิมพ์","shift":"day","role":"guard","off":[5,12,19,26],"dayOff":"อังคาร"},{"name":"นาย สุธิราช พรหมพิทักษ์","shift":"day","role":"guard","off":[6,13,20,27],"dayOff":"พุธ"},{"name":"นาย วัชระ วิลานันท์","shift":"day","role":"guard","off":[6,13,20,27],"dayOff":"พุธ"},{"name":"นาย บีช จันทร์ตรี","shift":"day","role":"guard","off":[6,13,20,27],"dayOff":"พุธ"},{"name":"น.ส.อรณิชชา ปานกำเหนิด","shift":"day","role":"guard","off":[7,14,21,28],"dayOff":"พฤหัสบดี"},{"name":"นาย พีรวัฒน์ ฉลูศรี","shift":"day","role":"guard","off":[7,14,21,28],"dayOff":"พฤหัสบดี"},{"name":"นาย มาโนช ทุยเวียง","shift":"day","role":"guard","off":[7,14,21,28],"dayOff":"พฤหัสบดี"},{"name":"นาย พลภัทร วัฒนอเนก","shift":"day","role":"guard","off":[1,8,15,22,29],"dayOff":"ศุกร์"},{"name":"นาย ปัญญาณวัฒน์ อินเดช","shift":"day","role":"guard","off":[1,8,15,22,29],"dayOff":"ศุกร์"},{"name":"นาย นพฤทธิ์ กียะสูตร (ตรวจการ)","shift":"night","role":"sup","off":[7,14,21,28],"dayOff":"พฤหัสบดี"},{"name":"นาย นิพัต มุสันเที๊ยะ (ตรวจการ)","shift":"night","role":"sup","off":[4,11,18,25],"dayOff":"จันทร์"},{"name":"นาย นฤพล ธนินท์ณัฐกุล","shift":"night","role":"guard","off":[6,13,20,27],"dayOff":"พุธ"},{"name":"นาย สวัสดิ์ อ่อนน้อมดี","shift":"night","role":"guard","off":[1,8,15,22,29],"dayOff":"ศุกร์"},{"name":"นาย ธนบูรณ์ อวดปาก","shift":"night","role":"guard","off":[2,9,16,30],"dayOff":"เสาร์"},{"name":"นาย อนุวัฒน์ ฝายสุนย์","shift":"night","role":"guard","off":[5,12,19,26],"dayOff":"อังคาร"}]};
 const GAS_URL='https://script.google.com/macros/s/AKfycbw0mio8XKHybvw05qDbYX-rv6Db4hCOatgs8ZMywUKiArySKkmGkgxcmXe0JMlljOYz/exec';// URL เริ่มต้นของ Apps Script (แก้ทับได้ที่ปุ่ม ⚙️ ซิงค์ Sheets)
-function gasUrl(){return lsg('sbk_gas')||GAS_URL;}
+const GASRE=/^https:\/\/script\.google\.com\/(a\/[^/?#]+\/)?macros\/s\/[A-Za-z0-9_-]+\/exec$/;
+function gasUrl(){const u=lsg('sbk_gas');return u&&GASRE.test(u)?u:GAS_URL;}/* v26: ค่าเก่าที่ผิดรูปแบบ → ใช้ URL เริ่มต้น */
 const RKL='sbk_roster_last';// คีย์เดิม (รุ่น v5) — ย้ายเข้าระบบหลายเดือนอัตโนมัติ
-let NET_MS=20000;// ทุกคำขอไป Sheets มี timeout และลองใหม่ 1 ครั้งเมื่อเครือข่ายสะดุด
-async function fx(u,o={},retry=0){for(let i=0;;i++){const c=new AbortController(),t=setTimeout(()=>c.abort(),NET_MS);try{return await fetch(u,{...o,signal:c.signal});}catch(e){if(i>=retry)throw e;await new Promise(r=>setTimeout(r,800*(i+1)));}finally{clearTimeout(t);}}}
+let NET_MS=30000;const SYNC_CH=300;// ทุกคำขอไป Sheets มี timeout และลองใหม่ 1 ครั้งเมื่อเครือข่ายสะดุด
+const gasKey=()=>lsg('sbk_key').trim();
+/* v26: แนบรหัสเชื่อมต่อ (ถ้าตั้งไว้) ที่จุดเดียว — GET ต่อท้าย &key= | POST ใส่ใน JSON body (no-cors ส่ง header เองไม่ได้) */
+async function fx(u,o={},retry=0){const K=gasKey();if(K&&/^https:\/\/script\.google\.com\//.test(u)){if(o.body){try{const b=JSON.parse(o.body);if(b&&typeof b==='object'&&!Array.isArray(b)){b.key=K;o={...o,body:JSON.stringify(b)};}}catch(e){}}else u+=(u.includes('?')?'&':'?')+'key='+encodeURIComponent(K);}
+ for(let i=0;;i++){const c=new AbortController(),t=setTimeout(()=>c.abort(),NET_MS);try{return await fetch(u,{...o,signal:c.signal});}catch(e){if(i>=retry)throw e;await new Promise(r=>setTimeout(r,800*(i+1)));}finally{clearTimeout(t);}}}
 // อ่านคำตอบ Apps Script อย่างปลอดภัย: HTTP error / หน้า HTML (สิทธิ์ Deploy ผิด) / JSON เสีย → ข้อความไทยที่บอกวิธีแก้
 async function getJSON(u){const r=await fx(u,{},1);
  if(!r.ok)throw new Error(r.status===429?'Google Sheets ถูกเรียกใช้ถี่เกินโควตา กรุณารอ 1-2 นาทีแล้วลองใหม่':'Google Sheets ตอบกลับผิดพลาด (HTTP '+r.status+')');
@@ -813,17 +821,35 @@ let R=DEFAULT,A={},DT={},NT={},sel=null,day=1,tab='all',fq='',CH={},saving=false
 const $=id=>document.getElementById(id),key=s=>s.shift+'|'+s.name,SK=()=>'sbk_att2_'+R.year+'_'+R.month;
 const ST={p:'✓',l:'ส',a:'✗',v:'ลา',i:'ป่วย',b:'กิจ',h:'พร',e:'Extra'},SN={p:'มา',l:'สาย',a:'ขาด',v:'ลาอื่น ๆ',i:'ลาป่วย',b:'ลากิจ',h:'ลาพักร้อน',e:'ลา Extra'},LBL={p:'มา',l:'สาย',a:'ขาด',v:'ลาอื่น ๆ',i:'ลาป่วย',b:'ลากิจ',h:'ลาพักร้อน',e:'ลา Extra',s:'หยุดเปลี่ยน',o:'OT',c:'ทำแทน',w:'สลับมาทำ'},esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),yTh=()=>R.year>2400?R.year:R.year+543;
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const NOTE={};/* v26: แถบแจ้งเตือนที่ค้างไว้จนผู้ใช้ปิด (ข้อมูลเสีย / มีข้อมูลค้างส่งในเดือนอื่น / เปิดไม่สำเร็จ) */
+function notice(id,h){if(h)NOTE[id]=h;else delete NOTE[id];const e=document.getElementById('dw');if(!e)return;const ks=Object.keys(NOTE);e.hidden=!ks.length;e.innerHTML=ks.map(k=>`<div class="dwr"><span>${NOTE[k]}</span><button data-nx="${k}" aria-label="ปิดข้อความนี้">✕</button></div>`).join('');}
 const lsg=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}},lss=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 // ดักข้อผิดพลาดที่ไม่คาดคิด: แจ้งเป็นภาษาไทย ไม่ให้หน้าค้างเงียบ (ข้อมูลที่บันทึกแล้วยังอยู่ในเครื่อง)
 let errAt=0;function onAppErr(m){try{console.error(m);}catch(e){}const t=String(m==null?'':m);if(!t||/Script error|ResizeObserver/i.test(t)||Date.now()-errAt<8000)return;errAt=Date.now();
  try{toast('เกิดข้อผิดพลาดที่ไม่คาดคิด: '+t.slice(0,140)+' — ข้อมูลที่บันทึกแล้วยังปลอดภัย หากใช้งานต่อไม่ได้ให้รีเฟรชหน้า',false);}catch(e){}}
 window.addEventListener('error',e=>onAppErr(e.message||(e.error&&e.error.message)));window.addEventListener('unhandledrejection',e=>onAppErr(e.reason&&(e.reason.message||e.reason)));
-function toast(m,ok=true,act){const t=$('ts');if(!NOMO){t.classList.remove('tin');void t.offsetWidth;t.classList.add('tin');}t.textContent=m;if(act){const b=document.createElement('button');b.textContent=act.t;b.onclick=()=>{t.style.display='none';act.f();};t.appendChild(b);}t.style.background=ok?'#6B7F5B':'#A63D2F';t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',act?9000:ok?3200:5200);}
-function load(){sel=null;shOn=false;try{const o=JSON.parse(lsg(SK())||'{}');A=o.a||{};DT=o.dt||{};NT=o.n||{};RM=o.rm||{};}catch(e){A={};DT={};NT={};RM={};}}
-function save(){try{localStorage.setItem(SK(),JSON.stringify({a:A,dt:DT,n:NT,rm:RM}));}catch(e){toast('บันทึกในเบราว์เซอร์ไม่ได้ กรุณาส่งออก Excel เก็บไว้',false);}scheduleAuto();renderSync();}
-function initMonth(keep){load();UNDO=[];ARM=null;renderUndo();CF={};lastSig='';dday=0;fillMonths();const n=opNow();day=keep?Math.min(keep,R.days):(gy(R)===n.getFullYear()&&R.month===n.getMonth())?n.getDate():1;
+let EP=0;/* v26: นับรอบการเปลี่ยนเดือน — ปุ่มเลิกทำใน toast ของเดือนก่อนต้องไม่เขียนลงเดือนใหม่ */
+function toast(m,ok=true,act){const t=$('ts'),ep=EP;if(!NOMO){t.classList.remove('tin');void t.offsetWidth;t.classList.add('tin');}t.textContent=m;if(act){const b=document.createElement('button');b.textContent=act.t;b.onclick=()=>{t.style.display='none';if(ep!==EP){toast('เปลี่ยนเดือนไปแล้ว — เลิกทำรายการของเดือนก่อนไม่ได้',false);return;}act.f();};t.appendChild(b);}t.style.background=ok?'#6B7F5B':'#A63D2F';t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',act?9000:ok?3200:5200);}
+/* v26: เดิม JSON เสีย = ล้างเงียบ ข้อมูลทั้งเดือนหาย → เก็บสำเนาดิบไว้ที่ sbk_bak_* + แจ้งเตือนค้างไว้ และกรองค่าที่ใช้ไม่ได้ทีละช่อง (สถานะแปลก/วันเกิน/หมายเหตุไม่ใช่ข้อความ) */
+function load(soft){if(!soft){sel=null;shOn=false;}const raw=lsg(SK()),ob=v=>v&&typeof v==='object'&&!Array.isArray(v)?v:{};let o={},bad=0;
+ if(raw){try{o=JSON.parse(raw);if(!o||typeof o!=='object'||Array.isArray(o))throw 0;}catch(e){const bk='sbk_bak_'+R.year+'_'+R.month+'_'+Date.now();lss(bk,raw);o={};
+  notice('corrupt','⚠️ ข้อมูลเช็คชื่อเดือน '+MON[R.month]+' '+yTh()+' ในเครื่องนี้เสียหาย อ่านไม่ได้ — เก็บสำเนาไว้ที่ “'+bk+'” แล้ว และระบบจะโหลดข้อมูลล่าสุดจาก Google Sheets แทน (ข้อมูลที่ส่งขึ้น Sheets แล้วไม่หาย)');}}
+ const okD=d=>{const n=+d;return Number.isInteger(n)&&n>=1&&n<=R.days;};A={};NT={};DT={};RM={};
+ for(const k in ob(o.a)){const m=ob(o.a[k]),x={};for(const d in m){if(okD(d)&&OKS.has(m[d]))x[+d]=m[d];else bad++;}A[k]=x;}
+ for(const k in ob(o.n)){const m=ob(o.n[k]),x={};for(const d in m){if(okD(d)&&m[d]!=null&&m[d]!=='')x[+d]=String(m[d]).slice(0,200);}NT[k]=x;}
+ for(const q in ob(o.dt)){const j=q.lastIndexOf('|');if(j>0&&okD(q.slice(j+1)))DT[q]=1;}
+ for(const q in ob(o.rm))if(typeof o.rm[q]==='string')RM[q]=o.rm[q];
+ if(bad)notice('clean','ℹ️ พบค่าที่ใช้ไม่ได้ในข้อมูลเครื่องนี้ '+bad+' ช่อง (สถานะไม่รู้จัก/วันที่เกินเดือน) — ระบบข้ามให้แล้ว');}
+function setLS(k,v){try{localStorage.setItem(k,v);return true;}catch(e){return false;}}
+/* พื้นที่เก็บเต็ม: ลบประวัติแก้ไขของเดือนอื่น + สำเนาสำรองเก่าก่อน (ข้อมูลเช็คชื่อไม่ถูกลบ) */
+function pruneLS(){try{const cur=LGK(),ks=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if((/^sbklog_/.test(k)&&k!==cur)||/^sbk_bak_/.test(k))ks.push(k);}ks.forEach(k=>localStorage.removeItem(k));return ks.length;}catch(e){return 0;}}
+function save(){const v=JSON.stringify({a:A,dt:DT,n:NT,rm:RM});if(!setLS(SK(),v)&&!(pruneLS()&&setLS(SK(),v)))toast('บันทึกในเบราว์เซอร์ไม่ได้ (พื้นที่เก็บเต็ม/โหมดส่วนตัว) — กรุณาส่งขึ้น Sheets หรือส่งออก Excel เก็บไว้ทันที',false);scheduleAuto();renderSync();}
+/* v26: ส่งได้ทีละเดือน (เดือนที่เปิด) — เตือนถ้ามีช่องค้างส่งในเดือนอื่น พร้อมปุ่มไปเดือนนั้น */
+function pendScan(){const L=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i),m=k&&k.match(/^sbk_att2_(\d+)_(\d+)$/);if(!m||k===SK())continue;try{const o=JSON.parse(localStorage.getItem(k));const n=Object.keys((o&&o.dt)||{}).length;if(n)L.push([+m[1],+m[2],n]);}catch(e){}}}catch(e){}
+ notice('pend',L.length?'📤 มีข้อมูลที่ยังไม่ได้ส่งขึ้น Sheets ในเดือนอื่น: '+L.map(([y,m,n])=>getRoster(y,m)?`<button data-goto="${y}_${m}">${MON[m]} ${y>2400?y:y+543} (${n} ช่อง)</button>`:`${MON[m]} ${y>2400?y:y+543} (${n} ช่อง — ไม่พบตารางเวร)`).join(' ')+' — เปิดเดือนนั้นแล้วกดส่ง':null);}
+function initMonth(keep){EP++;{const t=$('ts');if(t&&t.querySelector('button'))t.style.display='none';}load();UNDO=[];ARM=null;renderUndo();CF={};lastSig='';dday=0;fillMonths();const n=opNow();day=keep?Math.min(keep,R.days):(gy(R)===n.getFullYear()&&R.month===n.getMonth())?n.getDate():1;
  $('fd').innerHTML=Array.from({length:R.days},(_,i)=>`<option value="${i+1}">${i+1} ${MON[R.month]} (${TH[wdOf(R,i+1)]})</option>`).join('');$('fd').value=day;
- $('sub').textContent='ประจำเดือน '+MON[R.month]+' '+yTh()+' • '+R.staff.length+' คน';rf();}
+ $('sub').textContent='ประจำเดือน '+MON[R.month]+' '+yTh()+' • '+R.staff.length+' คน';rf();pendScan();}
 /* ================= หน้าฟอร์ม (ตารางติ๊ก) ================= */
 const mkRows=(fs,fr,q)=>{const M=thr();return R.staff.filter(s=>(fs==='all'||s.shift===fs)&&(fr==='all'||s.role===fr)&&(!q||s.name.includes(q))).map(s=>({s,i:R.staff.indexOf(s),t:stats(R,s,A[key(s)]||{},M,lastDay())}));};
 const OKS=new Set(['p','l','a','s','v','i','b','h','e','o','c','w']);
@@ -867,7 +893,7 @@ function undoLast(){if(LK){lockMsg();return;}const u=UNDO[UNDO.length-1];if(!u){
 // ประวัติแก้ไข (เก็บในเครื่อง 300 รายการล่าสุดต่อเดือน)
 const LGK=()=>'sbklog_'+SK();
 function logChg(k,d,f,fn,s,u){try{const a=JSON.parse(lsg(LGK())||'[]');a.push({t:Date.now(),k,d,f,fn,s,w:($('fb')&&$('fb').value.trim())||'',u:u?1:0});while(a.length>300)a.shift();lss(LGK(),JSON.stringify(a));}catch(e){}}
-const stNm=s=>s?(LBL[s]||s):'(ว่าง)';
+const stNm=s=>s?(LBL[s]||esc(s)):'(ว่าง)';
 function openLog(){let a=[];try{a=JSON.parse(lsg(LGK())||'[]');}catch(e){}const nmOf=k=>{const s=R.staff.find(x=>key(x)===k);return s?shortNm(s.name):k;};
  $('lgl').innerHTML=a.length?a.slice().reverse().slice(0,150).map((z,j)=>`<div class="lgr"><span><b>${new Date(z.t).toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'})}</b><br><small>${new Date(z.t).toLocaleDateString('th-TH',{day:'numeric',month:'short'})}</small></span><span><b>${esc(nmOf(z.k))}</b> วันที่ ${z.d}: ${stNm(z.f)} → <b>${stNm(z.s)}</b>${z.u?' <small>(เลิกทำ)</small>':''}<br><small>ผู้บันทึก: ${esc(z.w||'—')}${z.fn?' • หมายเหตุเดิม: '+esc(z.fn):''}</small></span><button data-lg="${a.length-1-j}">↩ ย้อนกลับช่องนี้</button></div>`).join(''):'<div class="lgr" style="grid-template-columns:1fr">ยังไม่มีประวัติการแก้ไขในเดือนนี้</div>';
  $('lgm').style.display='flex';}
@@ -920,24 +946,29 @@ async function sendSync(auto){if(saving)return;const url=gasUrl(),by=$('fb').val
  if(!by){renderSync();if(!auto){toast('กรุณากรอกชื่อผู้บันทึกก่อนส่งขึ้น Sheets',false);$('fb').focus();}return;}lss('sbk_by',by);
  if(!navigator.onLine){renderSync();if(!auto)toast('ออฟไลน์ — ข้อมูลเก็บในเครื่องแล้ว จะส่งให้อัตโนมัติเมื่อกลับมาออนไลน์',false);return;}
  const ks=Object.keys(DT).filter(x=>!CF[x]);if(!ks.length){if(!auto){const c=Object.keys(CF).length;toast(c?'ยังมีช่องที่ขัดแย้งกับผู้ใช้อื่น — กรุณาตรวจสอบก่อนส่ง':'ไม่มีรายการที่รอส่ง',!c);}return;}
- const byDay={},sent=[];ks.forEach(x=>{const j=x.lastIndexOf('|'),k=x.slice(0,j),p=k.indexOf('|'),d=+x.slice(j+1),s=(A[k]||{})[d]||'',nt=s?((NT[k]||{})[d]||''):'';(byDay[d]=byDay[d]||[]).push({day:d,shift:k.slice(0,p),name:k.slice(p+1),status:s,note:nt});sent.push({k,d,s,nt,x});});
+ const sent=[];ks.forEach(x=>{const j=x.lastIndexOf('|'),k=x.slice(0,j),p=k.indexOf('|'),d=+x.slice(j+1);if(p<1||!Number.isInteger(d)||d<1||d>R.days){delete DT[x];return;}/* คีย์เสีย/วันเกินเดือน: ทิ้ง ไม่ให้ค้างตลอดไป */
+  const s=(A[k]||{})[d]||'',nt=s?((NT[k]||{})[d]||''):'';sent.push({k,d,s,nt,x,row:{day:d,shift:k.slice(0,p),name:k.slice(p+1),status:s,note:nt}});});
+ if(!sent.length){save();return;}
  saving=true;$('bv').disabled=true;$('bv').textContent='⏳ กำลังส่ง...';setSync('busy');let ok=true;const et=m=>{if(!auto||autoFail<=1)toast(m,false);};
- // ส่งทีละวัน (ใส่ day ทั้งระดับ payload และรายแถว เข้ากันได้กับ Code.gs ทุกเวอร์ชัน) แล้วอ่านกลับด้วย doGet เพื่อยืนยันว่าเขียนลงชีตจริง
- try{for(const d of Object.keys(byDay)){await fx(url,{method:'POST',mode:'no-cors',body:JSON.stringify({year:R.year,month:R.month,day:+d,by,rows:byDay[d]})},1);sent.filter(z=>z.d==d).forEach(z=>{if(((A[z.k]||{})[z.d]||'')===z.s&&((NT[z.k]||{})[z.d]||'')===z.nt)delete DT[z.x];});save();}
+ /* v26: เดิมลบรายการค้างส่งทันทีหลัง POST (mode no-cors อ่านผลไม่ได้) — ถ้าเซิร์ฟเวอร์ไม่ว่าง/เครือข่ายสะดุดตอนตรวจยืนยัน ข้อมูลหายถาวร
+    ตอนนี้: ส่งเป็นชุด (≤SYNC_CH แถว ใส่ day รายแถว) → อ่านกลับด้วย doGet → ลบออกจาก “รอส่ง” เฉพาะช่องที่ Sheets ตรงกับที่ส่ง และผู้ใช้ไม่ได้แก้ต่อระหว่างส่ง */
+ try{for(let i=0;i<sent.length;i+=SYNC_CH){const ch=sent.slice(i,i+SYNC_CH);await fx(url,{method:'POST',mode:'no-cors',body:JSON.stringify({year:R.year,month:R.month,day:ch[0].d,by,rows:ch.map(z=>z.row)})},1);}
   const v=await verify(sent);
-  if(!v){ok=false;autoFail++;et(`ส่งแล้ว ${sent.length} ช่อง แต่ตรวจยืนยันกับ Sheets ไม่ได้ — กด “ดึงข้อมูลล่าสุด” เพื่อตรวจซ้ำ`);}
-  else if(v.bad.length){ok=false;autoFail++;v.bad.forEach(z=>DT[z.x]=1);save();et(`Sheets ไม่ตรงกับที่ส่ง ${v.bad.length}/${sent.length} ช่อง (เก็บไว้ส่งใหม่) — ตรวจสอบ Code.gs และสิทธิ์ Deploy เป็น Anyone`+(v.bad.some(z=>LVS.has(z.s)&&z.s!=='v')?' • มีช่อง “ลาป่วย/ลากิจ/ลาพักร้อน/ลา Extra” ที่ไม่ถูกบันทึก: ต้องอัปเดตสคริปต์เป็น Code_v11.gs แล้ว Deploy เวอร์ชันใหม่':''));}
-  else{autoFail=0;lastSync=bkk();sent.forEach(z=>{RM[z.x]=sg(z.s,z.nt.slice(0,120));});if(!auto)toast(`ส่งและตรวจยืนยันกับ Sheets ครบ ${sent.length} ช่อง`);}}
+  if(!v){ok=false;autoFail++;et(`ส่งแล้ว ${sent.length} ช่อง แต่ยังตรวจยืนยันกับ Sheets ไม่ได้ — เก็บไว้เป็น “รอส่ง” และจะลองส่งใหม่ให้อัตโนมัติ`);}
+  else if(v.auth){ok=false;autoFail++;et(v.auth);}
+  else{const bad=new Set(v.bad.map(z=>z.x));sent.forEach(z=>{if(bad.has(z.x))return;RM[z.x]=sg(z.s,z.nt.slice(0,120));const cs=(A[z.k]||{})[z.d]||'',cn=cs?((NT[z.k]||{})[z.d]||''):'';if(cs===z.s&&cn===z.nt)delete DT[z.x];});save();
+   if(v.bad.length){ok=false;autoFail++;et(`Sheets ไม่ตรงกับที่ส่ง ${v.bad.length}/${sent.length} ช่อง (เก็บไว้ส่งใหม่) — ตรวจสอบ Code.gs และสิทธิ์ Deploy เป็น Anyone`+(v.bad.some(z=>LVS.has(z.s)&&z.s!=='v')?' • มีช่อง “ลาป่วย/ลากิจ/ลาพักร้อน/ลา Extra” ที่ไม่ถูกบันทึก: ต้องอัปเดตสคริปต์เป็น Code_v12.gs แล้ว Deploy เวอร์ชันใหม่':''));}
+   else{autoFail=0;lastSync=bkk();if(!auto)toast(`ส่งและตรวจยืนยันกับ Sheets ครบ ${sent.length} ช่อง`);}}}
  catch(e){ok=false;autoFail++;et((e&&e.name==='AbortError'?'หมดเวลารอ Google Sheets ตอบกลับ':'ส่งไม่สำเร็จ')+' (ข้อมูลที่ยังไม่ส่งยังอยู่ในเครื่อง) ตรวจสอบอินเทอร์เน็ตหรือ URL แล้วลองใหม่');}
  saving=false;$('bv').disabled=false;$('bv').textContent='💾 ส่งขึ้น Sheets';setSync(ok?'ok':'err');rf();}
-async function verify(sent){try{const j=await getJSON(gasUrl()+'?year='+R.year+'&month='+R.month+'&_='+Date.now());if(!j.ok)return null;
+async function verify(sent){try{const j=await getJSON(gasUrl()+'?year='+R.year+'&month='+R.month+'&_='+Date.now());if(!j.ok)return j.auth?{auth:String(j.error||'รหัสเชื่อมต่อไม่ถูกต้อง')}:null;if(!Array.isArray(j.rows))return null;
  const m={},mn={};(j.rows||[]).forEach(r=>{const n=normRow(r);if(!n)return;const q=n.k+'|'+n.d;m[q]=n.st;mn[q]=n.st?String(r.note==null?'':r.note):'';});return{bad:sent.filter(z=>(m[z.k+'|'+z.d]||'')!==z.s||(mn[z.k+'|'+z.d]||'')!==z.nt.slice(0,200))};}catch(e){return null;}}
 // ดึงข้อมูลจาก Sheets: ไม่ทับช่องที่แก้ค้างส่ง — ถ้าผู้ใช้อื่นแก้ช่องเดียวกันหลังจากที่เราเห็นล่าสุด จะเก็บเป็น "ความขัดแย้ง" ให้เลือก | ไม่วาดหน้าใหม่ถ้าข้อมูลไม่เปลี่ยน
 // v9: จำเดือนตอนเริ่มดึง ถ้าผู้ใช้เปลี่ยนเดือนระหว่างรอ จะทิ้งผลลัพธ์นั้น (v8 เดิมเขียนข้อมูลเดือนเก่าลงเดือนใหม่) แล้วดึงเดือนปัจจุบันใหม่
 async function pull(silent,quiet){if(pulling||(quiet&&saving))return;pulling=true;const url=gasUrl(),tk=R.year+'_'+R.month;let stale=false;if(!silent){$('fl').disabled=true;$('fl').textContent='⏳ กำลังดึง...';}if(!quiet&&syncSt!=='busy')setSync('busy');
  try{const j=await getJSON(url+'?year='+R.year+'&month='+R.month+'&_='+Date.now());if(tk!==R.year+'_'+R.month){stale=true;throw new Error('stale');}if(!j.ok)throw new Error(j.error||'ตอบกลับไม่ถูกต้อง');
-  const sig=j.rows.map(r=>r.day+'|'+r.shift+'|'+r.name+'|'+r.status+'|'+r.note).join('\n'),changed=sig!==lastSig;lastSig=sig;
-  if(!Array.isArray(j.rows))throw new Error('ไม่พบรายการข้อมูลในคำตอบ');j.rows.forEach(r=>{const n=normRow(r);if(!n||n.d>R.days)return;const k=n.k,dn=n.d,st=n.st,q=k+'|'+dn,nt=n.nt;
+  if(!Array.isArray(j.rows))throw new Error('ไม่พบรายการข้อมูลในคำตอบ');/* v26: ตรวจก่อนใช้ j.rows (เดิม .map ก่อนตรวจ → TypeError) */
+  const sig=j.rows.map(r=>r.day+'|'+r.shift+'|'+r.name+'|'+r.status+'|'+r.note).join('\n'),changed=sig!==lastSig;lastSig=sig;j.rows.forEach(r=>{const n=normRow(r);if(!n||n.d>R.days)return;const k=n.k,dn=n.d,st=n.st,q=k+'|'+dn,nt=n.nt;
    const rs=sg(st,nt);
    if(DT[q]){const ls=sg((A[k]||{})[dn]||'',(NT[k]||{})[dn]||'');if(rs===ls){delete CF[q];RM[q]=rs;return;}if(RM[q]!==rs){CF[q]={s:st,n:nt,by:String(r.by||'')};RM[q]=rs;}return;}
    delete CF[q];RM[q]=rs;A[k]=A[k]||{};st?A[k][dn]=st:delete A[k][dn];NT[k]=NT[k]||{};nt?NT[k][dn]=nt:delete NT[k][dn];});
@@ -1011,8 +1042,8 @@ function pairCands(n){const a=A[n.k]||{},want=n.e==='s'?'w':'s',m=[],o=[];
  for(let d=1;d<=R.days;d++){if(d===n.d||n.s.off.includes(d)!==(n.e==='s'))continue;const x=a[d]||'';if(x===want)m.push(d);else if(!x)o.push(d);}return{m,o};}
 const dl=d=>'วันที่ '+d+' ('+AB[wdOf(R,d)]+')';
 // จับคู่ครั้งเดียว: ตั้งสถานะคู่ + ใส่หมายเหตุ "สลับกับวันที่ …" ให้ทั้ง 2 วัน และรอส่งขึ้น Sheets ทั้งคู่
-function pairSwap(d2){const n=noteInfo();if(!n||(n.e!=='s'&&n.e!=='w')||!(d2>=1&&d2<=R.days))return;const a=A[n.k],tx=x=>'สลับกับวันที่ '+x+' ('+AB[wdOf(R,x)]+')';
- a[d2]=n.e==='s'?'w':'s';NT[n.k]=NT[n.k]||{};NT[n.k][n.d]=tx(d2);NT[n.k][d2]=tx(n.d);DT[n.k+'|'+n.d]=1;DT[n.k+'|'+d2]=1;save();rf();toast('จับคู่แล้ว: '+dl(n.d)+' ↔ '+dl(d2)+' (บันทึกให้ทั้ง 2 วัน)');}
+function pairSwap(d2){const n=noteInfo();if(!n||(n.e!=='s'&&n.e!=='w')||!(d2>=1&&d2<=R.days)||d2===n.d)return;if(LK){lockMsg();return;}A[n.k]=A[n.k]||{};const a=A[n.k],tx=x=>'สลับกับวันที่ '+x+' ('+AB[wdOf(R,x)]+')',pre=[snapPre(n.k,n.d),snapPre(n.k,d2)];
+ a[d2]=n.e==='s'?'w':'s';NT[n.k]=NT[n.k]||{};NT[n.k][n.d]=tx(d2);NT[n.k][d2]=tx(n.d);DT[n.k+'|'+n.d]=1;DT[n.k+'|'+d2]=1;pre.forEach(z=>logChg(z.k,z.d,z.s,z.n,a[z.d]||''));pushUndo('จับคู่สลับวันหยุด '+n.d+' ↔ '+d2,pre);save();rf();toast('จับคู่แล้ว: '+dl(n.d)+' ↔ '+dl(d2)+' (บันทึกให้ทั้ง 2 วัน)',true,{t:'↩ เลิกทำ',f:()=>undoCells(pre)});}
 function chipHtml(n){const e=n.e,btn=(t,c)=>`<button data-t="${esc(t)}"${c?` class="${c}"`:''}>${esc(t)}</button>`;
  if(e==='s'||e==='w'){const c=pairCands(n),ttl=e==='s'?'วันนี้หยุด — ไปทำงานแทนในวันหยุดเดิมวันที่:':'มาทำวันนี้ — แทนวันปกติที่หยุดวันที่:';
   let h=`<div class="nbl">🔁 ${ttl}</div>`;
@@ -1177,14 +1208,14 @@ function swPairs(){const L=[];R.staff.forEach((s,i)=>{const k=key(s),a=A[k]||{},
    if(mate)used.add(p.d);const w=ev==='w'?d:(mate?p.d:null),x=ev==='s'?d:(mate?p.d:null),rs=(n[d]||'').split(' — ')[1]||'';L.push({i,s,k,w,x,cross:p&&p.m!==R.month?p:null,rs});}});return L;}
 function renderSwList(){const L=swPairs();$('swN').textContent=L.length;const b=$('bswn');b.hidden=!L.length;b.textContent=L.length;if($('swp').hidden)return;
  $('swL').innerHTML=L.length?L.map((z,j)=>`<div class="swr"><div class="wn2"><b>${esc(shortNm(z.s.name))}</b> <small>${z.s.shift==='day'?'กลางวัน':'กลางคืน'}</small><br>${z.w?`<span class="swt sw">สล</span> มาทำ ${dl(z.w)}`:'<span class="wnx">ยังไม่ระบุวันมาทำ</span>'} ⇄ ${z.x?`<span class="swt sx">หย</span> หยุด ${dl(z.x)}`:'<span class="wnx">ยังไม่ระบุวันหยุดแทน</span>'}${z.cross?` <small>(คู่ข้ามเดือน ${z.cross.d}/${z.cross.m+1})</small>`:''}${z.rs?`<br><small>${esc(z.rs)}</small>`:''}</div><button data-sw="${j}" title="ยกเลิกการเปลี่ยนวันหยุดคู่นี้">🗑 ยกเลิก</button></div>`).join(''):'<div class="lg" style="padding:6px 2px">ยังไม่มีการเปลี่ยนวันหยุดในเดือนนี้</div>';
- $('swL').onclick=e=>{const bt=e.target.closest('button[data-sw]');if(!bt)return;const z=L[+bt.dataset.sw];if(!z)return;const pre=[];[z.w,z.x].filter(Boolean).forEach(d=>{pre.push({k:z.k,d,s:A[z.k][d]||'',n:(NT[z.k]||{})[d]||''});delete A[z.k][d];if(NT[z.k])delete NT[z.k][d];DT[z.k+'|'+d]=1;});
-  save();rf();swFill();renderSwList();toast('ยกเลิกการเปลี่ยนวันหยุดของ '+shortNm(z.s.name)+' แล้ว',true,{t:'↩ เลิกทำ',f:()=>{undoCells(pre);if(!$('swp').hidden){swFill();renderSwList();}}});};}
+ $('swL').onclick=e=>{const bt=e.target.closest('button[data-sw]');if(!bt)return;const z=L[+bt.dataset.sw];if(!z)return;if(LK){lockMsg();return;}A[z.k]=A[z.k]||{};const pre=[];[z.w,z.x].filter(Boolean).forEach(d=>{pre.push({k:z.k,d,s:A[z.k][d]||'',n:(NT[z.k]||{})[d]||''});delete A[z.k][d];if(NT[z.k])delete NT[z.k][d];DT[z.k+'|'+d]=1;});
+  pre.forEach(p=>logChg(p.k,p.d,p.s,p.n,''));pushUndo('ยกเลิกการเปลี่ยนวันหยุด '+shortNm(z.s.name),pre);save();rf();swFill();renderSwList();toast('ยกเลิกการเปลี่ยนวันหยุดของ '+shortNm(z.s.name)+' แล้ว',true,{t:'↩ เลิกทำ',f:()=>{undoCells(pre);if(!$('swp').hidden){swFill();renderSwList();}}});};}
 function grid(rows,ed){let h='';const[d1,d2]=ed?rng():[1,R.days];
  for(const sh of['day','night'])for(const ro of['sup','guard']){const b=rows.filter(r=>r.s.shift===sh&&r.s.role===ro);if(!b.length)continue;
   const HM=holMonth(R);let th='<th class="n">ชื่อ-สกุล</th>';for(let d=d1;d<=d2;d++){const w=wdOf(R,d),hl=HM[d];th+=`<th ${ed?`data-d="${d}"`:''} class="${w==0||w==6?'wk':''} ${ed&&d==day?'sel':''} ${hl?(hl.every(x=>x.t==='gov')?'hol hol-g':'hol'):''}" ${hl?`title="🎌 ${esc(hl.map(x=>x.n).join(', '))}"`:''}>${AB[w]}<br>${d}${hl?'<i class="hdot"></i>':''}</th>`;}
   th+=ed?'<th class="t">รวม</th>':'<th>Day Off</th><th>วันทำงาน</th><th>OT</th><th>แทน</th><th>สลับ</th><th>หยุดเปลี่ยน</th><th>สาย</th><th>ขาด</th><th>เกณฑ์</th>';
   let tr='';b.forEach(r=>{const a=A[key(r.s)]||{},t=r.t;tr+=`<tr><td class="n" title="${esc(r.s.name)}">${esc(ed?r.s.name.replace(/^(นาย|น\.ส\.|นาง)\s*/,''):r.s.name)}</td>`;
-   for(let d=d1;d<=d2;d++){const off=r.s.off.includes(d),v=a[d]||'',cl=off?(v?(CLS[v]||'ot'):'o'):(v==='s'?'sx':v),tx=off?(v?(TXT[v]||'OT'):'off'):(v==='s'?'หย':(ST[v]||''));
+   for(let d=d1;d<=d2;d++){const off=r.s.off.includes(d),v=a[d]||'',cl=off?(v?(CLS[v]||'ot'):'o'):(v==='s'?'sx':(!v||ST[v])?v:(CLS[v]||'ot')),tx=off?(v?(TXT[v]||'OT'):'off'):(v==='s'?'หย':(ST[v]||TXT[v]||''));
     const nt=v?((NT[key(r.s)]||{})[d]||''):'',ev=off?XOFF[v]:v,pp=(ev==='s'||ev==='w')?swPartner(nt,d):null;tr+=`<td class="${cl} ${ed?'c':''} ${ed&&d==day?'sel':''} ${nt?'hn':''} ${ed&&!nt&&NEED.has(ev)?'nn':''} ${ed&&sel&&sel.i===r.i&&sel.d===d?'cs':''} ${ed&&POP===key(r.s)+'|'+d?'pop':''}" ${nt&&!ed?`title="${esc(nt)}"`:''} ${ed?`data-i="${r.i}" data-d="${d}"`:''}>${tx}${pp?`<small class="pd">⇄${pp.m===R.month?pp.d:pp.d+'/'+(pp.m+1)}</small>`:''}</td>`;}
    tr+=ed?`<td><b>${t.att}</b></td></tr>`:`<td>${esc(r.s.dayOff||'-')}</td><td><b>${t.att}</b></td><td>${t.ot}</td><td>${t.cover}</td><td>${t.swIn}</td><td>${t.swOut}</td><td>${t.late}</td><td>${t.abs}</td><td><span class="bd ${t.pass?'ok':t.fail?'no':'wn'}">${t.pass?'ผ่าน':t.fail?'ต้องมาเพิ่ม':'กำลังนับ'}</span></td></tr>`;});
   let ft=`<td class="n">${ro==='sup'?'ยอดรวม หัวหน้า / ตรวจการ':'ยอดรวม รปภ.'}</td>`;for(let d=d1;d<=d2;d++)ft+=`<td><b>${b.filter(r=>here(r.s.off.includes(d),(A[key(r.s)]||{})[d])).length}</b></td>`;
@@ -1205,7 +1236,7 @@ function snapOf(list,Ax,d){const o={need:[],un:[],p:[],l:[],a:[],v:[],i:[],b:[],
  list.forEach(r=>{const v=(Ax[r.s.shift+'|'+r.s.name]||{})[d]||'';
   if(r.s.off.includes(d)){const x=XOFF[v];if(x)o.x.push([r,x]);else o.off++;return;}
   if(v==='s'){o.s.push(r);return;}if(LVS.has(v)){o.v.push(r);{const q=LVT.find(z=>z[0]===v);o[q[5]].push(r);}return;}
-  o.need.push(r);if(!v)o.un.push(r);else if(v==='p')o.p.push(r);else if(v==='l')o.l.push(r);else if(v==='a')o.a.push(r);});
+  o.need.push(r);if(!v)o.un.push(r);else if(v==='p'||v==='o'||v==='c'||v==='w')o.p.push(r);else if(v==='l')o.l.push(r);else if(v==='a')o.a.push(r);});
  return o;}
 function daySnap(rows,d){return snapOf(rows,A,d);}
 const ring=p=>`<svg class="rg" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.915" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="3.8"/><circle cx="18" cy="18" r="15.915" fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="${p>=1?'round':'butt'}" stroke-dasharray="${Math.max(0,Math.min(100,p)).toFixed(1)} 100" transform="rotate(-90 18 18)"/></svg>`;
@@ -1644,7 +1675,13 @@ function show(p){const f=p==='f';document.documentElement.dataset.pg=p;$('hd').d
 function handleEvents(){
  $('nf').onclick=()=>show('f');$('nd').onclick=()=>show('d');$('bs').onclick=()=>{$('st').hidden=!$('st').hidden;};
  $('fu').value=gasUrl();$('fb').value=lsg('sbk_by');
- $('fk').onclick=()=>{const u=$('fu').value.trim();if(u&&!/^https:\/\/script\.google\.com\/.+\/exec/.test(u)){toast('URL ไม่ถูกต้อง ต้องขึ้นต้นด้วย https://script.google.com/ และลงท้าย /exec',false);return;}lss('sbk_gas',u);toast(u?'บันทึก URL แล้ว':'กลับไปใช้ URL เริ่มต้นที่ฝังในโค้ด');};
+ $('fkey').value=gasKey();
+ /* v26: ตรวจ URL แบบเข้ม (เดิมยอมรับ …/exec?x=1 หรือ …/exec/abc) + บันทึกรหัสเชื่อมต่อ แล้วทดสอบกับ ?ping=1 ทันที */
+ $('fk').onclick=async()=>{const u=$('fu').value.trim(),k=$('fkey').value.trim();if(u&&!GASRE.test(u)){toast('URL ไม่ถูกต้อง — ต้องเป็นรูปแบบ https://script.google.com/macros/s/…/exec (ไม่มีข้อความต่อท้าย /exec)',false);return;}
+  if(k&&!/^[\x21-\x7E]{4,100}$/.test(k)){toast('รหัสเชื่อมต่อใช้ได้เฉพาะตัวอักษรอังกฤษ/ตัวเลข/สัญลักษณ์ 4-100 ตัว (ไม่มีช่องว่าง)',false);return;}
+  lss('sbk_gas',u);lss('sbk_key',k);toast(u?'บันทึกการเชื่อมต่อแล้ว — กำลังทดสอบ…':'กลับไปใช้ URL เริ่มต้นที่ฝังในโค้ด — กำลังทดสอบ…');
+  try{const j=await getJSON(gasUrl()+'?ping=1&_='+Date.now());if(!j.ok)throw new Error(j.error||'ตอบกลับไม่ถูกต้อง');if(j.needKey&&!k){toast('Apps Script นี้ตั้งรหัสเชื่อมต่อ (API_KEY) ไว้ — กรุณาใส่รหัสก่อน ไม่งั้นจะส่ง/ดึงข้อมูลไม่ได้',false);return;}pull(false);}
+  catch(e){toast('ทดสอบการเชื่อมต่อไม่สำเร็จ: '+errTh(e),false);}};
  $('fl').onclick=()=>pull(false);
  $('fd').onchange=e=>goDay(+e.target.value);$('fq').oninput=e=>{fq=e.target.value.trim();rf();};
  document.querySelectorAll('.hb').forEach(b=>b.onclick=()=>{hf=+b.dataset.h;rf();});let rzW=window.innerWidth;window.addEventListener('resize',()=>{if(!$('pf').hidden)rf();else if(Math.abs(window.innerWidth-rzW)>40){clearTimeout(rdT);rdT=setTimeout(rd,250);}rzW=window.innerWidth;});// แดชบอร์ด: วาดกราฟใหม่เมื่อความกว้างเปลี่ยนจริง (หมุนจอ) ไม่ใช่แค่แถบที่อยู่ของมือถือเลื่อน
@@ -1704,8 +1741,13 @@ function handleEvents(){
   $('cfl').onclick=e=>{const b=e.target.closest('button[data-a]');if(!b)return;resolveConf(b.closest('.cfr').dataset.q,b.dataset.a==='m');save();rf();openConf();};
   const hp=$('hp'),hv=lsg('sbk_help');hp.open=hv?hv==='0':window.innerWidth>=700;hp.addEventListener('toggle',()=>lss('sbk_help',hp.open?'0':'1'));// มือถือ: พับวิธีใช้ไว้ก่อน ให้ตารางขึ้นมาเร็ว
   document.addEventListener('keydown',e=>{if(spOn||shOn||$('pf').hidden||!$('cf').hidden)return;const t=e.target&&e.target.tagName;if(t==='INPUT'||t==='SELECT'||t==='TEXTAREA')return;if(e.key==='ArrowLeft'){e.preventDefault();goDay(day-1);}else if(e.key==='ArrowRight'){e.preventDefault();goDay(day+1);}});
-  window.addEventListener('online',()=>{renderSync();pull(true,true);scheduleAuto();});window.addEventListener('offline',renderSync);
- ['ds','dr'].forEach(i=>$(i).onchange=rd);$('dq').oninput=()=>{clearTimeout(rdT);rdT=setTimeout(rd,180);};// พิมพ์ค้นหาไม่กระตุก (เดิมวาดกราฟใหม่ทุกตัวอักษร)$('dm').oninput=rd;$('dm').addEventListener('change',()=>{$('dm').value=thr();rd();});
+  window.addEventListener('online',()=>{renderSync();pull(true,true);scheduleAuto();});
+  /* v26: เปิดหลายแท็บ/หน้าต่าง — เดิมแต่ละแท็บถือข้อมูลชุดของตัวเองแล้วเขียนทับกัน (ช่องที่อีกแท็บติ๊กหาย) → อีกแท็บบันทึกเมื่อไร โหลดข้อมูลเดือนนั้นใหม่ทันที */
+  window.addEventListener('storage',e=>{try{if(!e.key)return;if(e.key===SK()){load(true);CF={};rf();if(!$('pd').hidden){clearTimeout(rdT);rdT=setTimeout(rd,300);}renderNote();}
+   else if(/^sbk_roster_\d+_\d+$/.test(e.key))fillMonths();else if(/^sbk_att2_/.test(e.key))pendScan();}catch(x){onAppErr(x.message);}});
+  $('dw').onclick=e=>{const x=e.target.closest('button[data-nx]'),g=e.target.closest('button[data-goto]');if(x)notice(x.dataset.nx,null);else if(g)switchMonth(g.dataset.goto);};window.addEventListener('offline',renderSync);
+ ['ds','dr'].forEach(i=>$(i).onchange=rd);$('dq').oninput=()=>{clearTimeout(rdT);rdT=setTimeout(rd,180);};/* พิมพ์ค้นหาไม่กระตุก | v26: เดิม handler ของเกณฑ์วันทำงานถูกคอมเมนต์ // กลืนทั้งบรรทัด จึงไม่ทำงาน */
+ $('dm').oninput=()=>{clearTimeout(rdT);rdT=setTimeout(rd,180);};$('dm').addEventListener('change',()=>{$('dm').value=thr();rd();});
  $('bt').onclick=()=>{const d=document.documentElement,dk=d.dataset.theme==='dark';d.dataset.theme=dk?'light':'dark';$('bt').innerHTML=dk?'🌙<span class="bl"> โหมดมืด</span>':'☀️<span class="bl"> โหมดสว่าง</span>';if(!$('pd').hidden)rd();};
  $('dsSeg').onclick=e=>{const b=e.target.closest('button[data-v]');if(!b)return;$('ds').value=b.dataset.v;document.querySelectorAll('#dsSeg button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b);});rd();};
  $('tdPrev').onclick=()=>{dday--;renderDay();};$('tdNext').onclick=()=>{dday++;renderDay();};$('tdSel').onchange=e=>{dday=+e.target.value;renderDay();};$('tdb').onclick=e=>{const b=e.target.closest('button[data-hd]');if(b){dday=+b.dataset.hd;renderDay();}};
@@ -1752,7 +1794,7 @@ function handleEvents(){
    $('bi').disabled=false;$('bi').innerHTML='📥<span class="bl"> นำเข้าตารางเวร</span>';e.target.value='';};
  $('bx').onclick=()=>{if(typeof XLSX==='undefined'){toast('โหลดตัวสร้างไฟล์ Excel ไม่สำเร็จ (ตรวจสอบอินเทอร์เน็ต) แล้วลองใหม่',false);return;}try{rd();const AR=mkRows('all','all','');const M=thr(),head=['กะ','ตำแหน่ง','ชื่อ-สกุล',...Array.from({length:R.days},(_,i)=>i+1),'Day Off','วันทำงาน(รวมนอกตาราง)','OT','ทำแทน','สลับมาทำ','หยุดเปลี่ยน','ลา (รวมทุกชนิด)','ลาป่วย','ลากิจ','ลาพักร้อน','ลา Extra','ลาอื่น ๆ','มาสาย','ขาด','ผลตามเกณฑ์'];
   const body=AR.map(r=>{const k=key(r.s),a=A[k]||{},t=r.t;
-   return[r.s.shift==='day'?'กลางวัน':'กลางคืน',r.s.role==='sup'?'หัวหน้า/ตรวจการ':'รปภ.',r.s.name,...Array.from({length:R.days},(_,i)=>r.s.off.includes(i+1)?(a[i+1]?(TXT[a[i+1]]||'OT'):'off'):(a[i+1]==='s'?'หย':(ST[a[i+1]]||''))),r.s.dayOff,t.att,t.ot,t.cover,t.swIn,t.swOut,t.leave,t.lvI,t.lvB,t.lvH,t.lvE,t.lvV,t.late,t.abs,t.pass?'ผ่าน':t.fail?'ต้องมาเพิ่ม':'กำลังนับ'];});
+   return[r.s.shift==='day'?'กลางวัน':'กลางคืน',r.s.role==='sup'?'หัวหน้า/ตรวจการ':'รปภ.',r.s.name,...Array.from({length:R.days},(_,i)=>r.s.off.includes(i+1)?(a[i+1]?(TXT[a[i+1]]||'OT'):'off'):(a[i+1]==='s'?'หย':(ST[a[i+1]]||TXT[a[i+1]]||''))),r.s.dayOff,t.att,t.ot,t.cover,t.swIn,t.swOut,t.leave,t.lvI,t.lvB,t.lvH,t.lvE,t.lvV,t.late,t.abs,t.pass?'ผ่าน':t.fail?'ต้องมาเพิ่ม':'กำลังนับ'];});
   const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([head,...body]),'เช็คการมาทำงาน');
   const T=AR.map((r,i)=>{const t=r.t;return[i+1,r.s.name,r.s.shift==='day'?'กลางวัน':'กลางคืน',r.s.role==='sup'?'หัวหน้า/ตรวจการ':'รปภ.',t.plan,t.attReg,t.late,t.abs,t.ot,t.cover,t.swIn,t.swOut,t.leave,t.lvI,t.lvB,t.lvH,t.lvE,t.lvV,t.att,t.pass?'ผ่าน':t.fail?'ต้องมาเพิ่ม':'กำลังนับ'];});
   XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([['#','ชื่อ-สกุล','กะ','ตำแหน่ง','แผน (วัน)','มา','สาย','ขาด','OT','ทำแทน','สลับมาทำ','หยุดเปลี่ยน','ลา (รวมทุกชนิด)','ลาป่วย','ลากิจ','ลาพักร้อน','ลา Extra','ลาอื่น ๆ','รวมวันทำงาน','ผล (เกณฑ์ '+M+' วัน)'],...T]),'สรุปรายบุคคล');
@@ -1785,6 +1827,9 @@ function initManifest(){try{const ic=s=>({src:document.querySelector('link[rel="
  const m={name:'SBK Security Working Schedule',short_name:'SBK Schedule',description:'ระบบตารางเวรและเช็คการมาทำงาน เจ้าหน้าที่รักษาความปลอดภัย ศูนย์การค้า ซีคอนบางแค',lang:'th',start_url:u,scope:u.replace(/[^/]*$/,''),display:'standalone',background_color:'#2E3A2F',theme_color:'#2E3A2F',icons:[ic('192x192'),ic('512x512')]};
  const l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'}));document.head.appendChild(l);}catch(e){}}
 // เปิดหน้าใหม่: ใช้ตารางเวรที่นำเข้าล่าสุด (ถ้าข้อมูลที่เก็บไว้ครบถ้วน) ไม่งั้นใช้ตัวอย่างที่ฝังไว้
-R=pickBoot();if(R.minDays)$('dm').value=R.minDays;
-handleEvents();initMonth();pull(true);syncRosters();initManifest();initSplash();window.__spOK=true;// โหลดข้อมูลล่าสุดจาก Google Sheets ตอนเปิดหน้า
+/* v26: ถ้าเปิดไม่สำเร็จ (ข้อมูลในเครื่องผิดรูปแบบ ฯลฯ) แสดงสาเหตุ + ปุ่มกู้คืน แทนหน้าว่าง/ค้าง */
+try{R=pickBoot();if(R.minDays)$('dm').value=R.minDays;handleEvents();initMonth();}
+catch(e){try{console.error(e);}catch(x){}try{R=cleanRoster(DEFAULT);lss('sbk_last','');initMonth();}catch(x){}
+ notice('boot','❌ เปิดตารางเวรล่าสุดไม่สำเร็จ ('+esc(e&&e.message||e)+') — แสดงตารางเวรตัวอย่างแทน ข้อมูลเช็คชื่อในเครื่องยังอยู่ครบ • ลองนำเข้าตารางเวรใหม่ หรือ <button onclick="location.reload()">โหลดหน้าใหม่</button>');}
+try{pull(true);syncRosters();}catch(e){onAppErr(e.message);}initManifest();initSplash();window.__spOK=true;// โหลดข้อมูลล่าสุดจาก Google Sheets ตอนเปิดหน้า
 </script></body></html>
