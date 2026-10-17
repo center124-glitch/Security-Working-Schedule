@@ -655,6 +655,23 @@ html[data-theme=dark] header .hnav #nf.on,html[data-theme=dark] header .hnav #nd
 @media(max-width:430px){header .hact .sy{font-size:0;gap:0;padding:9px 10px}}
 @media(max-width:600px){header h1{position:relative;padding-right:34px}header .ver{position:absolute;top:0;right:0;margin:0;font-size:10px;padding:0 6px}}
 @media print{header .hnav{display:none!important}}
+
+/* ===== v28: ตาราง Working Schedule ในรายงาน ===== */
+.pvck{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:12px;background:rgba(20,196,130,.12);border:1px solid rgba(20,196,130,.45);font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap}
+.pvck input{width:auto;margin:0}
+.pg table.wg{table-layout:fixed;font-size:10px;width:100%}
+.fm .wg th,.fm .wg td{padding:0!important;text-align:center;height:18px;line-height:17px;overflow:hidden;font-variant-numeric:tabular-nums}
+.fm .wg th{font-size:9px;line-height:11px;padding:2px 0!important;font-weight:700}
+.fm .wg .gn{width:20px}.fm .wg .gm{width:148px;text-align:left!important;padding-left:4px!important;text-overflow:ellipsis;font-size:10.5px}
+.fm .wg .gt{width:33px;font-size:10.5px}.fm .wg td.gt{background:#F8FAFC}
+.fm .wg th.we{background:#3E5F8A!important}.fm .wg th.ho{background:#B4233A!important}
+.fm .wg tr.gh2 td{text-align:left;padding-left:8px!important;font-size:10.5px}
+.wg .gp,.wgl .gp{background:#DCFCE7;color:#166534;font-weight:800}.wg .gl,.wgl .gl{background:#FEF3C7;color:#92400E;font-weight:800}.wg .ga,.wgl .ga{background:#FEE2E2;color:#991B1B;font-weight:800}
+.wg .gi,.wgl .gi{background:#FCE7F3;color:#BE185D;font-size:8.5px}.wg .gb,.wgl .gb{background:#CCFBF1;color:#0F766E;font-size:8.5px}.wg .gh,.wgl .gh{background:#DBEAFE;color:#1E40AF;font-size:8.5px}
+.wg .ge,.wgl .ge2{background:#FEF3C7;color:#B45309;font-size:8.5px}.wg .gv,.wgl .gv{background:#EDE9FE;color:#5B21B6;font-size:8.5px}.wg .gs,.wgl .gs{background:#E2E8F0;color:#334155;font-size:8.5px}
+.wg .go,.wgl .go{background:#F1F5F9;color:#94A3B8;font-size:8.5px}.wg .gx,.wgl .gx{background:#CCFBF1;color:#115E59;font-size:8.5px;font-weight:700}
+.wg td.gf{background:#E2E8F0}
+.wgl{line-height:1.9;margin:5px 0 0!important}.wgl i{font-style:normal;display:inline-block;min-width:18px;padding:0 4px;border-radius:4px;text-align:center;font-size:10px;line-height:15px;margin-left:5px}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lg" viewBox="0 0 512 512"><defs><linearGradient id="lgb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#19D18D"/><stop offset=".55" stop-color="#0A9F78"/><stop offset="1" stop-color="#0B73A8"/></linearGradient>
 <linearGradient id="lgs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#CFF7E6"/></linearGradient></defs>
@@ -678,7 +695,7 @@ html[data-theme=dark] header .hnav #nf.on,html[data-theme=dark] header .hnav #nd
 <noscript><style>#sp{display:none}</style></noscript>
 <div class="w">
 <header id="hd" data-pg="f">
- <h1><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><span>SBK Security Working Schedule <b class="ver" title="เวอร์ชันของโปรแกรม">v27</b><small id="sub"></small></span></h1>
+ <h1><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><span>SBK Security Working Schedule <b class="ver" title="เวอร์ชันของโปรแกรม">v28</b><small id="sub"></small></span></h1>
  <nav class="navt hnav" role="tablist" aria-label="เลือกหน้า"><button id="nf" class="on" role="tab">📝 ฟอร์มเช็คชื่อ</button><button id="nd" role="tab">📊 แดชบอร์ดสรุป</button></nav>
  <div class="hact">
   <span class="sy" id="syh" role="button" tabindex="0" title="สถานะการซิงค์ Google Sheets (แตะเพื่อซิงค์ตอนนี้)"></span><select id="mo" aria-label="เลือกเดือนตารางเวร" hidden></select><button id="bi" title="นำเข้าตารางเวร (Excel)" aria-label="นำเข้าตารางเวร">📥<span class="bl"> นำเข้าตารางเวร</span></button><input type="file" id="fi" accept=".xlsx,.xls" hidden>
@@ -758,7 +775,7 @@ html[data-theme=dark] header .hnav #nf.on,html[data-theme=dark] header .hnav #nd
  <div class="pvb">
   <div class="pvt"><span class="ttl">🧾 ตัวอย่างรายงานก่อนออก</span>
    <div class="sgm" id="pvType" role="group" aria-label="ประเภทรายงาน"><button data-t="d">📅 รายวัน</button><button data-t="w">🗓️ รายสัปดาห์</button><button data-t="m" class="on">📘 รายเดือน</button><button data-t="y">📆 รายปี</button></div>
-   <span id="pvDayW" hidden><select id="pvDay" aria-label="เลือกวันที่"></select></span><span id="pvWeekW" hidden><select id="pvWeek" aria-label="เลือกสัปดาห์"></select></span><span id="pvYearW" hidden><select id="pvYear" aria-label="เลือกปี"></select></span>
+   <span id="pvDayW" hidden><select id="pvDay" aria-label="เลือกวันที่"></select></span><span id="pvWeekW" hidden><select id="pvWeek" aria-label="เลือกสัปดาห์"></select></span><span id="pvYearW" hidden><select id="pvYear" aria-label="เลือกปี"></select></span><label id="pvGW" class="pvck" hidden title="แนบตารางติ๊กการมาปฏิบัติงานรายวันทั้งเดือน ต่อท้ายรายงาน (ภาคผนวก ก.)"><input type="checkbox" id="pvGrid"> 📎 แนบตาราง Working Schedule</label>
    <span class="sp"></span><button id="pvPdf">📄 ออก PDF</button><button id="pvJpg">🖼️ ออก JPEG</button><button id="pvX" aria-label="ปิดตัวอย่าง">✕ ปิด</button></div>
   <details class="pvs" id="pvSd" open><summary>✍️ ผู้จัดทำรายงาน (แก้ไขได้ • ระบบจำชื่อ ตำแหน่ง และลายเซ็นไว้ในเครื่องนี้)</summary>
    <div class="pvf"><label>ชื่อ-สกุล ผู้จัดทำ<input id="pvName" maxlength="80" placeholder="ว่าง = เว้นให้เขียนด้วยมือ"></label><label>ตำแหน่ง<input id="pvPos" maxlength="80" placeholder="เช่น หัวหน้าแผนกรักษาความปลอดภัย"></label><label>วันที่ลงนาม<input id="pvDate" maxlength="40" placeholder="ว่าง = เว้นให้เขียนด้วยมือ"></label>
@@ -806,7 +823,8 @@ html[data-theme=dark] header .hnav #nf.on,html[data-theme=dark] header .hnav #nd
  <div class="shf"><button id="shPrev" aria-label="คนก่อนหน้า">◀ ก่อน</button><button id="shNext" aria-label="คนถัดไป">ถัดไป ▶</button><span class="sp"></span><button id="shClr">🧹 ล้างช่องนี้</button><button id="shDone" class="on">✔ เสร็จ</button></div>
 </div></div>
 <script>
-/* v27 — จัดวางแถบเมนูเหนือตารางใหม่ (กระชับ 2 การ์ด ใช้ได้ทุกขนาดจอ) + รองรับรอยบาก/Safe Area บน iPhone-iPad
+/* v28 — รายงานประจำเดือนแนบตาราง Working Schedule รายวัน (ภาคผนวก ก. เลือกแนบ/ไม่แนบได้)
+   v27 — จัดวางแถบเมนูเหนือตารางใหม่ (กระชับ 2 การ์ด ใช้ได้ทุกขนาดจอ) + รองรับรอยบาก/Safe Area บน iPhone-iPad
    v26 — ตรวจทานความแม่นยำ/ความปลอดภัย: ช่องค้างส่งไม่หายจนกว่า Sheets ยืนยัน • ส่งเป็นชุด • รหัสเชื่อมต่อ API_KEY (Code_v12) • กันหลายแท็บเขียนทับ • สำรองข้อมูลในเครื่องที่เสีย • OT/ทำแทน/สลับบนวันปกตินับเป็นมา • เกณฑ์วันทำงานแก้ได้อีกครั้ง • เลิกทำไม่ข้ามเดือน • ตรวจ URL เข้ม • จำนวนวันตามปฏิทินจริง • เตือนค้างส่งเดือนอื่น • เปิดไม่สำเร็จแสดงสาเหตุ */
 /*CORE*/
 const TH=['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'],AB=['อา','จ','อ','พ','พฤ','ศ','ส'];
@@ -1549,6 +1567,7 @@ function rpPages(){const M=thr(),rows=mkRows('all','all',''),sm=f=>rows.reduce((
  let lr=99;pages.forEach((pg,i)=>{P.push(`<div class="rs">7. รายงานรายบุคคล ${i?'(ต่อ)':''}</div><table><tr><th>#</th><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>วันหยุดประจำ</th><th>แผน</th><th>มาทำงาน (รวมสาย)</th><th>สาย</th><th>ขาด</th><th>OT/แทน/สลับ</th><th>หยุดเปลี่ยน</th><th>ลา</th><th>รวมวันทำงาน</th><th>% เกณฑ์</th><th>ผล</th></tr>${pg.map(prow).join('')}</table>`);lr=pg.length;});
  const SPx=specials(rows),per2=16;
  for(let s=0;s<SPx.length;s+=per2){const ch=SPx.slice(s,s+per2);P.push(`<div class="rs">8. รายการพิเศษและหมายเหตุ ${s?'(ต่อ)':''}</div><table><tr><th>วันที่</th><th>ชื่อ-สกุล</th><th>กะ</th><th>สถานะ</th><th>หมายเหตุ</th></tr>${ch.map(x=>`<tr><td>${x.d} ${AB[wdOf(R,x.d)]}</td><td>${sn({s:x.s})}</td><td>${shN(x.s.shift)}</td><td>${stc(LBL[x.e])}</td><td>${x.n?esc(x.n.length>70?x.n.slice(0,69)+'…':x.n):'-'}</td></tr>`).join('')}</table>`);lr=ch.length;}
+ if(rpGridOn())rpGrid(rows,LD,mo,sn).forEach(h=>P.push(h));/* v28: แนบตาราง Working Schedule รายวัน (ติ๊กทุกวัน) เป็นภาคผนวก */
  const sg=`<div class="rn">เกณฑ์: ต้องมีวันทำงานอย่างน้อย ${M} วัน (นับ “สาย” และวันที่มาทำ OT/ทำแทน/สลับมาทำ เป็นวันทำงาน; “ลา” และ “หยุดเปลี่ยน” ไม่นับเป็นขาด) • ความครบถ้วนข้อมูล ${cpl}% • ${stt}</div>${sigBlock()}`;
  // ช่องลงชื่อแยกไปหน้าใหม่ถ้าหน้าสุดท้ายแน่นเกินไป (หน้า .pg ตายตัว A4 + overflow:hidden)
  if(SIGNEW)P.push('<div class="rs">การรับรองรายงาน</div>'+sg);else P[P.length-1]+=sg;
@@ -1583,6 +1602,22 @@ function rpWrap(P,m){const n=bkk(),pd=thDate(n),tm=p2(n.getHours())+':'+p2(n.get
 // แบ่งหน้าตารางที่มีหัวกลุ่ม: หน้าแรกจุ caps[0] บรรทัด หน้าถัดไป caps[1] — หน้าที่ต่อกลุ่มเดิมจะมีหัวกลุ่ม "(ต่อ)"
 function paginate(items,caps){const pages=[];let cur=[],cg='',cap=caps[0];items.forEach(it=>{const f=it.h?cur.length>=cap-1:cur.length>=cap;if(f){pages.push(cur);cap=caps[1];cur=(!it.h&&cg)?[{h:cg+' (ต่อ)'}]:[];}if(it.h)cg=it.h;cur.push(it);});if(cur.length)pages.push(cur);return pages;}
 const GRP2=[['day','sup','กะกลางวัน (09.00–21.00 น.) • หัวหน้า/ตรวจการ'],['day','guard','กะกลางวัน (09.00–21.00 น.) • รปภ.'],['night','sup','กะกลางคืน (21.00–09.00 น.) • หัวหน้า/ตรวจการ'],['night','guard','กะกลางคืน (21.00–09.00 น.) • รปภ.']];
+/* ===== v28: ภาคผนวก — ตาราง Working Schedule ประจำเดือน (เหมือนตารางติ๊กในหน้าฟอร์ม) =====
+   A4 แนวนอน: ชื่อ + 28–31 วัน + สรุป 4 ช่อง • แบ่งหน้าตามกลุ่ม กะ/ตำแหน่ง (หน้าที่ต่อกลุ่มเดิมมีหัว “(ต่อ)”) • สีเหมือนป้ายสถานะ พิมพ์ขาวดำยังอ่านจากตัวอักษรได้ */
+const rpGridOn=()=>lsg('sbk_rp_grid')!=='0';
+const RGA={p:'✓',l:'ส',a:'✗',v:'ลา',i:'ป่วย',b:'กิจ',h:'พร',e:'Ex',s:'หย'};
+function rpGrid(rows,LD,mo,sn){const H=holMonth(R),D=R.days,its=[];let ix=0;
+ GRP2.forEach(g=>{const b=rows.filter(r=>r.s.shift===g[0]&&r.s.role===g[1]);if(!b.length)return;its.push({h:g[2]+' — '+b.length+' คน'});b.forEach(r=>its.push({r,i:++ix}));});
+ let hd='<tr><th class="gn">#</th><th class="gm">ชื่อ-สกุล</th>';for(let d=1;d<=D;d++){const w=wdOf(R,d);hd+=`<th class="${H[d]?'ho':w==0||w==6?'we':''}">${AB[w]}<br>${d}</th>`;}hd+='<th class="gt">ทำงาน</th><th class="gt">สาย</th><th class="gt">ขาด</th><th class="gt">ลา</th></tr>';
+ const cell=(r,d)=>{const v=(A[key(r.s)]||{})[d]||'',off=r.s.off.includes(d);
+  if(off)return v?`<td class="gx">${TXT[v]||'OT'}</td>`:'<td class="go">off</td>';
+  if(!v)return`<td class="${d>LD?'gf':'gz'}"></td>`;
+  if(RGA[v])return`<td class="g${v}">${RGA[v]}</td>`;
+  return`<td class="gx">${TXT[v]||esc(v)}</td>`;};/* o/c/w บนวันปกติ (ตารางเวรถูกแก้ภายหลัง) แสดงเป็น OT/แทน/สล */
+ const row=it=>{if(it.h)return`<tr class="gh2"><td colspan="${D+6}">${it.h}</td></tr>`;const r=it.r,t=r.t;let h=`<tr><td class="gn">${it.i}</td><td class="gm">${sn(r)}</td>`;for(let d=1;d<=D;d++)h+=cell(r,d);
+  return h+`<td class="gt"><b>${t.att}</b></td><td class="gt">${t.late||'-'}</td><td class="gt">${t.abs||'-'}</td><td class="gt">${t.leave||'-'}</td></tr>`;};
+ const lg=`<div class="rn wgl"><b>สัญลักษณ์:</b> <i class="gp">✓</i> มา <i class="gl">ส</i> สาย <i class="ga">✗</i> ขาด <i class="gi">ป่วย</i> ลาป่วย <i class="gb">กิจ</i> ลากิจ <i class="gh">พร</i> ลาพักร้อน <i class="ge2">Ex</i> ลา Extra <i class="gv">ลา</i> ลาอื่น ๆ <i class="gs">หย</i> หยุดเปลี่ยน <i class="go">off</i> วันหยุดประจำ <i class="gx">OT/แทน/สล</i> มาทำวันหยุด • ช่องว่าง = ยังไม่บันทึก • ช่องสีเทา = วันที่ยังมาไม่ถึง • หัวสีแดง = วันหยุดบริษัท • “ทำงาน” = วันทำงานรวม (มา+สาย+มาทำวันหยุด)</div>`;
+ return paginate(its,[28-CAPADJ,28]).map((pg,i)=>`<div class="rs">ภาคผนวก ก. ตาราง Working Schedule ประจำเดือน ${mo} (บันทึกการปฏิบัติงานรายวัน) ${i?'(ต่อ)':''}</div><table class="wg">${hd}${pg.map(row).join('')}</table>${lg}`);}
 const roleN=s=>s.role==='sup'?'หัวหน้า/ตรวจการ':'รปภ.',snm=s=>esc(s.name.replace(/^(นาย|น\.ส\.|นาง)\s*/,''));
 
 /* ---------- รายงานประจำวัน ---------- */
@@ -1764,7 +1799,7 @@ function openPreview(t){PV.t=t||'m';const o=opNow();PV.d=dday||((gy(R)===o.getFu
  $('pvSd').open=window.innerWidth>=700||!PVS.name;/* มือถือ: มีชื่อผู้จัดทำแล้ว → พับไว้ ให้เห็นตัวอย่างมากขึ้น */$('pvLg').src=rpLogo();$('pvName').value=PVS.name;$('pvPos').value=PVS.pos;$('pvDate').value=PVS.date;$('pv').hidden=false;document.body.style.overflow='hidden';sigLoad();renderPreview();}
 function closePreview(){$('pv').hidden=true;document.body.style.overflow='';$('pvPages').innerHTML='';}
 async function renderPreview(){const tk=++PV.tk;document.querySelectorAll('#pvType button').forEach(b=>{b.classList.toggle('on',b.dataset.t===PV.t);b.setAttribute('aria-pressed',b.dataset.t===PV.t);});
- $('pvDayW').hidden=PV.t!=='d';$('pvWeekW').hidden=PV.t!=='w';$('pvYearW').hidden=PV.t!=='y';$('pvDay').value=PV.d;$('pvWeek').value=PV.wk;$('pvYear').value=PV.y;['pvPdf','pvJpg'].forEach(i=>$(i).disabled=true);
+ $('pvDayW').hidden=PV.t!=='d';$('pvGW').hidden=PV.t!=='m';$('pvGrid').checked=rpGridOn();$('pvWeekW').hidden=PV.t!=='w';$('pvYearW').hidden=PV.t!=='y';$('pvDay').value=PV.d;$('pvWeek').value=PV.wk;$('pvYear').value=PV.y;['pvPdf','pvJpg'].forEach(i=>$(i).disabled=true);
  if(PV.t==='y'&&!YC[PV.y])$('pvPages').innerHTML='<div class="pvl">⏳ กำลังรวบรวมข้อมูลทั้งปีจาก Google Sheets…</div>';
  if(PV.t==='w')$('pvPages').innerHTML='<div class="pvl">⏳ กำลังรวบรวมข้อมูลรายสัปดาห์…</div>';await fontsReady();if(tk!==PV.tk)return;
  let h;try{if(PV.t==='d')h=buildReport(()=>rpDaily(PV.d));else if(PV.t==='w'){const W=await weekData(PV.wk);if(tk!==PV.tk)return;h=buildReport(()=>rpWeekly(W));}else if(PV.t==='y'){const dt=YC[PV.y]||(YC[PV.y]=await yearData(PV.y));if(tk!==PV.tk)return;h=buildReport(()=>rpYearly(PV.y,dt));}else h=buildReport(rpPages);}
@@ -1918,7 +1953,7 @@ function handleEvents(){layoutTB();window.addEventListener('resize',layoutTB);
  $('bi').onclick=()=>{if(saving){toast('กำลังส่งข้อมูลขึ้น Sheets — กรุณารอสักครู่แล้วนำเข้าอีกครั้ง',false);return;}$('fi').click();};$('bp').onclick=()=>openPreview('m');$('bj').onclick=()=>openPreview('d');
   $('pvType').onclick=e=>{const b=e.target.closest('button[data-t]');if(b&&b.dataset.t!==PV.t){PV.t=b.dataset.t;renderPreview();}};
   $('pvDay').onchange=e=>{PV.d=+e.target.value;renderPreview();};$('pvWeek').onchange=e=>{PV.wk=e.target.value;renderPreview();};$('pvYear').onchange=e=>{PV.y=+e.target.value;renderPreview();};
-  $('pvX').onclick=closePreview;$('pvPdf').onclick=()=>exportReport('pdf');$('pvJpg').onclick=()=>exportReport('jpg');
+  $('pvX').onclick=closePreview;$('pvGrid').onchange=e=>{lss('sbk_rp_grid',e.target.checked?'1':'0');renderPreview();toast(e.target.checked?'แนบตาราง Working Schedule ท้ายรายงานแล้ว':'ไม่แนบตาราง Working Schedule');};$('pvPdf').onclick=()=>exportReport('pdf');$('pvJpg').onclick=()=>exportReport('jpg');
   $('pvName').oninput=e=>{PVS.name=e.target.value.replace(/\s+/g,' ').trim();lss('sbk_rp_name',PVS.name);pvLater();};
   $('pvPos').oninput=e=>{PVS.pos=e.target.value.replace(/\s+/g,' ').trim();lss('sbk_rp_pos',PVS.pos);pvLater();};
   $('pvDate').oninput=e=>{PVS.date=e.target.value.trim();pvLater();};
