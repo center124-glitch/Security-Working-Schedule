@@ -706,7 +706,7 @@ table.gt tfoot td.we{background-image:linear-gradient(rgba(59,110,220,.16),rgba(
 <noscript><style>#sp{display:none}</style></noscript>
 <div class="w">
 <header id="hd" data-pg="f">
- <h1><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><span>SBK Security Working Schedule <b class="ver" title="เวอร์ชันของโปรแกรม">v30</b><small id="sub"></small></span></h1>
+ <h1><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><span>SBK Security Working Schedule <b class="ver" title="เวอร์ชันของโปรแกรม">v32</b><small id="sub"></small></span></h1>
  <nav class="navt hnav" role="tablist" aria-label="เลือกหน้า"><button id="nf" class="on" role="tab">📝 ฟอร์มเช็คชื่อ</button><button id="nd" role="tab">📊 แดชบอร์ดสรุป</button></nav>
  <div class="hact">
   <span class="sy" id="syh" role="button" tabindex="0" title="สถานะการซิงค์ Google Sheets (แตะเพื่อซิงค์ตอนนี้)"></span><select id="mo" aria-label="เลือกเดือนตารางเวร" hidden></select><button id="bi" title="นำเข้าตารางเวร (Excel)" aria-label="นำเข้าตารางเวร">📥<span class="bl"> นำเข้าตารางเวร</span></button><input type="file" id="fi" accept=".xlsx,.xls" hidden>
@@ -759,7 +759,7 @@ table.gt tfoot td.we{background-image:linear-gradient(rgba(59,110,220,.16),rgba(
   <select id="dr" aria-label="ตำแหน่ง"><option value="all">ทุกตำแหน่ง</option><option value="sup">หัวหน้า/ตรวจการ</option><option value="guard">รปภ.</option></select>
   <input id="dq" placeholder="🔍 ค้นหาชื่อ..." aria-label="ค้นหาชื่อ">
   <label class="thl" for="dm">เกณฑ์ <input type="number" id="dm" min="1" max="31" value="24" inputmode="numeric"> วัน</label>
-  <div class="exb"><button id="bp" class="on" title="ดูตัวอย่างรายงานประจำเดือนก่อนออก PDF/JPEG (พนักงานทุกกะ ไม่ขึ้นกับตัวกรอง)">🧾 ออกรายงาน</button><button id="bj" title="ดูตัวอย่างรายงานประจำวันของวันที่เลือก">📅 รายงานรายวัน</button></div>
+  <div class="exb"><button id="bg" title="ออกตารางสรุปรายเดือนรูปแบบเดียวกับตารางเวร (เฉพาะตาราง) เป็น PDF/JPEG">🗂️ ตารางเวรรายเดือน</button><button id="bp" class="on" title="ดูตัวอย่างรายงานประจำเดือนก่อนออก PDF/JPEG (พนักงานทุกกะ ไม่ขึ้นกับตัวกรอง)">🧾 ออกรายงาน</button><button id="bj" title="ดูตัวอย่างรายงานประจำวันของวันที่เลือก">📅 รายงานรายวัน</button></div>
  </div>
  <div class="dhb" id="dpi"></div>
  <nav class="dsn" id="dsn" aria-label="ไปยังส่วนของแดชบอร์ด"><button data-go="s-ov" class="on">📌 ภาพรวม</button><button data-go="s-td">📅 รายวัน</button><button data-go="s-hol">🎌 วันหยุด</button><button data-go="s-ch">📈 กราฟ/กลุ่ม</button><button data-go="s-ps">👤 รายบุคคล</button><button data-go="s-lv">🏖️ การลา</button><button data-go="s-sp">📝 รายการพิเศษ</button><button data-go="s-gr">📋 ตารางเดือน</button></nav>
@@ -785,7 +785,7 @@ table.gt tfoot td.we{background-image:linear-gradient(rgba(59,110,220,.16),rgba(
 <div id="pv" hidden role="dialog" aria-modal="true" aria-label="ตัวอย่างรายงาน">
  <div class="pvb">
   <div class="pvt"><span class="ttl">🧾 ตัวอย่างรายงานก่อนออก</span>
-   <div class="sgm" id="pvType" role="group" aria-label="ประเภทรายงาน"><button data-t="d">📅 รายวัน</button><button data-t="w">🗓️ รายสัปดาห์</button><button data-t="m" class="on">📘 รายเดือน</button><button data-t="y">📆 รายปี</button></div>
+   <div class="sgm" id="pvType" role="group" aria-label="ประเภทรายงาน"><button data-t="d">📅 รายวัน</button><button data-t="w">🗓️ รายสัปดาห์</button><button data-t="m" class="on">📘 รายเดือน</button><button data-t="y">📆 รายปี</button><button data-t="g" title="ตารางสรุปรายเดือนรูปแบบเดียวกับตารางเวร (ออกแยกเฉพาะตาราง)">🗂️ ตารางเวรรายเดือน</button></div>
    <span id="pvDayW" hidden><select id="pvDay" aria-label="เลือกวันที่"></select></span><span id="pvWeekW" hidden><select id="pvWeek" aria-label="เลือกสัปดาห์"></select></span><span id="pvYearW" hidden><select id="pvYear" aria-label="เลือกปี"></select></span><label id="pvGW" class="pvck" hidden title="แนบตารางติ๊กการมาปฏิบัติงานรายวันทั้งเดือน ต่อท้ายรายงาน (ภาคผนวก ก.)"><input type="checkbox" id="pvGrid"> 📎 แนบตาราง Working Schedule</label>
    <span class="sp"></span><button id="pvPdf">📄 ออก PDF</button><button id="pvJpg">🖼️ ออก JPEG</button><button id="pvX" aria-label="ปิดตัวอย่าง">✕ ปิด</button></div>
   <details class="pvs" id="pvSd" open><summary>✍️ ผู้จัดทำรายงาน (แก้ไขได้ • ระบบจำชื่อ ตำแหน่ง และลายเซ็นไว้ในเครื่องนี้)</summary>
@@ -834,7 +834,9 @@ table.gt tfoot td.we{background-image:linear-gradient(rgba(59,110,220,.16),rgba(
  <div class="shf"><button id="shPrev" aria-label="คนก่อนหน้า">◀ ก่อน</button><button id="shNext" aria-label="คนถัดไป">ถัดไป ▶</button><span class="sp"></span><button id="shClr">🧹 ล้างช่องนี้</button><button id="shDone" class="on">✔ เสร็จ</button></div>
 </div></div>
 <script>
-/* v30 — แถบสีอ่อนคอลัมน์เสาร์-อาทิตย์ ในตารางติ๊ก แดชบอร์ด และรายงาน (รายเดือน/รายสัปดาห์)
+/* v32 — ตารางเวรรายเดือน: กะกลางวัน/กะกลางคืนแยกหน้า และไม่มีช่องลงชื่อ
+   v31 — ออก “ตารางเวรรายเดือน” (ตารางสรุปรายเดือนรูปแบบตารางเวร) แยกเป็นเอกสาร PDF/JPEG ได้
+   v30 — แถบสีอ่อนคอลัมน์เสาร์-อาทิตย์ ในตารางติ๊ก แดชบอร์ด และรายงาน (รายเดือน/รายสัปดาห์)
    v29 — นำหัวข้อ 8 รายการพิเศษและหมายเหตุ ออกจากรายงานประจำเดือน • เพิ่มวันหยุดราชการ 2569 ที่ขาด (รวมวันหยุดพิเศษ 2 ม.ค. และ 16 ต.ค. กทม.) • เพิ่มปฏิทินวันหยุด 2570
    v28 — รายงานประจำเดือนแนบตาราง Working Schedule รายวัน (ภาคผนวก ก. เลือกแนบ/ไม่แนบได้)
    v27 — จัดวางแถบเมนูเหนือตารางใหม่ (กระชับ 2 การ์ด ใช้ได้ทุกขนาดจอ) + รองรับรอยบาก/Safe Area บน iPhone-iPad
@@ -1622,7 +1624,7 @@ const GRP2=[['day','sup','กะกลางวัน (09.00–21.00 น.) • �
    A4 แนวนอน: ชื่อ + 28–31 วัน + สรุป 4 ช่อง • แบ่งหน้าตามกลุ่ม กะ/ตำแหน่ง (หน้าที่ต่อกลุ่มเดิมมีหัว “(ต่อ)”) • สีเหมือนป้ายสถานะ พิมพ์ขาวดำยังอ่านจากตัวอักษรได้ */
 const rpGridOn=()=>lsg('sbk_rp_grid')!=='0';
 const RGA={p:'✓',l:'ส',a:'✗',v:'ลา',i:'ป่วย',b:'กิจ',h:'พร',e:'Ex',s:'หย'};
-function rpGrid(rows,LD,mo,sn){const H=holMonth(R),D=R.days,its=[];let ix=0;
+function rpGrid(rows,LD,mo,sn,ttl,cp,ix0){const H=holMonth(R),D=R.days,its=[];let ix=ix0||0;
  GRP2.forEach(g=>{const b=rows.filter(r=>r.s.shift===g[0]&&r.s.role===g[1]);if(!b.length)return;its.push({h:g[2]+' — '+b.length+' คน'});b.forEach(r=>its.push({r,i:++ix}));});
  let hd='<tr><th class="gn">#</th><th class="gm">ชื่อ-สกุล</th>';for(let d=1;d<=D;d++){const w=wdOf(R,d);hd+=`<th class="${H[d]?(H[d].every(x=>x.t==='gov')?'hg':'ho'):w==0||w==6?'we':''}">${AB[w]}<br>${d}</th>`;}hd+='<th class="gt">ทำงาน</th><th class="gt">สาย</th><th class="gt">ขาด</th><th class="gt">ลา</th></tr>';
  const cell=(r,d)=>{const v=(A[key(r.s)]||{})[d]||'',off=r.s.off.includes(d),q=WEND(d)?' wd':'';
@@ -1633,7 +1635,16 @@ function rpGrid(rows,LD,mo,sn){const H=holMonth(R),D=R.days,its=[];let ix=0;
  const row=it=>{if(it.h)return`<tr class="gh2"><td colspan="${D+6}">${it.h}</td></tr>`;const r=it.r,t=r.t;let h=`<tr><td class="gn">${it.i}</td><td class="gm">${sn(r)}</td>`;for(let d=1;d<=D;d++)h+=cell(r,d);
   return h+`<td class="gt"><b>${t.att}</b></td><td class="gt">${t.late||'-'}</td><td class="gt">${t.abs||'-'}</td><td class="gt">${t.leave||'-'}</td></tr>`;};
  const lg=`<div class="rn wgl"><b>สัญลักษณ์:</b> <i class="gp">✓</i> มา <i class="gl">ส</i> สาย <i class="ga">✗</i> ขาด <i class="gi">ป่วย</i> ลาป่วย <i class="gb">กิจ</i> ลากิจ <i class="gh">พร</i> ลาพักร้อน <i class="ge2">Ex</i> ลา Extra <i class="gv">ลา</i> ลาอื่น ๆ <i class="gs">หย</i> หยุดเปลี่ยน <i class="go">off</i> วันหยุดประจำ <i class="gx">OT/แทน/สล</i> มาทำวันหยุด • ช่องว่าง = ยังไม่บันทึก • ช่องสีเทา = วันที่ยังมาไม่ถึง • คอลัมน์สีฟ้าอ่อน = เสาร์-อาทิตย์ • หัวสีแดง = วันหยุดบริษัท • หัวสีส้ม = วันหยุดราชการ • “ทำงาน” = วันทำงานรวม (มา+สาย+มาทำวันหยุด)</div>`;
- return paginate(its,[28-CAPADJ,28]).map((pg,i)=>`<div class="rs">ภาคผนวก ก. ตาราง Working Schedule ประจำเดือน ${mo} (บันทึกการปฏิบัติงานรายวัน) ${i?'(ต่อ)':''}</div><table class="wg">${hd}${pg.map(row).join('')}</table>${lg}`);}
+ const cp0=cp||28;return paginate(its,[cp0-CAPADJ,cp0]).map((pg,i)=>`<div class="rs">${ttl||'ภาคผนวก ก. ตาราง Working Schedule ประจำเดือน '+mo+' (บันทึกการปฏิบัติงานรายวัน)'} ${i?'(ต่อ)':''}</div><table class="wg">${hd}${pg.map(row).join('')}</table>${lg}`);}
+/* ===== v31: ออก “ตารางสรุปรายเดือน (รูปแบบตารางเวร)” แยกเป็นเอกสารเดี่ยว — ใช้ตารางชุดเดียวกับภาคผนวกในรายงานประจำเดือน ===== */
+function rpGridDoc(){const rows=mkRows('all','all',''),LD=lastDay(),mo=MON[R.month]+' '+yTh(),no='SBK-SEC-'+yTh()+'-'+p2(R.month+1)+'-WS',sn=r=>esc(r.s.name.replace(/^(นาย|น\.ส\.|นาง)\s*/,''));
+ const fin=LD>=R.days,P=[];let n0=0;
+ /* v32: แยกหน้าตามกะ — กะกลางวันหน้าแรก กะกลางคืนขึ้นหน้าใหม่ทั้งหมด (ลำดับเลขต่อเนื่อง) • เอกสารนี้ไม่มีช่องลงชื่อ */
+ [['day','☀️ กะกลางวัน (09.00–21.00 น.)'],['night','🌙 กะกลางคืน (21.00–09.00 น.)']].forEach(([k,lb])=>{const b=rows.filter(r=>r.s.shift===k);if(!b.length)return;
+  rpGrid(b,LD,mo,sn,'ตาราง Working Schedule ประจำเดือน '+mo+' — '+lb+' '+b.length+' คน',31,n0).forEach(h=>P.push(h));n0+=b.length;});
+ if(!P.length)P.push('<div class="exs" style="margin-top:20px">ไม่พบรายชื่อพนักงานในตารางเวรเดือนนี้</div>');
+ P[P.length-1]+=`<div class="rn">ข้อมูลการปฏิบัติงานวันที่ 1–${LD} ${mo}${fin?' (ครบทั้งเดือน)':' • วันที่ '+(LD+1)+'–'+R.days+' ยังมาไม่ถึง (ช่องสีเทา)'} • ช่อง off = วันหยุดประจำตามตารางเวร • พนักงานทั้งหมด ${rows.length} คน</div>`;
+ return rpWrap(P,{title:'ตาราง Working Schedule เจ้าหน้าที่รักษาความปลอดภัย ประจำเดือน '+mo,sub:`บันทึกการปฏิบัติงานรายวัน ข้อมูลวันที่ 1–${LD} ${mo}`+(fin?'':' (เดือนยังไม่สิ้นสุด)'),no,fn:no+'_ตารางเวรประจำเดือน_'+MON[R.month]});}
 const roleN=s=>s.role==='sup'?'หัวหน้า/ตรวจการ':'รปภ.',snm=s=>esc(s.name.replace(/^(นาย|น\.ส\.|นาง)\s*/,''));
 
 /* ---------- รายงานประจำวัน ---------- */
@@ -1818,7 +1829,7 @@ async function renderPreview(){const tk=++PV.tk;document.querySelectorAll('#pvTy
  $('pvDayW').hidden=PV.t!=='d';$('pvGW').hidden=PV.t!=='m';$('pvGrid').checked=rpGridOn();$('pvWeekW').hidden=PV.t!=='w';$('pvYearW').hidden=PV.t!=='y';$('pvDay').value=PV.d;$('pvWeek').value=PV.wk;$('pvYear').value=PV.y;['pvPdf','pvJpg'].forEach(i=>$(i).disabled=true);
  if(PV.t==='y'&&!YC[PV.y])$('pvPages').innerHTML='<div class="pvl">⏳ กำลังรวบรวมข้อมูลทั้งปีจาก Google Sheets…</div>';
  if(PV.t==='w')$('pvPages').innerHTML='<div class="pvl">⏳ กำลังรวบรวมข้อมูลรายสัปดาห์…</div>';await fontsReady();if(tk!==PV.tk)return;
- let h;try{if(PV.t==='d')h=buildReport(()=>rpDaily(PV.d));else if(PV.t==='w'){const W=await weekData(PV.wk);if(tk!==PV.tk)return;h=buildReport(()=>rpWeekly(W));}else if(PV.t==='y'){const dt=YC[PV.y]||(YC[PV.y]=await yearData(PV.y));if(tk!==PV.tk)return;h=buildReport(()=>rpYearly(PV.y,dt));}else h=buildReport(rpPages);}
+ let h;try{if(PV.t==='d')h=buildReport(()=>rpDaily(PV.d));else if(PV.t==='w'){const W=await weekData(PV.wk);if(tk!==PV.tk)return;h=buildReport(()=>rpWeekly(W));}else if(PV.t==='y'){const dt=YC[PV.y]||(YC[PV.y]=await yearData(PV.y));if(tk!==PV.tk)return;h=buildReport(()=>rpYearly(PV.y,dt));}else if(PV.t==='g')h=buildReport(rpGridDoc);else h=buildReport(rpPages);}
  catch(e){if(tk===PV.tk){$('pvPages').innerHTML=`<div class="pvl">สร้างตัวอย่างไม่สำเร็จ: ${esc(errTh(e))} — กรุณาลองใหม่</div>`;$('pvNote').textContent='';}console.error(e);return;}
  if(tk!==PV.tk)return;PV.html=h;const box=$('pvPages'),st=box.scrollTop;box.innerHTML=h;box.querySelectorAll(':scope>.pg').forEach(p=>{const w=document.createElement('div');w.className='pvw';p.before(w);w.appendChild(p);});box.scrollTop=st;fitPreview();
  const n=box.querySelectorAll('.pg').length;$('pvNote').innerHTML=`📄 ${n} หน้า (A4 แนวนอน) • ตรวจรายละเอียดให้เรียบร้อย แล้วกด <b>ออก PDF</b> หรือ <b>ออก JPEG</b> — ไฟล์ที่ได้ตรงกับตัวอย่างนี้ทุกประการ`+(PV.ovf.length?` <span class="wnx">⚠️ หน้า ${PV.ovf.join(', ')} มีเนื้อหาเกินกรอบกระดาษ (อาจถูกตัด) กรุณาแจ้งผู้ดูแลระบบ</span>`:'');['pvPdf','pvJpg'].forEach(i=>$(i).disabled=false);}
@@ -1966,7 +1977,7 @@ function handleEvents(){layoutTB();window.addEventListener('resize',layoutTB);
   // แตะชิปวันหยุด → ไปวันนั้น (หน้าฟอร์ม: เลือกวัน | แดชบอร์ด: สรุปรายวัน)
   $('hstrip').onclick=e=>{const b=e.target.closest('button[data-hd]');if(!b)return;const d=+b.dataset.hd;if(!$('pf').hidden)goDay(d);else{dday=d;renderDay();const t=$('s-td');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}};
   $('grd').addEventListener('toggle',()=>{$('gr').innerHTML=$('grd').open?grid(window._rows||[]):'';});initDashNav();
- $('bi').onclick=()=>{if(saving){toast('กำลังส่งข้อมูลขึ้น Sheets — กรุณารอสักครู่แล้วนำเข้าอีกครั้ง',false);return;}$('fi').click();};$('bp').onclick=()=>openPreview('m');$('bj').onclick=()=>openPreview('d');
+ $('bi').onclick=()=>{if(saving){toast('กำลังส่งข้อมูลขึ้น Sheets — กรุณารอสักครู่แล้วนำเข้าอีกครั้ง',false);return;}$('fi').click();};$('bp').onclick=()=>openPreview('m');$('bj').onclick=()=>openPreview('d');$('bg').onclick=()=>openPreview('g');
   $('pvType').onclick=e=>{const b=e.target.closest('button[data-t]');if(b&&b.dataset.t!==PV.t){PV.t=b.dataset.t;renderPreview();}};
   $('pvDay').onchange=e=>{PV.d=+e.target.value;renderPreview();};$('pvWeek').onchange=e=>{PV.wk=e.target.value;renderPreview();};$('pvYear').onchange=e=>{PV.y=+e.target.value;renderPreview();};
   $('pvX').onclick=closePreview;$('pvGrid').onchange=e=>{lss('sbk_rp_grid',e.target.checked?'1':'0');renderPreview();toast(e.target.checked?'แนบตาราง Working Schedule ท้ายรายงานแล้ว':'ไม่แนบตาราง Working Schedule');};$('pvPdf').onclick=()=>exportReport('pdf');$('pvJpg').onclick=()=>exportReport('jpg');
