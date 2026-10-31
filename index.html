@@ -683,6 +683,81 @@ table.gt tfoot td.we{background-image:linear-gradient(rgba(59,110,220,.16),rgba(
 .fm td.wd{background-image:linear-gradient(rgba(62,95,138,.11),rgba(62,95,138,.11))}
 .fm .dt2 td.wd,.fm .wk td.wd{background-image:linear-gradient(rgba(138,109,29,.12),rgba(138,109,29,.12))}
 .lgbar .lgwe{background:var(--wkh);color:var(--wkt)}
+
+/* ===== v33: แดชบอร์ดโทนสดใส — สีประจำแต่ละหมวด (ปุ่มนำทาง • ขอบการ์ด • หัวข้อ) + พื้นหลังไล่สี ===== */
+html[data-pg=d] body{background:radial-gradient(1100px 520px at 0% 0%,rgba(47,139,255,.22),transparent 60%),radial-gradient(900px 520px at 100% 0%,rgba(168,85,247,.16),transparent 60%),radial-gradient(900px 600px at 100% 100%,rgba(20,184,166,.14),transparent 60%),radial-gradient(800px 600px at 0% 100%,rgba(251,146,60,.12),transparent 60%),var(--bg);background-attachment:fixed}
+html[data-pg=d][data-theme=dark] body{background:radial-gradient(1100px 520px at 0% 0%,rgba(47,139,255,.20),transparent 60%),radial-gradient(900px 520px at 100% 0%,rgba(168,85,247,.16),transparent 60%),radial-gradient(900px 600px at 100% 100%,rgba(20,184,166,.12),transparent 60%),var(--bg);background-attachment:fixed}
+#pd{--c-ov:#2563EB;--c-td:#0D9488;--c-hol:#E11D48;--c-ch:#7C3AED;--c-ps:#EA580C;--c-lv:#DB2777;--c-sp:#D97706;--c-gr:#4F46E5;--c-au:#0284C7;--c-wl:#DC2626;--c-in:#CA8A04}
+html[data-theme=dark] #pd{--c-ov:#60A5FA;--c-td:#2DD4BF;--c-hol:#FB7185;--c-ch:#A78BFA;--c-ps:#FB923C;--c-lv:#F472B6;--c-sp:#FBBF24;--c-gr:#818CF8;--c-au:#38BDF8;--c-wl:#F87171;--c-in:#FACC15}
+/* ปุ่มนำทางหมวด: แต่ละปุ่มมีสีของตัวเอง */
+#dsn button{--cc:var(--c-ov);color:var(--cc);background:color-mix(in srgb,var(--cc) 10%,var(--card));border:1px solid color-mix(in srgb,var(--cc) 38%,transparent);font-weight:700}
+#dsn button[data-go=s-td]{--cc:var(--c-td)}#dsn button[data-go=s-hol]{--cc:var(--c-hol)}#dsn button[data-go=s-ch]{--cc:var(--c-ch)}#dsn button[data-go=s-ps]{--cc:var(--c-ps)}#dsn button[data-go=s-lv]{--cc:var(--c-lv)}#dsn button[data-go=s-sp]{--cc:var(--c-sp)}#dsn button[data-go=s-gr]{--cc:var(--c-gr)}
+#dsn button:hover{background:color-mix(in srgb,var(--cc) 18%,var(--card))}
+#dsn button.on{background:linear-gradient(135deg,var(--cc),color-mix(in srgb,var(--cc) 70%,#fff));color:#fff;border-color:transparent;box-shadow:0 4px 12px color-mix(in srgb,var(--cc) 40%,transparent)}
+/* การ์ดแต่ละหมวด: ขอบบนไล่สี + หัวข้อสีเดียวกัน */
+#pd .card{--cc:var(--c-ov);border-top:0!important;position:relative;overflow:hidden}
+#pd .card::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,var(--cc),color-mix(in srgb,var(--cc) 45%,#fff))}
+#pd .card h3{color:var(--cc)!important}
+#s-td{--cc:var(--c-td)!important}#s-hol{--cc:var(--c-hol)!important}#s-ps{--cc:var(--c-ps)!important}#s-lv{--cc:var(--c-lv)!important}#s-sp{--cc:var(--c-sp)!important}#s-gr{--cc:var(--c-gr)!important}#s-au{--cc:var(--c-au)!important}
+#s-ch .card{--cc:var(--c-ch)}
+#pd .dcol:last-child>.card:first-child{--cc:var(--c-wl)}#pd .dcol:last-child>.card:nth-child(2){--cc:var(--c-in)}
+#pd .card{box-shadow:0 6px 18px color-mix(in srgb,var(--cc) 12%,transparent)}
+#pd .card:hover{box-shadow:0 12px 28px color-mix(in srgb,var(--cc) 22%,transparent)}
+/* แถบหัวสรุป */
+.dhb{background:linear-gradient(120deg,color-mix(in srgb,#2563EB 9%,var(--card)),color-mix(in srgb,#A855F7 8%,var(--card)))!important}
+.dhb .mpb i{background:linear-gradient(90deg,#22C55E,#14B8A6,#3B82F6)!important}
+/* Insight / ตรวจสอบข้อมูล: จุดสีชัดขึ้น + ปุ่มดูทั้งหมด */
+.il li.sv-g::before{background:#10B981}.il li.sv-w::before{background:#F59E0B}.il li.sv-d::before{background:#EF4444}.il li::before{background:#3B82F6}
+.il li.sv-d{background:rgba(239,68,68,.08)}.il li.sv-w{background:rgba(245,158,11,.06);border-radius:8px}
+.mxb,.aub{margin-left:4px;padding:1px 10px;min-height:0;border-radius:999px;font-size:12px;font-weight:700;border:1px solid color-mix(in srgb,var(--cc,#2563EB) 40%,transparent);background:color-mix(in srgb,var(--cc,#2563EB) 10%,var(--card));color:var(--cc,#2563EB);cursor:pointer;vertical-align:baseline}
+.il li.aum{padding-left:6px}.il li.aum::before{display:none}
+/* ปฏิทินสีรายวัน: ขอบนูนเล็กน้อยให้สีเด่น */
+.hm button{box-shadow:inset 0 -2px 0 rgba(0,0,0,.08)}
+@media print{html[data-pg=d] body{background:#fff!important}#pd .card::before{display:none}}
+
+/* ===== v34: หน้าฟอร์มเช็คชื่อโทนสดใส — ช่องสถานะสีชัด อ่านง่าย (ใช้ชุดสีเดียวกับคำอธิบายสัญลักษณ์ และตารางในแดชบอร์ด) ===== */
+:root{--sp:#BBF7D0;--spt:#047857;--sl:#FED7AA;--slt:#9A3412;--sa:#FECACA;--sat2:#B91C1C;--si:#FBCFE8;--sit:#BE185D;--sb:#99F6E4;--sbt:#0F766E;--sh:#BFDBFE;--sht:#1D4ED8;--se:#FEF08A;--set:#A16207;--sv:#DDD6FE;--svt:#6D28D9;--ss:#CBD5E1;--sst:#1E293B;--so:#F1F5F9;--sot:#94A3B8;--sot2:#A5F3FC;--sott:#0E7490;--sc:#D9F99D;--sct:#3F6212;--sw2:#C7D2FE;--swt:#3730A3}
+html[data-theme=dark]{--sp:rgba(16,185,129,.42);--spt:#A7F3D0;--sl:rgba(249,115,22,.45);--slt:#FFEDD5;--sa:rgba(239,68,68,.45);--sat2:#FEE2E2;--si:rgba(236,72,153,.42);--sit:#FCE7F3;--sb:rgba(20,184,166,.42);--sbt:#CCFBF1;--sh:rgba(59,130,246,.45);--sht:#DBEAFE;--se:rgba(234,179,8,.45);--set:#FEF9C3;--sv:rgba(139,92,246,.45);--svt:#EDE9FE;--ss:rgba(148,163,184,.38);--sst:#F1F5F9;--so:rgba(148,163,184,.10);--sot:#7C93AE;--sot2:rgba(6,182,212,.42);--sott:#CFFAFE;--sc:rgba(132,204,22,.40);--sct:#ECFCCB;--sw2:rgba(99,102,241,.45);--swt:#E0E7FF}
+.gt td.p{background-color:var(--sp);color:var(--spt);font-weight:800}
+.gt td.l{background-color:var(--sl);color:var(--slt);font-weight:800}
+.gt td.a{background-color:var(--sa);color:var(--sat2);font-weight:800}
+.gt td.i{background-color:var(--si);color:var(--sit)}.gt td.b{background-color:var(--sb);color:var(--sbt)}.gt td.h{background-color:var(--sh);color:var(--sht)}.gt td.e{background-color:var(--se);color:var(--set)}.gt td.v{background-color:var(--sv);color:var(--svt)}
+.gt td.sx{background-color:var(--ss);color:var(--sst)}
+.gt td.o{background-color:var(--so);color:var(--sot)}
+.gt td.ot{background-color:var(--sot2);color:var(--sott)}.gt td.cv{background-color:var(--sc);color:var(--sct)}.gt td.sw{background-color:var(--sw2);color:var(--swt)}
+.gt td.c:hover{filter:brightness(.93) saturate(1.25)}
+.lgbar span{border:1px solid rgba(0,0,0,.06)}
+.lgs-p{background:var(--sp);color:var(--spt)}.lgs-l{background:var(--sl);color:var(--slt)}.lgs-a{background:var(--sa);color:var(--sat2)}.lgs-i{background:var(--si);color:var(--sit)}.lgs-b{background:var(--sb);color:var(--sbt)}.lgs-h{background:var(--sh);color:var(--sht)}.lgs-e{background:var(--se);color:var(--set)}.lgs-v{background:var(--sv);color:var(--svt)}.lgs-sx{background:var(--ss);color:var(--sst)}.lgs-o{background:var(--so);color:var(--sot)}.lgs-ot{background:var(--sot2);color:var(--sott)}.lgs-cv{background:var(--sc);color:var(--sct)}.lgs-sw{background:var(--sw2);color:var(--swt)}
+/* พื้นหลังหน้าฟอร์ม: ไล่สีเขียว-เหลือง-ฟ้า-ชมพู */
+html[data-pg=f] body{background:radial-gradient(1000px 480px at 0% 0%,rgba(16,185,129,.26),transparent 60%),radial-gradient(900px 460px at 100% 0%,rgba(250,204,21,.24),transparent 60%),radial-gradient(900px 600px at 100% 100%,rgba(59,130,246,.16),transparent 60%),radial-gradient(800px 600px at 0% 100%,rgba(236,72,153,.12),transparent 60%),var(--bg);background-attachment:fixed}
+html[data-pg=f][data-theme=dark] body{background:radial-gradient(1000px 480px at 0% 0%,rgba(16,185,129,.20),transparent 60%),radial-gradient(900px 460px at 100% 0%,rgba(250,204,21,.10),transparent 60%),radial-gradient(900px 600px at 100% 100%,rgba(59,130,246,.14),transparent 60%),var(--bg);background-attachment:fixed}
+/* หัวตาราง/แถวยอดรวม/คอลัมน์ชื่อ */
+html[data-pg=f] .gt thead th{background-color:#F0FDF4}
+html[data-pg=f][data-theme=dark] .gt thead th{background-color:#0F3A2C}
+html[data-pg=f] .gt tfoot td{background-color:#D1FAE5;color:#065F46}
+html[data-pg=f][data-theme=dark] .gt tfoot td{background-color:#134E3A;color:#A7F3D0}
+html[data-pg=f] .gt tbody td.n{font-weight:600}
+html[data-pg=f] .gt tbody tr:hover td.n{background:linear-gradient(90deg,rgba(16,185,129,.22),transparent)}
+.sec.dy{background:linear-gradient(90deg,#F97316,#FB923C 45%,#FACC15)!important}
+.sec.ng{background:linear-gradient(90deg,#312E81,#6D28D9 55%,#A855F7)!important}
+#fg{outline-color:rgba(16,185,129,.6)}
+@media print{html[data-pg=f] body{background:#fff!important}}
+
+/* ===== v35: แถวยอดรวม — หัวหน้า/ตรวจการ = โทนทองอำพัน • รปภ. = โทนน้ำเงิน (แยกกันชัด เด่นกว่าแถวรายชื่อ) ===== */
+.gt tfoot td{font-size:13.5px;font-weight:800;border-top:3px solid var(--ftb)!important;background-color:var(--ftc)!important;color:var(--ftt)!important}
+.gt tfoot td:first-child{background:linear-gradient(90deg,var(--ftg1),var(--ftg2))!important;color:#fff!important;text-align:left;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.gt tfoot td b{color:inherit}
+.gt tfoot.ft-sup{--ftb:#F59E0B;--ftc:#FEF3C7;--ftt:#92400E;--ftg1:#D97706;--ftg2:#F59E0B}
+.gt tfoot.ft-guard{--ftb:#2563EB;--ftc:#DBEAFE;--ftt:#1E3A8A;--ftg1:#1D4ED8;--ftg2:#3B82F6}
+html[data-theme=dark] .gt tfoot.ft-sup{--ftc:rgba(245,158,11,.28);--ftt:#FDE68A}
+html[data-theme=dark] .gt tfoot.ft-guard{--ftc:rgba(59,130,246,.30);--ftt:#BFDBFE}
+html[data-pg=f] .gt tfoot td,html[data-pg=f][data-theme=dark] .gt tfoot td{background-color:var(--ftc)!important;color:var(--ftt)!important}
+
+/* ===== v36: ตัวหนังสือ “ยอดรวม …” — เดิมถูกกฎสีตัวเลขทับจนเป็นสีน้ำตาลจาง บนแถบส้ม → บังคับตัวขาวหนา มีเงา บนแถบสีเข้มขึ้น ===== */
+html .gt tfoot td:first-child,html[data-pg] .gt tfoot td:first-child,html[data-pg][data-theme] .gt tfoot td:first-child{color:#fff!important;font-size:14px;font-weight:800;letter-spacing:.2px;text-shadow:0 1px 3px rgba(0,0,0,.45);background:linear-gradient(90deg,var(--ftg1),var(--ftg2))!important;padding-left:10px!important}
+.gt tfoot.ft-sup{--ftg1:#B45309;--ftg2:#EA580C}
+.gt tfoot.ft-guard{--ftg1:#1E3A8A;--ftg2:#2563EB}
+html .gt tfoot td:first-child::before{content:"Σ ";opacity:.85}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lg" viewBox="0 0 512 512"><defs><linearGradient id="lgb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#19D18D"/><stop offset=".55" stop-color="#0A9F78"/><stop offset="1" stop-color="#0B73A8"/></linearGradient>
 <linearGradient id="lgs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#CFF7E6"/></linearGradient></defs>
@@ -706,7 +781,7 @@ table.gt tfoot td.we{background-image:linear-gradient(rgba(59,110,220,.16),rgba(
 <noscript><style>#sp{display:none}</style></noscript>
 <div class="w">
 <header id="hd" data-pg="f">
- <h1><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><span>SBK Security Working Schedule <b class="ver" title="เวอร์ชันของโปรแกรม">v32</b><small id="sub"></small></span></h1>
+ <h1><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><span>SBK Security Working Schedule <b class="ver" title="เวอร์ชันของโปรแกรม">v36</b><small id="sub"></small></span></h1>
  <nav class="navt hnav" role="tablist" aria-label="เลือกหน้า"><button id="nf" class="on" role="tab">📝 ฟอร์มเช็คชื่อ</button><button id="nd" role="tab">📊 แดชบอร์ดสรุป</button></nav>
  <div class="hact">
   <span class="sy" id="syh" role="button" tabindex="0" title="สถานะการซิงค์ Google Sheets (แตะเพื่อซิงค์ตอนนี้)"></span><select id="mo" aria-label="เลือกเดือนตารางเวร" hidden></select><button id="bi" title="นำเข้าตารางเวร (Excel)" aria-label="นำเข้าตารางเวร">📥<span class="bl"> นำเข้าตารางเวร</span></button><input type="file" id="fi" accept=".xlsx,.xls" hidden>
@@ -746,7 +821,7 @@ table.gt tfoot td.we{background-image:linear-gradient(rgba(59,110,220,.16),rgba(
    </div>
   </div>
   <div id="lkbar" class="lkbar lk" role="status" aria-live="polite"></div>
-  <div class="lgd lgbar" aria-label="ความหมายสัญลักษณ์"><span style="background:rgba(22,199,132,.42)">✓ มา</span><span style="background:rgba(255,138,31,.44)">ส สาย</span><span style="background:rgba(229,56,59,.34)">✗ ขาด</span><span style="background:rgba(214,51,108,.32)">ป่วย ลาป่วย</span><span style="background:rgba(18,165,148,.34)">กิจ ลากิจ</span><span style="background:rgba(46,125,209,.32)">พร ลาพักร้อน</span><span style="background:rgba(245,176,0,.46)">Extra ลาแทนวันหยุดประจำปี</span><span style="background:rgba(123,94,167,.32)">ลา ลาอื่น ๆ</span><span style="background:var(--sxb)">หย เปลี่ยนวันหยุด</span><span style="background:var(--off)">off วันหยุด</span><span style="background:var(--otb)">OT ทำวันหยุด</span><span style="background:rgba(140,106,79,.34)">แทน ทำงานแทน</span><span style="background:rgba(79,127,115,.34)">สล มาทำแทนวันที่เปลี่ยน</span><span class="lgwe">ส อา = เสาร์-อาทิตย์ (แถบสีฟ้าอ่อน)</span><span class="lgp">⇄9 = วันคู่ที่สลับ</span></div>
+  <div class="lgd lgbar" aria-label="ความหมายสัญลักษณ์"><span class="lgs-p">✓ มา</span><span class="lgs-l">ส สาย</span><span class="lgs-a">✗ ขาด</span><span class="lgs-i">ป่วย ลาป่วย</span><span class="lgs-b">กิจ ลากิจ</span><span class="lgs-h">พร ลาพักร้อน</span><span class="lgs-e">Extra ลาแทนวันหยุดประจำปี</span><span class="lgs-v">ลา ลาอื่น ๆ</span><span class="lgs-sx">หย เปลี่ยนวันหยุด</span><span class="lgs-o">off วันหยุด</span><span class="lgs-ot">OT ทำวันหยุด</span><span class="lgs-cv">แทน ทำงานแทน</span><span class="lgs-sw">สล มาทำแทนวันที่เปลี่ยน</span><span class="lgwe">ส อา = เสาร์-อาทิตย์ (แถบสีฟ้าอ่อน)</span><span class="lgp">⇄9 = วันคู่ที่สลับ</span></div>
  <details id="hp" class="hint2 lg" open><summary>❓ วิธีใช้ และความหมายของสถานะ (พับเก็บได้ ระบบจำค่าให้)</summary><div class="lg hint">👆 <b>แตะช่องว่าง = “มา” ทันที</b> • แตะช่องที่มีสถานะแล้ว (หรือช่อง off) = เปิดหน้าต่างเลือก <b>สถานะ + หมายเหตุ</b> พร้อมปุ่มลัด • “เปลี่ยนวันหยุด” กดปุ่ม <b>🔁 เปลี่ยนวันหยุด</b> ด้านบน (หรือแตะช่องแล้วเลือกวันคู่) ระบบบันทึกให้ครบทั้ง 2 วัน และแสดงวันคู่ในช่อง (⇄) • <b>เส้นประสีทอง</b> = ยังไม่มีหมายเหตุ, <b>มุมสามเหลี่ยม</b> = มีหมายเหตุแล้ว • คลิกหัววันที่เพื่อเลือกวัน • บันทึกอัตโนมัติในเครื่อง • ระบบส่งขึ้น Sheets ให้เองหลังแก้ไข 6 วินาที (เมื่อกรอกชื่อผู้บันทึกแล้ว)</div><ul><li><b>มา / สาย</b> — มาปฏิบัติงานในวันทำงานปกติ (สาย = มาช้ากว่าเวลา) นับเป็นวันทำงานทั้งคู่</li><li><b>ขาด</b> — ไม่มาโดยไม่ได้ลา ไม่นับเป็นวันทำงาน</li><li><b>ป่วย ลาป่วย</b> • <b>กิจ ลากิจ</b> • <b>พร ลาพักร้อน</b> • <b>Extra ลาแทนวันหยุดประจำปี</b> • <b>ลา ลาอื่น ๆ</b> (ลาคลอด/ลาบวช/ลาไม่รับค่าจ้าง ฯลฯ) — ช่องตารางแสดงชนิดการลาเลย ทุกชนิดไม่นับเป็นวันขาด และไม่นับในแผนวันทำงาน แต่แยกยอดในแดชบอร์ดและรายงาน (แยกกะกลางวัน/กลางคืนด้วย)</li><li><b>🛡️ ป้องกันกดพลาด</b> — ตารางล็อกอยู่เมื่อเปิดหน้า/ไม่ได้ใช้งาน (แตะ “ปลดล็อก” ก่อนแก้ไข) • ทุกการแก้ไขเลิกทำได้ด้วยปุ่ม ↩ หรือ Ctrl+Z • “📜 ประวัติแก้ไข” ย้อนกลับรายช่องได้ • แตะตอนเลื่อนจอจะไม่ถูกนับ • ติ๊กมาทั้งหมด/ล้างวัน มีถามยืนยันก่อน • เปิด “แตะ 2 ครั้งเพื่อติ๊ก” ได้ถ้าต้องการกันเผลอเพิ่ม</li><li><b>หย เปลี่ยนวันหยุด</b> — วันปกติที่หยุด เพราะไปทำงานในวันหยุดเดิมแทน (จับคู่กับ “สล”)</li><li><b>OT</b> — มาทำในวันหยุด (off) ตามคำสั่ง • <b>แทน</b> — มาทำแทนเพื่อนที่ไม่มา/ลา • <b>สล</b> — มาทำในวันหยุด เพราะไปหยุดวันอื่นแทน (จับคู่กับ “หย”) — ทั้ง 3 แบบนับเป็นวันทำงาน</li></ul></details>
  <div id="fg"></div><div id="fe" class="em" hidden>ไม่พบข้อมูลตามตัวกรอง</div>
 </div>
@@ -834,7 +909,11 @@ table.gt tfoot td.we{background-image:linear-gradient(rgba(59,110,220,.16),rgba(
  <div class="shf"><button id="shPrev" aria-label="คนก่อนหน้า">◀ ก่อน</button><button id="shNext" aria-label="คนถัดไป">ถัดไป ▶</button><span class="sp"></span><button id="shClr">🧹 ล้างช่องนี้</button><button id="shDone" class="on">✔ เสร็จ</button></div>
 </div></div>
 <script>
-/* v32 — ตารางเวรรายเดือน: กะกลางวัน/กะกลางคืนแยกหน้า และไม่มีช่องลงชื่อ
+/* v36 — ตัวหนังสือแถวยอดรวมเป็นสีขาวหนาบนแถบสีเข้ม (ชัดในโหมดสว่าง)
+   v35 — แถวยอดรวม หัวหน้า/ตรวจการ (ทอง) และ รปภ. (น้ำเงิน) สีแยกชัด
+   v34 — หน้าฟอร์มเช็คชื่อโทนสดใส (ช่องสถานะ คำอธิบายสัญลักษณ์ พื้นหลัง หัว/ท้ายตาราง)
+   v33 — แดชบอร์ดโทนสดใส (สีประจำหมวด กราฟ ปฏิทินสี) • พับรายการยาวใน Insight/ตรวจสอบข้อมูล
+   v32 — ตารางเวรรายเดือน: กะกลางวัน/กะกลางคืนแยกหน้า และไม่มีช่องลงชื่อ
    v31 — ออก “ตารางเวรรายเดือน” (ตารางสรุปรายเดือนรูปแบบตารางเวร) แยกเป็นเอกสาร PDF/JPEG ได้
    v30 — แถบสีอ่อนคอลัมน์เสาร์-อาทิตย์ ในตารางติ๊ก แดชบอร์ด และรายงาน (รายเดือน/รายสัปดาห์)
    v29 — นำหัวข้อ 8 รายการพิเศษและหมายเหตุ ออกจากรายงานประจำเดือน • เพิ่มวันหยุดราชการ 2569 ที่ขาด (รวมวันหยุดพิเศษ 2 ม.ค. และ 16 ต.ค. กทม.) • เพิ่มปฏิทินวันหยุด 2570
@@ -1079,7 +1158,7 @@ function openLog(){let a=[];try{a=JSON.parse(lsg(LGK())||'[]');}catch(e){}const 
 function revertLog(ix){let a=[];try{a=JSON.parse(lsg(LGK())||'[]');}catch(e){}const z=a[ix];if(!z)return;if(LK){lockMsg();return;}const k=z.k,d=z.d;A[k]=A[k]||{};const cur=A[k][d]||'';if(cur!==(z.s||'')&&!confirm('ช่องนี้ถูกแก้ไขต่อจากรายการนี้แล้ว (ตอนนี้เป็น “'+stNm(cur)+'”) ต้องการย้อนกลับเป็น “'+stNm(z.f)+'” หรือไม่?'))return;
  const pre=[snapPre(k,d)];z.f?A[k][d]=z.f:delete A[k][d];NT[k]=NT[k]||{};z.fn?NT[k][d]=z.fn:delete NT[k][d];DT[k+'|'+d]=1;logChg(k,d,cur,pre[0].n,z.f||'',1);pushUndo('ย้อนกลับจากประวัติ',pre);save();rf();openLog();toast('ย้อนกลับแล้ว');}
 
-const OTC=()=>document.documentElement.dataset.theme==='dark'?'#8DB6EA':'#1F4E8C';
+const OTC=()=>document.documentElement.dataset.theme==='dark'?'#93C5FD':'#2563EB';
 function lastDay(){const n=bkk(),ym=gy(R)*12+R.month,cm=n.getFullYear()*12+n.getMonth();return ym<cm?R.days:ym===cm?Math.min(n.getDate(),R.days):0;}
 function partialDays(rows){const p=[];for(let d=1;d<=lastDay();d++){const sc=rows.filter(r=>!r.s.off.includes(d)&&!['s',...LVS].includes((A[key(r.s)]||{})[d])),un=sc.filter(r=>!(A[key(r.s)]||{})[d]).length;if(sc.length&&un)p.push(d+(un===sc.length?' (ทั้งวัน)':` (ขาด ${un} คน)`));}return p;}
 const narrow=()=>window.innerWidth<900;// จอแคบ (มือถือ) แสดงครึ่งเดือนต่อหน้า เพื่อให้พอดีจอโดยไม่ต้องเลื่อนซ้ายขวา
@@ -1402,7 +1481,7 @@ function grid(rows,ed){let h='';const[d1,d2]=ed?rng():[1,R.days];
     const nt=v?((NT[key(r.s)]||{})[d]||''):'',ev=off?XOFF[v]:v,pp=(ev==='s'||ev==='w')?swPartner(nt,d):null;tr+=`<td class="${cl}${wk?' we':''} ${ed?'c':''} ${ed&&d==day?'sel':''} ${nt?'hn':''} ${ed&&!nt&&NEED.has(ev)?'nn':''} ${ed&&sel&&sel.i===r.i&&sel.d===d?'cs':''} ${ed&&POP===key(r.s)+'|'+d?'pop':''}" ${nt&&!ed?`title="${esc(nt)}"`:''} ${ed?`data-i="${r.i}" data-d="${d}"`:''}>${tx}${pp?`<small class="pd">⇄${pp.m===R.month?pp.d:pp.d+'/'+(pp.m+1)}</small>`:''}</td>`;}
    tr+=ed?`<td><b>${t.att}</b></td></tr>`:`<td>${esc(r.s.dayOff||'-')}</td><td><b>${t.att}</b></td><td>${t.ot}</td><td>${t.cover}</td><td>${t.swIn}</td><td>${t.swOut}</td><td>${t.late}</td><td>${t.abs}</td><td><span class="bd ${t.pass?'ok':t.fail?'no':'wn'}">${t.pass?'ผ่าน':t.fail?'ต้องมาเพิ่ม':'กำลังนับ'}</span></td></tr>`;});
   let ft=`<td class="n">${ro==='sup'?'ยอดรวม หัวหน้า / ตรวจการ':'ยอดรวม รปภ.'}</td>`;for(let d=d1;d<=d2;d++)ft+=`<td${WEND(d)?' class="we"':''}><b>${b.filter(r=>here(r.s.off.includes(d),(A[key(r.s)]||{})[d])).length}</b></td>`;
-  h+=`<div class="sec ${sh==='day'?'dy':'ng'}">${sh==='day'?'☀️ กะกลางวัน 09.00 - 21.00 น.':'🌙 กะกลางคืน 21.00 - 09.00 น.'} • ${ro==='sup'?'หัวหน้า / ตรวจการ':'รปภ.'}</div><div class="tw"><table class="gt${ed?' fit':''}"><thead><tr>${th}</tr></thead><tbody>${tr}</tbody><tfoot><tr>${ft}${ed?'<td></td>':'<td colspan="9"></td>'}</tr></tfoot></table></div>`;}
+  h+=`<div class="sec ${sh==='day'?'dy':'ng'}">${sh==='day'?'☀️ กะกลางวัน 09.00 - 21.00 น.':'🌙 กะกลางคืน 21.00 - 09.00 น.'} • ${ro==='sup'?'หัวหน้า / ตรวจการ':'รปภ.'}</div><div class="tw"><table class="gt${ed?' fit':''}"><thead><tr>${th}</tr></thead><tbody>${tr}</tbody><tfoot class="ft-${ro}"><tr>${ft}${ed?'<td></td>':'<td colspan="9"></td>'}</tr></tfoot></table></div>`;}
  return h;}
 /* ---------- v9: แดชบอร์ด ---------- */
 // แถบไฮไลต์วันที่เลือกในกราฟรายวัน (ตรงกับการ์ด "สรุปรายวัน") — แตะแท่งกราฟเพื่อเลือกวันได้
@@ -1438,12 +1517,16 @@ function personRows(rows,M){const row=(r,i)=>{const t=r.t,rs=resN(t),pct=M?Math.
   x+=`<tr class="gh"><td colspan="10">${sh==='day'?'☀️ กะกลางวัน 09.00 - 21.00 น.':'🌙 กะกลางคืน 21.00 - 09.00 น.'} • ${ro==='sup'?'หัวหน้า / ตรวจการ':'รปภ.'} (${b.length} คน)</td></tr>`;b.forEach(r=>{x+=row(r,++n);});}
  return x;}
 // ปฏิทินสีรายวัน (เริ่มวันจันทร์): สีตามอัตรามา (มา+สาย)/(มา+สาย+ขาด) | ลายทาง = ยังมีคนไม่ได้เช็ค | จาง = ยังมาไม่ถึง | แตะเพื่อเลือกวัน
-const HMC=r=>r==null?null:r>=98?['#2F7D5B','#fff']:r>=95?['#6FAE8C','#fff']:r>=90?['#E8C25A','#2E2A1F']:r>=80?['#E08A2B','#fff']:['#C0504A','#fff'];
+const HMC=r=>r==null?null:r>=98?['#059669','#fff']:r>=95?['#34D399','#053B2B']:r>=90?['#FACC15','#3F2D00']:r>=80?['#FB923C','#fff']:['#EF4444','#fff'];/* v33: โทนสดขึ้น อ่านระดับได้ชัด */
+/* v33: รายการยาวแสดงเฉพาะต้นรายการ ที่เหลือกด “ดูทั้งหมด” (เดิมรายชื่อทุกคนยาวเต็มการ์ด อ่านยาก) */
+const capJ=(a,n=6,sep=', ')=>a.length<=n?a.join(sep):a.slice(0,n).join(sep)+`<span class="mx" hidden>${sep}${a.slice(n).join(sep)}</span> <button type="button" class="mxb" data-n="${a.length-n}" aria-expanded="false">+ อีก ${a.length-n} รายการ</button>`;
+document.addEventListener('click',e=>{const b=e.target.closest('.mxb');if(b){const x=b.previousElementSibling;if(!x)return;const op=x.hidden;x.hidden=!op;b.setAttribute('aria-expanded',op);b.textContent=op?'ย่อ ▲':'+ อีก '+(b.dataset.n||'')+' รายการ';return;}
+ const a=e.target.closest('.aub');if(a){const ul=a.closest('ul'),op=a.getAttribute('aria-expanded')!=='true';ul.querySelectorAll('li.auh').forEach(li=>li.hidden=!op);a.setAttribute('aria-expanded',op);a.textContent=op?'ย่อรายการ ▲':'ดูทั้งหมด ▼ (+'+a.dataset.n+' รายการ)';}});
 function heat(LD){window._HM=holMonth(R);const DS=window._DS||[],o=opNow(),td=(gy(R)===o.getFullYear()&&R.month===o.getMonth())?o.getDate():0,lead=(wdOf(R,1)+6)%7;
  let h='<div class="hm" role="grid" aria-label="ปฏิทินอัตรามารายวัน">'+['จ','อ','พ','พฤ','ศ','ส','อา'].map(x=>`<span class="hh">${x}</span>`).join('')+'<span></span>'.repeat(lead);
  for(let d=1;d<=R.days;d++){const s=DS[d-1];if(!s)continue;const fu=d>LD,r=fu?null:rateOf(s),c=HMC(r),un=!fu&&s.un.length>0;
   const hl=(window._HM||{})[d];h+=`<button data-hd="${d}" class="${hl?'hl':''} ${d===dday?'on':''} ${d===td?'td':''} ${fu?'fu':''} ${un&&r==null?'un':''}" style="--i:${d};${c?`--hc:${c[0]};--ht:${c[1]}`:''}" title="วันที่ ${d}: ${fu?'ยังมาไม่ถึง':r==null?(un?'ยังไม่ได้เช็ค':'ไม่มีเวรวันปกติ'):'อัตรามา '+r.toFixed(1)+'%'+(un?' (ยังไม่เช็ค '+s.un.length+' คน)':'')}"><b>${d}</b><small>${fu?'':r==null?(un?'รอเช็ค':'-'):Math.round(r)+'%'}${un&&r!=null?'*':''}</small></button>`;}
- return h+'</div><div class="hml"><span><i style="background:#2F7D5B"></i>≥98%</span><span><i style="background:#6FAE8C"></i>95-97</span><span><i style="background:#E8C25A"></i>90-94</span><span><i style="background:#E08A2B"></i>80-89</span><span><i style="background:#C0504A"></i>&lt;80%</span><span>* ยังเช็คไม่ครบ • จุดส้ม = วันนี้ • ขอบทอง = วันหยุดบริษัท</span></div>';}
+ return h+'</div><div class="hml"><span><i style="background:#059669"></i>≥98%</span><span><i style="background:#34D399"></i>95-97</span><span><i style="background:#FACC15"></i>90-94</span><span><i style="background:#FB923C"></i>80-89</span><span><i style="background:#EF4444"></i>&lt;80%</span><span>* ยังเช็คไม่ครบ • จุดส้ม = วันนี้ • ขอบทอง = วันหยุดบริษัท</span></div>';}
 // การ์ด "สรุปรายวัน" — ใครมา/สาย/ขาด/ลา/ยังไม่เช็ค ในวันที่เลือก (ค่าเริ่มต้น = วันปฏิบัติงานปัจจุบัน)
 function renderDay(){const rows=window._rows||[],LD=lastDay();
  if(!dday){const o=opNow();dday=(gy(R)===o.getFullYear()&&R.month===o.getMonth())?o.getDate():(LD||1);}
@@ -1470,15 +1553,15 @@ function rd(){const M=thr(),q=$('dq').value.trim(),fs=$('ds').value,fr=$('dr').v
  const st=full?['#2F7D5B','✓ ข้อมูลครบ สรุปผลได้']:LD<R.days?['#C2571C','ผลชั่วคราว — เดือนยังไม่สิ้นสุด']:['#B5521A','ข้อมูลยังไม่ครบ '+pc1(mT,pT)+'%'];
  $('dpi').innerHTML=`<div><div class="ht1">📊 สรุปการปฏิบัติงาน รปภ. • ${MON[R.month]} ${yTh()}</div><div class="ht2">ตัวกรอง: <b>${fd}</b> • ${lastSync?'ซิงค์ Google Sheets ล่าสุด <b>'+hhmm(lastSync)+' น.</b>':'ยังไม่ได้ซิงค์ในรอบนี้'}</div></div><div class="hr"><span class="pill" style="background:${st[0]}">${st[1]}</span><div class="mp"><small><span>ข้อมูลถึงวันที่ ${LD}/${R.days}</span><span>บันทึกแล้ว ${pT?pc1(mT,pT):0}%</span></small><div class="mpb"><i style="width:${(LD*100/R.days).toFixed(1)}%"></i></div></div></div>`;
  const nD=rows.filter(r=>r.s.shift==='day').length,w7=f=>DS.slice(Math.max(0,LD-7),LD).reduce((x,o)=>x+f(o),0);// 7 วันล่าสุดที่ผ่านมา (นับถึงวันนี้)
- $('kp').innerHTML=[kc('#1E6B4E,#3E9A72','✅ อัตรามาทำงาน',mark?pc1(att,mark):'-',mark?'%':'',`มา ${nfm(att)} จาก ${nfm(mark)} ช่องที่บันทึก`,mark?pc1(att,mark):0,spark(DS.slice(0,LD).map(rateOf))),
-  kc('#12305A,#2F6DB5',`🎯 ถึงเกณฑ์ ${M} วัน`,`${pass}/${rows.length}`,'คน',fail?`⚠️ ต้องมาเพิ่ม ${fail} คน`:rows.length&&pass===rows.length?'ผ่านเกณฑ์ครบทุกคน':`กำลังนับ ${rows.length-pass} คน`,rows.length?pass*100/rows.length:0),
-  kc('#B5521A,#E08A2B','⏰ มาสาย',nfm(late),'ครั้ง',`${pc1(late,mark)}% ของที่บันทึก • ${rows.filter(r=>r.t.late).length} คน<br>7 วันล่าสุด ${w7(o=>o.l.length)} ครั้ง`),
-  kc('#8E2F22,#C0504A','❌ ขาดงาน',nfm(abs),'ครั้ง',`${pc1(abs,mark)}% ของที่บันทึก • ${rows.filter(r=>r.t.abs).length} คน<br>7 วันล่าสุด ${w7(o=>o.a.length)} ครั้ง`)].join('');
- $('ks').innerHTML=[kc('#334155,#5B6B85','👥 พนักงาน',rows.length,'คน',`กลางวัน ${nD} • กลางคืน ${rows.length-nD}`),
-  kc('#2B5F9E,#4A86C9','📝 ความครบถ้วนข้อมูล',pT?pc1(mT,pT):'-',pT?'%':'',`บันทึก ${nfm(mT)}/${nfm(pT)} ช่อง`),
-  kc('#0F6B7A,#1F92A3','🕒 ทำวันหยุด',nfm(ex),'คน-วัน',`OT ${sum(t=>t.ot)} • แทน ${sum(t=>t.cover)} • สลับ ${sum(t=>t.swIn)}`),
-  kc('#56657E,#7486A3','🔁 หยุดเปลี่ยน',nfm(so),'คน-วัน','วันปกติที่สลับไปหยุด'),
-  kc('#6B4E8F,#7B5EA7','🏖️ ลา',nfm(lv),'คน-วัน',`${rows.filter(r=>r.t.leave).length} คน<br>ป่วย ${nfm(lvi)} • กิจ ${nfm(lvb)} • พักร้อน ${nfm(lvh)} • Extra ${nfm(lve)} • อื่น ๆ ${nfm(lv-lvi-lvb-lvh-lve)}`)].join('');
+ $('kp').innerHTML=[kc('#059669,#10B981 60%,#34D399','✅ อัตรามาทำงาน',mark?pc1(att,mark):'-',mark?'%':'',`มา ${nfm(att)} จาก ${nfm(mark)} ช่องที่บันทึก`,mark?pc1(att,mark):0,spark(DS.slice(0,LD).map(rateOf))),
+  kc('#1D4ED8,#3B82F6 60%,#60A5FA',`🎯 ถึงเกณฑ์ ${M} วัน`,`${pass}/${rows.length}`,'คน',fail?`⚠️ ต้องมาเพิ่ม ${fail} คน`:rows.length&&pass===rows.length?'ผ่านเกณฑ์ครบทุกคน':`กำลังนับ ${rows.length-pass} คน`,rows.length?pass*100/rows.length:0),
+  kc('#EA580C,#F59E0B 70%,#FBBF24','⏰ มาสาย',nfm(late),'ครั้ง',`${pc1(late,mark)}% ของที่บันทึก • ${rows.filter(r=>r.t.late).length} คน<br>7 วันล่าสุด ${w7(o=>o.l.length)} ครั้ง`),
+  kc('#DC2626,#EF4444 60%,#F87171','❌ ขาดงาน',nfm(abs),'ครั้ง',`${pc1(abs,mark)}% ของที่บันทึก • ${rows.filter(r=>r.t.abs).length} คน<br>7 วันล่าสุด ${w7(o=>o.a.length)} ครั้ง`)].join('');
+ $('ks').innerHTML=[kc('#4338CA,#6366F1 65%,#818CF8','👥 พนักงาน',rows.length,'คน',`กลางวัน ${nD} • กลางคืน ${rows.length-nD}`),
+  kc('#0369A1,#0EA5E9 65%,#38BDF8','📝 ความครบถ้วนข้อมูล',pT?pc1(mT,pT):'-',pT?'%':'',`บันทึก ${nfm(mT)}/${nfm(pT)} ช่อง`),
+  kc('#0F766E,#14B8A6 65%,#2DD4BF','🕒 ทำวันหยุด',nfm(ex),'คน-วัน',`OT ${sum(t=>t.ot)} • แทน ${sum(t=>t.cover)} • สลับ ${sum(t=>t.swIn)}`),
+  kc('#475569,#64748B 55%,#94A3B8','🔁 หยุดเปลี่ยน',nfm(so),'คน-วัน','วันปกติที่สลับไปหยุด'),
+  kc('#9333EA,#A855F7 60%,#D946EF','🏖️ ลา',nfm(lv),'คน-วัน',`${rows.filter(r=>r.t.leave).length} คน<br>ป่วย ${nfm(lvi)} • กิจ ${nfm(lvb)} • พักร้อน ${nfm(lvh)} • Extra ${nfm(lve)} • อื่น ๆ ${nfm(lv-lvi-lvb-lvh-lve)}`)].join('');
  renderDay();try{renderHol(rows);renderStrip();}catch(e){console.error(e);}
  const dd=Array.from({length:R.days},(_,i)=>i+1),v=(r,d)=>(A[key(r.s)]||{})[d],cnt=(d,x)=>rows.filter(r=>v(r,d)===x&&!r.s.off.includes(d)).length,xc=(d,x)=>rows.filter(r=>r.s.off.includes(d)&&XOFF[v(r,d)]===x).length,sxc=d=>rows.filter(r=>!r.s.off.includes(d)&&v(r,d)==='s').length;
  const HC=typeof Chart!=='undefined',nar=window.innerWidth<760;if(HC){Chart.defaults.color=css('--tx');Chart.defaults.font.family='Sarabun';Chart.defaults.animation.duration=380;}
@@ -1486,13 +1569,13 @@ function rd(){const M=thr(),q=$('dq').value.trim(),fs=$('ds').value,fr=$('dr').v
  $('c1w').style.minWidth=nar?(R.days*26)+'px':'';const LG={position:nar?'bottom':'top',labels:{boxWidth:12,boxHeight:12,font:{size:nar?11:12}}};
  const gr=css('--bd'),mkc=(id,c)=>{const cv=$(id);if(!HC){cv.style.display='none';if(!cv.parentNode.querySelector('.cno')){const m=document.createElement('div');m.className='em cno';m.textContent='โหลดกราฟไม่ได้ (ไม่มีอินเทอร์เน็ต) — ตัวเลขและตารางยังใช้งานได้ครบ';cv.parentNode.appendChild(m);}return;}cv.style.display='';const o=cv.parentNode.querySelector('.cno');if(o)o.remove();CH[id]&&CH[id].destroy();CH[id]=new Chart(cv,c);};
  const c1L=nar?{...LG,display:false}:LG;
- mkc('c1',{type:'bar',data:{labels:dd.map(d=>d+' '+AB[wdOf(R,d)]),datasets:[['มา','p','#6B7F5B'],['สาย','l','#C96F4F'],['ขาด','a','#A63D2F'],...LVT.map(x=>[x[1],x[0],x[3]])].map(x=>({label:x[0],data:dd.map(d=>cnt(d,x[1])),backgroundColor:x[2]})).concat([['OT','o',OTC()],['ทำแทน','c','#8C6A4F'],['สลับมาทำ','w','#4F7F73']].map(x=>({label:x[0],data:dd.map(d=>xc(d,x[1])),backgroundColor:x[2]})),[{label:'หยุดเปลี่ยน',data:dd.map(sxc),backgroundColor:'#D9C9B2'}])},plugins:[SELDAY],options:{maintainAspectRatio:false,onClick:(e,el,c)=>{const p=c.getElementsAtEventForMode(e,'index',{intersect:false},false);if(p.length){dday=p[0].index+1;renderDay();}},interaction:{mode:'index',intersect:false},plugins:{legend:c1L},scales:{x:{stacked:true,grid:{color:gr},ticks:{autoSkip:false,maxRotation:nar?0:50,font:{size:nar?10:11}}},y:{stacked:true,beginAtZero:true,grid:{color:gr},ticks:{precision:0}}}}});
+ mkc('c1',{type:'bar',data:{labels:dd.map(d=>d+' '+AB[wdOf(R,d)]),datasets:[['มา','p','#10B981'],['สาย','l','#F59E0B'],['ขาด','a','#EF4444'],...LVT.map(x=>[x[1],x[0],x[3]])].map(x=>({label:x[0],data:dd.map(d=>cnt(d,x[1])),backgroundColor:x[2]})).concat([['OT','o',OTC()],['ทำแทน','c','#B45309'],['สลับมาทำ','w','#14B8A6']].map(x=>({label:x[0],data:dd.map(d=>xc(d,x[1])),backgroundColor:x[2]})),[{label:'หยุดเปลี่ยน',data:dd.map(sxc),backgroundColor:'#94A3B8'}])},plugins:[SELDAY],options:{maintainAspectRatio:false,onClick:(e,el,c)=>{const p=c.getElementsAtEventForMode(e,'index',{intersect:false},false);if(p.length){dday=p[0].index+1;renderDay();}},interaction:{mode:'index',intersect:false},plugins:{legend:c1L},scales:{x:{stacked:true,grid:{color:gr},ticks:{autoSkip:false,maxRotation:nar?0:50,font:{size:nar?10:11}}},y:{stacked:true,beginAtZero:true,grid:{color:gr},ticks:{precision:0}}}}});
  // จอแคบ: คำอธิบายสีอยู่นอกพื้นที่เลื่อน (เดิมอยู่ในกราฟที่กว้างกว่าจอ จึงถูกตัดหาย) แตะเพื่อซ่อน/แสดงชุดข้อมูล
  {const ch=CH.c1,lg=$('c1l');lg.innerHTML=HC&&nar&&ch?ch.data.datasets.map((d,i)=>`<button data-i="${i}" class="${ch.isDatasetVisible(i)?'':'x'}"><i style="background:${d.backgroundColor}"></i>${d.label}</button>`).join(''):'';
   lg.onclick=e=>{const b=e.target.closest('button[data-i]');if(!b||!CH.c1)return;const i=+b.dataset.i,v=CH.c1.isDatasetVisible(i);CH.c1.setDatasetVisibility(i,!v);CH.c1.update();b.classList.toggle('x',v);};}
  const ORD=[1,2,3,4,5,6,0],wm=i=>dd.filter(d=>wdOf(R,d)===i).reduce((x,d)=>x+rows.filter(r=>v(r,d)&&v(r,d)!=='s'&&!LVS.has(v(r,d))&&!r.s.off.includes(d)).length,0),wc=(i,s)=>dd.filter(d=>wdOf(R,d)===i).reduce((x,d)=>x+cnt(d,s),0);
- mkc('c2',{type:'bar',data:{labels:ORD.map(i=>nar?AB[i]:TH[i]),datasets:[{label:'สาย %',data:ORD.map(i=>pc1(wc(i,'l'),wm(i))),backgroundColor:'#C96F4F'},{label:'ขาด %',data:ORD.map(i=>pc1(wc(i,'a'),wm(i))),backgroundColor:'#A63D2F'}]},options:{maintainAspectRatio:false,plugins:{legend:LG},scales:{x:{grid:{color:gr}},y:{beginAtZero:true,grid:{color:gr}}}}});
- mkc('c3',{type:'doughnut',data:{labels:['มาตรงเวลา','สาย','ขาด',...LVT.map(x=>x[1])],datasets:[{data:[att-late,late,abs,...LVT.map(x=>sum(t=>t[x[4]]))],backgroundColor:['#6B7F5B','#C96F4F','#A63D2F',...LVT.map(x=>x[3])],borderColor:css('--card')}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:LG.labels}}}});
+ mkc('c2',{type:'bar',data:{labels:ORD.map(i=>nar?AB[i]:TH[i]),datasets:[{label:'สาย %',data:ORD.map(i=>pc1(wc(i,'l'),wm(i))),backgroundColor:'#F59E0B'},{label:'ขาด %',data:ORD.map(i=>pc1(wc(i,'a'),wm(i))),backgroundColor:'#EF4444'}]},options:{maintainAspectRatio:false,plugins:{legend:LG},scales:{x:{grid:{color:gr}},y:{beginAtZero:true,grid:{color:gr}}}}});
+ mkc('c3',{type:'doughnut',data:{labels:['มาตรงเวลา','สาย','ขาด',...LVT.map(x=>x[1])],datasets:[{data:[att-late,late,abs,...LVT.map(x=>sum(t=>t[x[4]]))],backgroundColor:['#10B981','#F59E0B','#EF4444',...LVT.map(x=>x[3])],borderColor:css('--card')}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:LG.labels}}}});
  // Insight
  const L=[],nm=r=>`<b>${esc(r.s.name)}</b>`,lt=rows.filter(r=>r.t.late).sort((a,b)=>b.t.late-a.t.late),ab=rows.filter(r=>r.t.abs).sort((a,b)=>b.t.abs-a.t.abs),fl=rows.filter(r=>r.t.fail),nr=dd.filter(d=>d<=LD&&!rows.some(r=>v(r,d))&&rows.some(r=>!r.s.off.includes(d)));
  const LV=[];const P=(lv,x)=>{L.push(x);LV.push(lv);};// ระดับ: g ดี / i ข้อมูล / w เฝ้าระวัง / d ต้องดำเนินการ
@@ -1501,9 +1584,9 @@ function rd(){const M=thr(),q=$('dq').value.trim(),fs=$('ds').value,fr=$('dr').v
   const w=ORD.filter(i=>wm(i)).map(i=>[i,wc(i,'l')+wc(i,'a')]).sort((a,b)=>b[1]-a[1])[0];if(w&&w[1])P('i',`วัน<b>${TH[w[0]]}</b> มีสาย+ขาดมากที่สุด (${w[1]} ครั้ง)`);}
  if(lt.length)P('w','มาสายบ่อย: '+lt.slice(0,5).map(r=>`${nm(r)} ${r.t.late} ครั้ง`).join(', ')+(lt.length>5?` และอีก ${lt.length-5} คน`:''));
  if(ab.length)P('d','ขาดงาน: '+ab.slice(0,5).map(r=>`${nm(r)} ${r.t.abs} วัน`).join(', ')+(ab.length>5?` และอีก ${ab.length-5} คน`:''));
- LVT.map(x=>[x[1],x[4]]).forEach(([lb,f])=>{const a=rows.filter(r=>r.t[f]);if(a.length)P('i',lb+': '+a.map(r=>`${nm(r)} ${r.t[f]} วัน`).join(', '));});
- const xs=rows.filter(r=>r.t.extra||r.t.swOut);if(xs.length)P('i','ทำนอกตาราง/เปลี่ยนวันหยุด: '+xs.map(r=>{const t=r.t,p=[];if(t.ot)p.push('OT '+t.ot);if(t.cover)p.push('ทำแทน '+t.cover);if(t.swIn)p.push('สลับมาทำ '+t.swIn);if(t.swOut)p.push('หยุดเปลี่ยน '+t.swOut);return`${nm(r)} (${p.join(', ')})`;}).join('; '));
- if(fl.length)P('d',`⚠️ ต้องมาทำวันหยุด (OT) เพิ่ม ถึงจะครบเกณฑ์ ${M} วัน: ${fl.map(nm).join(', ')}`);
+ LVT.map(x=>[x[1],x[4]]).forEach(([lb,f])=>{const a=rows.filter(r=>r.t[f]).sort((x,y)=>y.t[f]-x.t[f]);if(a.length)P('i',lb+' ('+a.length+' คน): '+capJ(a.map(r=>`${nm(r)} ${r.t[f]} วัน`)));});
+ const xs=rows.filter(r=>r.t.extra||r.t.swOut);if(xs.length)P('i','ทำนอกตาราง/เปลี่ยนวันหยุด ('+xs.length+' คน): '+capJ(xs.map(r=>{const t=r.t,p=[];if(t.ot)p.push('OT '+t.ot);if(t.cover)p.push('ทำแทน '+t.cover);if(t.swIn)p.push('สลับมาทำ '+t.swIn);if(t.swOut)p.push('หยุดเปลี่ยน '+t.swOut);return`${nm(r)} (${p.join(', ')})`;}),6,'; '));
+ if(fl.length)P('d',`⚠️ ต้องมาทำวันหยุด (OT) เพิ่ม ถึงจะครบเกณฑ์ ${M} วัน (${fl.length} คน): ${capJ(fl.map(nm),8)}`);
  if(mark&&nr.length)P('w',`ยังไม่มีการเช็คชื่อ ${nr.length} วัน: ${nr.slice(0,10).join(', ')}${nr.length>10?' ...':''}`);
  $('in').innerHTML=L.map((x,i)=>`<li class="sv-${LV[i]}">${x}</li>`).join('');
  // บุคคลที่ควรติดตาม: คะแนน = ขาด×3 + สาย (+5 ถ้าไม่ถึงเกณฑ์แน่นอนแล้ว) — 5 อันดับแรก
@@ -1513,7 +1596,7 @@ function rd(){const M=thr(),q=$('dq').value.trim(),fs=$('ds').value,fr=$('dr').v
  if(bc)AU.push(`มี ${bc} ช่องที่สถานะไม่สอดคล้องกับตารางเวร (เช่น หลังนำเข้าตารางเวรใหม่) — ตรวจสอบและแก้ในหน้าฟอร์ม`);
  if(pdy.length)AU.push(`วันที่ข้อมูลยังไม่ครบ (นับถึงวันที่ ${LD}): `+pdy.slice(0,12).join(', ')+(pdy.length>12?` ... รวม ${pdy.length} วัน`:''));
  if(LD<R.days)AU.unshift('เดือนนี้ยังไม่สิ้นสุด — ข้อมูลถึงวันที่ '+LD+' ผล “ถึงเกณฑ์” เป็นผลชั่วคราว');
- $('au').innerHTML=(AU.length?AU.map(esc):['✅ ไม่พบความผิดปกติของข้อมูล']).map(x=>'<li>'+x+'</li>').join('');
+ {const LI=(AU.length?AU.map(esc):['✅ ไม่พบความผิดปกติของข้อมูล']),K=6;$('au').innerHTML=LI.map((x,i)=>`<li${i>=K?' class="auh" hidden':''}>${x}</li>`).join('')+(LI.length>K?`<li class="aum"><button type="button" class="aub" data-n="${LI.length-K}" aria-expanded="false">ดูทั้งหมด ▼ (+${LI.length-K} รายการ)</button></li>`:'');}/* v33: พับรายการยาว */
  {// เทียบตารางเวรเดือนก่อน: ย้ายกะ/ตำแหน่ง, เปลี่ยนวันหยุด, คนเข้าใหม่/ไม่อยู่แล้ว + คู่ชื่อใกล้เคียงให้ยืนยัน
   const pm=R.month?getRoster(R.year,R.month-1):getRoster(R.year-1,11);let h='';
   if(pm){const df=rosterDiff(pm,R),nm=a=>a.slice(0,6).map(z=>esc(shortNm((z[1]||z).name))).join(', ')+(a.length>6?' …':''),ln=(t,a)=>a.length?`<li><b>${t} ${a.length} คน</b>: ${nm(a)}</li>`:'';
