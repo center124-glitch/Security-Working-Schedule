@@ -758,6 +758,14 @@ html .gt tfoot td:first-child,html[data-pg] .gt tfoot td:first-child,html[data-p
 .gt tfoot.ft-sup{--ftg1:#B45309;--ftg2:#EA580C}
 .gt tfoot.ft-guard{--ftg1:#1E3A8A;--ftg2:#2563EB}
 html .gt tfoot td:first-child::before{content:"Σ ";opacity:.85}
+
+/* ===== v37: เปลี่ยนวันหยุดข้ามเดือน ===== */
+.swf select.swm{margin-bottom:4px;font-size:12.5px;padding:4px 8px;min-height:32px;background:color-mix(in srgb,#6366F1 8%,var(--card));border-color:color-mix(in srgb,#6366F1 35%,var(--bd))}
+.swin{border:1px dashed #6366F1;border-radius:12px;padding:6px 8px;margin-bottom:8px;background:color-mix(in srgb,#6366F1 7%,var(--card))}
+header #mo{max-width:158px;width:158px;min-width:0!important;text-overflow:ellipsis}
+@media(max-width:600px){header #mo{max-width:none}}
+.swin>b{display:block;font-size:13px;margin-bottom:4px;color:#4338CA}
+html[data-theme=dark] .swin>b{color:#C7D2FE}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lg" viewBox="0 0 512 512"><defs><linearGradient id="lgb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#19D18D"/><stop offset=".55" stop-color="#0A9F78"/><stop offset="1" stop-color="#0B73A8"/></linearGradient>
 <linearGradient id="lgs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#CFF7E6"/></linearGradient></defs>
@@ -781,7 +789,7 @@ html .gt tfoot td:first-child::before{content:"Σ ";opacity:.85}
 <noscript><style>#sp{display:none}</style></noscript>
 <div class="w">
 <header id="hd" data-pg="f">
- <h1><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><span>SBK Security Working Schedule <b class="ver" title="เวอร์ชันของโปรแกรม">v36</b><small id="sub"></small></span></h1>
+ <h1><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><span>SBK Security Working Schedule <b class="ver" title="เวอร์ชันของโปรแกรม">v37</b><small id="sub"></small></span></h1>
  <nav class="navt hnav" role="tablist" aria-label="เลือกหน้า"><button id="nf" class="on" role="tab">📝 ฟอร์มเช็คชื่อ</button><button id="nd" role="tab">📊 แดชบอร์ดสรุป</button></nav>
  <div class="hact">
   <span class="sy" id="syh" role="button" tabindex="0" title="สถานะการซิงค์ Google Sheets (แตะเพื่อซิงค์ตอนนี้)"></span><select id="mo" aria-label="เลือกเดือนตารางเวร" hidden></select><button id="bi" title="นำเข้าตารางเวร (Excel)" aria-label="นำเข้าตารางเวร">📥<span class="bl"> นำเข้าตารางเวร</span></button><input type="file" id="fi" accept=".xlsx,.xls" hidden>
@@ -863,10 +871,10 @@ html .gt tfoot td:first-child::before{content:"Σ ";opacity:.85}
    <div class="sgm" id="pvType" role="group" aria-label="ประเภทรายงาน"><button data-t="d">📅 รายวัน</button><button data-t="w">🗓️ รายสัปดาห์</button><button data-t="m" class="on">📘 รายเดือน</button><button data-t="y">📆 รายปี</button><button data-t="g" title="ตารางสรุปรายเดือนรูปแบบเดียวกับตารางเวร (ออกแยกเฉพาะตาราง)">🗂️ ตารางเวรรายเดือน</button></div>
    <span id="pvDayW" hidden><select id="pvDay" aria-label="เลือกวันที่"></select></span><span id="pvWeekW" hidden><select id="pvWeek" aria-label="เลือกสัปดาห์"></select></span><span id="pvYearW" hidden><select id="pvYear" aria-label="เลือกปี"></select></span><label id="pvGW" class="pvck" hidden title="แนบตารางติ๊กการมาปฏิบัติงานรายวันทั้งเดือน ต่อท้ายรายงาน (ภาคผนวก ก.)"><input type="checkbox" id="pvGrid"> 📎 แนบตาราง Working Schedule</label>
    <span class="sp"></span><button id="pvPdf">📄 ออก PDF</button><button id="pvJpg">🖼️ ออก JPEG</button><button id="pvX" aria-label="ปิดตัวอย่าง">✕ ปิด</button></div>
-  <details class="pvs" id="pvSd" open><summary>✍️ ผู้จัดทำรายงาน (แก้ไขได้ • ระบบจำชื่อ ตำแหน่ง และลายเซ็นไว้ในเครื่องนี้)</summary>
-   <div class="pvf"><label>ชื่อ-สกุล ผู้จัดทำ<input id="pvName" maxlength="80" placeholder="ว่าง = เว้นให้เขียนด้วยมือ"></label><label>ตำแหน่ง<input id="pvPos" maxlength="80" placeholder="เช่น หัวหน้าแผนกรักษาความปลอดภัย"></label><label>วันที่ลงนาม<input id="pvDate" maxlength="40" placeholder="ว่าง = เว้นให้เขียนด้วยมือ"></label>
+  <details class="pvs" id="pvSd" open><summary>🖼️ โลโก้หัวรายงาน</summary>
+   <div class="pvf"><label style="display:none">ชื่อ-สกุล ผู้จัดทำ<input id="pvName" maxlength="80" placeholder="ว่าง = เว้นให้เขียนด้วยมือ"></label><label style="display:none">ตำแหน่ง<input id="pvPos" maxlength="80" placeholder="เช่น หัวหน้าแผนกรักษาความปลอดภัย"></label><label style="display:none">วันที่ลงนาม<input id="pvDate" maxlength="40" placeholder="ว่าง = เว้นให้เขียนด้วยมือ"></label>
     <div class="lgw" style="grid-column:1/-1"><span class="lg">โลโก้หัวรายงาน</span><img id="pvLg" alt="โลโก้ปัจจุบัน"><button id="pvLgUp">🖼️ เปลี่ยนโลโก้</button><button id="pvLgRs">↩ ใช้โลโก้เดิม</button><input type="file" id="pvLgF" accept="image/png,image/jpeg,image/webp" hidden><span class="lg">แนะนำไฟล์ PNG พื้นใส</span></div>
-    <div class="sigw"><canvas id="pvSig" width="840" height="240" aria-label="กรอบเซ็นชื่อ"></canvas><div class="lg">เซ็นชื่อในกรอบด้วยนิ้ว ปากกา หรือเมาส์ — ลายเซ็นจะแสดงบนช่อง “ลงชื่อ” ในรายงาน<br>ไม่เซ็น = เว้นช่องไว้เซ็นด้วยปากกาหลังพิมพ์<br><button id="pvSigClr" style="margin-top:6px">🧹 ล้างลายเซ็น</button></div></div></div></details>
+    <div class="sigw" style="display:none"><canvas id="pvSig" width="840" height="240" aria-label="กรอบเซ็นชื่อ"></canvas><div class="lg">เซ็นชื่อในกรอบด้วยนิ้ว ปากกา หรือเมาส์ — ลายเซ็นจะแสดงบนช่อง “ลงชื่อ” ในรายงาน<br>ไม่เซ็น = เว้นช่องไว้เซ็นด้วยปากกาหลังพิมพ์<br><button id="pvSigClr" style="margin-top:6px">🧹 ล้างลายเซ็น</button></div></div></div></details>
   <div class="pvn" id="pvNote"></div>
  </div>
  <div class="pvp" id="pvPages"></div>
@@ -893,13 +901,13 @@ html .gt tfoot td:first-child::before{content:"Σ ";opacity:.85}
 <div id="swp" hidden role="dialog" aria-modal="true" aria-labelledby="swT"><div class="swb">
  <div class="swh"><b id="swT">🔁 บันทึกเปลี่ยนวันหยุด</b><span class="lg" id="swM"></span><button id="swX" aria-label="ปิด">✕</button></div>
  <label class="swf">พนักงาน<select id="swS"></select></label>
- <div class="swg"><label class="swf">① มาทำงานในวันหยุดเดิม <span class="swt sw">สล</span><select id="swA"></select></label><span class="swi" aria-hidden="true">⇄</span><label class="swf">② หยุดแทนในวันทำงานปกติ <span class="swt sx">หย</span><select id="swB"></select></label></div>
+ <div class="swg"><label class="swf">① มาทำงานในวันหยุดเดิม <span class="swt sw">สล</span><select id="swAM" class="swm" aria-label="เดือนของวันที่มาทำ"></select><select id="swA"></select></label><span class="swi" aria-hidden="true">⇄</span><label class="swf">② หยุดแทนในวันทำงานปกติ <span class="swt sx">หย</span><select id="swBM" class="swm" aria-label="เดือนของวันที่หยุดแทน"></select><select id="swB"></select></label></div>
  <label class="swf">เหตุผล / หมายเหตุ (ไม่บังคับ)<input id="swR" maxlength="60" placeholder="เช่น ตามคำขอพนักงาน"></label>
  <div class="swq" id="swQ"><button data-r="ตามคำขอพนักงาน">ตามคำขอพนักงาน</button><button data-r="ตามคำสั่งหัวหน้า">ตามคำสั่งหัวหน้า</button><button data-r="สลับกับเพื่อนร่วมงาน">สลับกับเพื่อนร่วมงาน</button><button data-r="ธุระส่วนตัว">ธุระส่วนตัว</button></div>
  <div id="swP" class="swpv" aria-live="polite"></div>
  <div class="swa"><button id="swOk" class="on">💾 บันทึกเปลี่ยนวันหยุด</button><button id="swC">ปิด</button></div>
  <details id="swLd" open><summary>📋 รายการเปลี่ยนวันหยุดเดือนนี้ (<span id="swN">0</span>)</summary><div id="swL"></div></details>
- <div class="lg swn2">หมายเหตุ: เลือกได้เฉพาะวันที่ยังว่าง หรือเป็นคู่สลับอยู่แล้ว (ไม่ทับ มา/สาย/ขาด/ลา/OT/ทำแทน) • ถ้าวันคู่อยู่คนละเดือน ให้บันทึกที่ช่องในตารางของแต่ละเดือน แล้วพิมพ์วันที่คู่ในหมายเหตุ เช่น “เปลี่ยนจากวันที่ 30-9-69 เป็น 3-10-69”</div>
+ <div class="lg swn2">หมายเหตุ: เลือกได้เฉพาะวันที่ยังว่าง หรือเป็นคู่สลับอยู่แล้ว (ไม่ทับ มา/สาย/ขาด/ลา/OT/ทำแทน) • <b>คู่ข้ามเดือน</b>: เลือกเดือนก่อน/ถัดไปที่ช่องเดือนของฝั่งนั้น ระบบบันทึกให้ทั้ง 2 เดือน และแสดงในเดือนถัดไปอัตโนมัติ (เดือนนั้นต้องมีตารางเวรแล้ว — สร้างล่วงหน้าได้ที่เมนูเลือกเดือน)</div>
 </div></div>
 <div id="sh" hidden><div id="shp" role="dialog" aria-label="เลือกสถานะและหมายเหตุ">
  <div class="shh"><div><div id="shT" class="sht"></div><div id="shS" class="shs"></div></div><button id="shx" aria-label="ปิด">✕</button></div>
@@ -909,7 +917,8 @@ html .gt tfoot td:first-child::before{content:"Σ ";opacity:.85}
  <div class="shf"><button id="shPrev" aria-label="คนก่อนหน้า">◀ ก่อน</button><button id="shNext" aria-label="คนถัดไป">ถัดไป ▶</button><span class="sp"></span><button id="shClr">🧹 ล้างช่องนี้</button><button id="shDone" class="on">✔ เสร็จ</button></div>
 </div></div>
 <script>
-/* v36 — ตัวหนังสือแถวยอดรวมเป็นสีขาวหนาบนแถบสีเข้ม (ชัดในโหมดสว่าง)
+/* v37 — เปลี่ยนวันหยุดข้ามเดือน (บันทึกทั้ง 2 เดือน + แสดงในเดือนถัดไป) • สร้างตารางเวรเดือนถัดไปล่วงหน้า • นำช่องลงชื่อออกจากรายงาน
+   v36 — ตัวหนังสือแถวยอดรวมเป็นสีขาวหนาบนแถบสีเข้ม (ชัดในโหมดสว่าง)
    v35 — แถวยอดรวม หัวหน้า/ตรวจการ (ทอง) และ รปภ. (น้ำเงิน) สีแยกชัด
    v34 — หน้าฟอร์มเช็คชื่อโทนสดใส (ช่องสถานะ คำอธิบายสัญลักษณ์ พื้นหลัง หัว/ท้ายตาราง)
    v33 — แดชบอร์ดโทนสดใส (สีประจำหมวด กราฟ ปฏิทินสี) • พับรายการยาวใน Insight/ตรวจสอบข้อมูล
@@ -1107,7 +1116,7 @@ function pendScan(){const L=[];try{for(let i=0;i<localStorage.length;i++){const 
  notice('pend',L.length?'📤 มีข้อมูลที่ยังไม่ได้ส่งขึ้น Sheets ในเดือนอื่น: '+L.map(([y,m,n])=>getRoster(y,m)?`<button data-goto="${y}_${m}">${MON[m]} ${y>2400?y:y+543} (${n} ช่อง)</button>`:`${MON[m]} ${y>2400?y:y+543} (${n} ช่อง — ไม่พบตารางเวร)`).join(' ')+' — เปิดเดือนนั้นแล้วกดส่ง':null);}
 function initMonth(keep){EP++;{const t=$('ts');if(t&&t.querySelector('button'))t.style.display='none';}load();UNDO=[];ARM=null;renderUndo();CF={};lastSig='';dday=0;fillMonths();const n=opNow();day=keep?Math.min(keep,R.days):(gy(R)===n.getFullYear()&&R.month===n.getMonth())?n.getDate():1;
  $('fd').innerHTML=Array.from({length:R.days},(_,i)=>`<option value="${i+1}">${i+1} ${MON[R.month]} (${TH[wdOf(R,i+1)]})</option>`).join('');$('fd').value=day;
- $('sub').textContent='ประจำเดือน '+MON[R.month]+' '+yTh()+' • '+R.staff.length+' คน';rf();pendScan();}
+ $('sub').textContent='ประจำเดือน '+MON[R.month]+' '+yTh()+' • '+R.staff.length+' คน';rf();pendScan();incScan();draftNote();}
 /* ================= หน้าฟอร์ม (ตารางติ๊ก) ================= */
 const mkRows=(fs,fr,q)=>{const M=thr();return R.staff.filter(s=>(fs==='all'||s.shift===fs)&&(fr==='all'||s.role===fr)&&(!q||s.name.includes(q))).map(s=>({s,i:R.staff.indexOf(s),t:stats(R,s,A[key(s)]||{},M,lastDay())}));};
 const OKS=new Set(['p','l','a','s','v','i','b','h','e','o','c','w']);
@@ -1241,12 +1250,28 @@ function openConf(){const ks=Object.keys(CF);if(!ks.length){$('cf').hidden=true;
 function resolveConf(q,mine){const c=CF[q];if(!c)return;if(!mine){const j=q.lastIndexOf('|'),k=q.slice(0,j),d=+q.slice(j+1);A[k]=A[k]||{};c.s?A[k][d]=c.s:delete A[k][d];NT[k]=NT[k]||{};c.n?NT[k][d]=c.n:delete NT[k][d];delete DT[q];}RM[q]=sg(c.s,c.n);delete CF[q];}
 function resolveAll(mine){Object.keys(CF).forEach(q=>resolveConf(q,mine));save();rf();openConf();toast(mine?'เก็บข้อมูลของคุณไว้ทั้งหมด — จะส่งขึ้น Sheets ตามรอบ':'ใช้ข้อมูลจาก Sheets ทั้งหมดแล้ว');}
 /* ---------- ตารางเวรหลายเดือน: เก็บถาวรในเครื่อง + แชร์ผ่าน Google Sheets (แผ่นงาน Roster) ---------- */
-function fillMonths(){const a=months();$('mo').innerHTML=a.map(x=>`<option value="${x[0]}_${x[1]}">${MON[x[1]]} ${x[0]>2400?x[0]:x[0]+543}</option>`).join('');$('mo').value=R.year+'_'+R.month;$('mo').hidden=false;$('mo').title=a.length<2?'มีตารางเวรในเครื่องเดือนเดียว — นำเข้าหรือซิงค์ตารางเวรเดือนอื่นเพื่อสลับดู':'เลือกเดือนตารางเวร ('+a.length+' เดือน)';}/* v27: แสดงเมนูเดือนเสมอ */
+function fillMonths(){const a=months();$('mo').innerHTML=a.map(x=>`<option value="${x[0]}_${x[1]}">${MON[x[1]]} ${x[0]>2400?x[0]:x[0]+543}</option>`).join('');{const nx=nextRosterYM();if(nx)$('mo').insertAdjacentHTML('beforeend',`<option value="new">➕ สร้างตารางเวร ${MON[nx.m]} ${nx.y>2400?nx.y:nx.y+543} ล่วงหน้า…</option>`);}$('mo').value=R.year+'_'+R.month;$('mo').hidden=false;$('mo').title=a.length<2?'มีตารางเวรในเครื่องเดือนเดียว — นำเข้าหรือซิงค์ตารางเวรเดือนอื่นเพื่อสลับดู':'เลือกเดือนตารางเวร ('+a.length+' เดือน)';}/* v27: แสดงเมนูเดือนเสมอ */
 // ห้ามเปลี่ยนเดือนระหว่างกำลังส่ง: การส่งอ้างอิงข้อมูลของเดือนที่เปิดอยู่ (กันส่ง/ลบรายการค้างผิดเดือน)
-function switchMonth(v){monthPicked=true;if(saving){toast('กำลังส่งข้อมูลขึ้น Sheets — กรุณารอสักครู่แล้วเปลี่ยนเดือนอีกครั้ง',false);fillMonths();return;}
+function switchMonth(v){if(v==='new'){fillMonths();genNext();return;}monthPicked=true;if(saving){toast('กำลังส่งข้อมูลขึ้น Sheets — กรุณารอสักครู่แล้วเปลี่ยนเดือนอีกครั้ง',false);fillMonths();return;}
  const[y,m]=v.split('_').map(Number),r=getRoster(y,m);if(!r){toast('ไม่พบตารางเวรเดือนนี้',false);fillMonths();return;}closeSheet(true);R=r;lss('sbk_last',y+'_'+m);if(r.minDays)$('dm').value=r.minDays;initMonth();if(!$('pd').hidden)rd();pull(true,true);}
 // เวลาบันทึกตารางเวรแต่ละเดือน (เทียบกับ Sheets เพื่อรู้ว่าเครื่องอื่นนำเข้าฉบับใหม่กว่า)
 const RAT=(y,m)=>'sbk_roster_at_'+y+'_'+m;
+/* ===== v37: สร้างตารางเวรเดือนถัดไปล่วงหน้า — ใช้รายชื่อ/กะ/ตำแหน่ง/เกณฑ์ และ “วันหยุดประจำสัปดาห์” ของเดือนล่าสุด (วันในสัปดาห์ที่หยุด ≥2 ครั้ง; ถ้าไม่พบ ใช้ช่อง Day off) =====
+   เป็นฉบับร่าง: นำเข้าไฟล์ตารางเวรจริงทับได้ทุกเมื่อ • ส่งขึ้น Sheets ให้เครื่องอื่นเห็นด้วย */
+function newestRosterYM(){return months().map(([y,m])=>({y,m,k:(y>2400?y-543:y)*12+m})).sort((a,b)=>b.k-a.k)[0]||null;}
+function nextRosterYM(){const t=newestRosterYM();if(!t)return null;let m=t.m+1,y=t.y;if(m>11){m=0;y++;}return{y,m,src:t};}
+function genRoster(src,ty,tm){const days=new Date(ty>2400?ty-543:ty,tm+1,0).getDate(),T={year:ty,month:tm};
+ const staff=src.staff.map(s=>{const c=[0,0,0,0,0,0,0];s.off.forEach(d=>c[wdOf(src,d)]++);let W=c.map((n,i)=>n>=2?i:-1).filter(i=>i>=0);
+  if(!W.length&&s.dayOff)W=WDN.map((n,i)=>s.dayOff.includes(n)?i:-1).filter(i=>i>=0);
+  const off=[];for(let d=1;d<=days;d++)if(W.includes(wdOf(T,d)))off.push(d);return{name:s.name,shift:s.shift,role:s.role,off,dayOff:s.dayOff};});
+ return cleanRoster({year:ty,month:tm,days,staff,minDays:src.minDays});}
+function genNext(){const nx=nextRosterYM();if(!nx)return;const src=getRoster(nx.src.y,nx.src.m);if(!src){toast('ไม่พบตารางเวรต้นแบบ',false);return;}
+ const yb=nx.y>2400?nx.y:nx.y+543,nm=MON[nx.m]+' '+yb;
+ if(!confirm(`สร้างตารางเวรเดือน ${nm} ล่วงหน้า จากตารางเวรเดือน ${MON[nx.src.m]}?\n\n• ใช้รายชื่อ กะ ตำแหน่ง และวันหยุดประจำสัปดาห์เดิมของแต่ละคน (${src.staff.length} คน)\n• เป็นฉบับร่าง — นำเข้าไฟล์ตารางเวรจริงทับได้ทุกเมื่อ\n• บันทึกขึ้น Google Sheets ให้เครื่องอื่นเห็นด้วย`))return;
+ let N;try{N=genRoster(src,nx.y,nx.m);}catch(e){toast('สร้างตารางเวรไม่สำเร็จ: '+e.message,false);return;}
+ const nof=N.staff.filter(s=>!s.off.length).length;storeRoster(N);lss(RDF(nx.y,nx.m),'1');lss(RAT(nx.y,nx.m),'');fillMonths();
+ toast(`สร้างตารางเวร ${nm} (ฉบับร่าง) แล้ว ${N.staff.length} คน`+(nof?` • ${nof} คนหาวันหยุดประจำไม่ได้ กรุณาตรวจสอบ`:''),!nof,{t:'เปิดเดือนนั้น',f:()=>switchMonth(nx.y+'_'+nx.m)});
+ pushRoster(N).then(ok=>{if(!ok)notice('draftsync','⚠️ ส่งตารางเวรร่างเดือน '+nm+' ขึ้น Google Sheets ไม่สำเร็จ — ใช้ได้ในเครื่องนี้ก่อน เครื่องอื่นยังไม่เห็น');});}
 async function pushRoster(r){const url=gasUrl(),str=rosterJSON(r);try{await fx(url,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'roster',year:r.year,month:r.month,by:$('fb').value.trim()||'ผู้นำเข้า',roster:str})},1);
  const j=await getJSON(url+'?roster=1&year='+r.year+'&month='+r.month+'&_='+Date.now());const ok=!!(j.ok&&j.roster===str);if(ok&&j.at)lss(RAT(r.year,r.month),String(j.at));return ok;}catch(e){return false;}}
 // v9: ดึงตารางเวรจาก Sheets — เดิมข้ามเดือนที่มีในเครื่องแล้วเสมอ ทำให้ตารางเวรที่แก้ไข/นำเข้าใหม่จากอีกเครื่องไม่มาถึง
@@ -1437,24 +1462,81 @@ async function cpCopy(){const t=$('cpX').value;let ok=false;try{if(navigator.cli
 /* ===== v16: บันทึกเปลี่ยนวันหยุดจากหน้าฟอร์ม ===== */
 const swTx=(x,r)=>('สลับกับวันที่ '+x+' ('+AB[wdOf(R,x)]+')'+(r?' — '+r:'')).slice(0,120);
 // วันคู่จากหมายเหตุ: "สลับกับวันที่ 9" (เดือนเดียวกัน) หรือวันที่แบบ 30-9-69 / 3/10/2569 (คร่อมเดือนได้) — คืน {d,m} หรือ null
-function swPartner(nt,d){if(!nt)return null;const m=/สลับกับวันที่\s*(\d{1,2})/.exec(nt);if(m){const x=+m[1];return x>=1&&x<=R.days&&x!==d?{d:x,m:R.month}:null;}
- const re=/(\d{1,2})\s*[-/.]\s*(\d{1,2})\s*[-/.]\s*(\d{2,4})/g;let q;while((q=re.exec(nt))){const x=+q[1],mo=+q[2]-1;if(!(x>=1&&x<=31)||mo<0||mo>11)continue;if(!(x===d&&mo===R.month))return{d:x,m:mo};}return null;}
-// รายการวันเลือกได้: ช่องว่าง หรือเป็นคู่สลับอยู่แล้ว — สถานะอื่น (มา/สาย/ขาด/ลา/OT/ทำแทน) แสดงแต่เลือกไม่ได้ (กันเขียนทับข้อมูลจริง)
-function swOpts(i,off){const s=R.staff[i],a=A[key(s)]||{},n=NT[key(s)]||{},want=off?'w':'s',o=['<option value="">'+(off?'เลือกวันหยุดเดิม…':'เลือกวันที่หยุดแทน…')+'</option>'];
- for(let d=1;d<=R.days;d++){if(s.off.includes(d)!==off)continue;const v=a[d]||'',p=v===want?swPartner(n[d],d):null,ok=!v||v===want,lb=off?(v?(XOFF[v]?LBL[XOFF[v]]:v):''):(v?LBL[v]:'');
-  o.push(`<option value="${d}"${ok?'':' disabled'}>${dl(d)}${v===want?' — '+(off?'สล':'หย')+(p?' คู่กับวันที่ '+p.d+(p.m!==R.month?'/'+(p.m+1):''):' (ยังไม่มีคู่)'):v?' — มี “'+lb+'” แล้ว':''}</option>`);}
+function swPartner(nt,d,mm){if(!nt)return null;mm=mm==null?R.month:mm;
+ /* v37: “สลับกับวันที่ 3/11/2569” = คู่ข้ามเดือน (ตรวจก่อน) | “สลับกับวันที่ 9” = เดือนเดียวกัน | วันที่แบบ 30-9-69 ในหมายเหตุ */
+ const f=/สลับกับวันที่\s*(\d{1,2})\s*[-/.]\s*(\d{1,2})\s*[-/.]\s*(\d{2,4})/.exec(nt);if(f){const x=+f[1],mo=+f[2]-1;return x>=1&&x<=31&&mo>=0&&mo<=11&&!(x===d&&mo===mm)?{d:x,m:mo}:null;}
+ const m=/สลับกับวันที่\s*(\d{1,2})/.exec(nt);if(m){const x=+m[1];return x>=1&&x<=(mm===R.month?R.days:31)&&x!==d?{d:x,m:mm}:null;}
+ const re=/(\d{1,2})\s*[-/.]\s*(\d{1,2})\s*[-/.]\s*(\d{2,4})/g;let q;while((q=re.exec(nt))){const x=+q[1],mo=+q[2]-1;if(!(x>=1&&x<=31)||mo<0||mo>11)continue;if(!(x===d&&mo===mm))return{d:x,m:mo};}return null;}
+/* ===== v37: เปลี่ยนวันหยุดข้ามเดือน — บันทึกให้ทั้งเดือนนี้และเดือนก่อน/ถัดไป (ข้อมูลเดือนอื่นอยู่ใน localStorage ของเดือนนั้น และส่งขึ้น Sheets ให้ทันที) ===== */
+const adjYM=o=>{let m=R.month+o,y=R.year;if(m<0){m=11;y--;}else if(m>11){m=0;y++;}return{y,m};};
+const ATT=(y,m)=>'sbk_att2_'+y+'_'+m,RDF=(y,m)=>'sbk_rdraft_'+y+'_'+m;
+function omLoad(y,m){let o=null;try{o=JSON.parse(lsg(ATT(y,m))||'{}');}catch(e){o=null;}if(!o||typeof o!=='object'||Array.isArray(o))o={};['a','dt','n','rm'].forEach(k=>{if(!o[k]||typeof o[k]!=='object'||Array.isArray(o[k]))o[k]={};});return o;}
+const OMC={};function omRead(y,m){const raw=lsg(ATT(y,m)),c=OMC[y+'_'+m];if(c&&c.raw===raw)return c.o;const o=omLoad(y,m);OMC[y+'_'+m]={raw,o};return o;}/* อ่านอย่างเดียว (แคช กันแปลง JSON ทุกครั้งที่วาดตาราง) */
+const RGC={};function rosterC(y,m){const raw=lsg(RK(y,m)),c=RGC[y+'_'+m];if(c&&c.raw===raw)return c.r;const r=getRoster(y,m);RGC[y+'_'+m]={raw,r};return r;}
+const nmz=x=>String(x||'').replace(/\s+/g,'');
+function omStaff(X,s){return X&&s?(X.staff.find(z=>key(z)===key(s))||X.staff.find(z=>nmz(z.name)===nmz(s.name))||null):null;}
+const ymTx=(X,d)=>d+'/'+(X.month+1)+'/'+(X.year>2400?X.year:X.year+543);
+const swTxX=(X,d,r)=>('สลับกับวันที่ '+ymTx(X,d)+' ('+AB[wdOf(X,d)]+')'+(r?' — '+r:'')).slice(0,120);
+/* ฝั่งของการเลือก: off=true = ① วันหยุดเดิมที่มาทำ (สล) | false = ② วันทำงานที่หยุดแทน (หย) — แต่ละฝั่งเลือกเดือนก่อน/นี้/ถัดไปได้ */
+function swSide(off){const s0=R.staff[+$('swS').value],o=+(($(off?'swAM':'swBM')||{}).value||0);if(!o)return{o:0,X:R,s:s0};const ym=adjYM(o),X=rosterC(ym.y,ym.m);return{o,X,ym,s:omStaff(X,s0),od:X?omLoad(ym.y,ym.m):null};}
+function swMonths(){const t=o=>{if(!o)return'เดือนนี้ ('+MON[R.month]+')';const ym=adjYM(o),ok=!!rosterC(ym.y,ym.m);return(o<0?'◀ ':'▶ ')+MON[ym.m]+' '+(ym.y>2400?ym.y:ym.y+543)+(ok?'':' (ยังไม่มีตารางเวร)');};
+ ['swAM','swBM'].forEach(id=>{$(id).innerHTML=[-1,0,1].map(o=>`<option value="${o}">${t(o)}</option>`).join('');$(id).value='0';});}
+/* ส่งข้อมูลเดือนอื่น (ที่บันทึกจากการเปลี่ยนวันหยุดข้ามเดือน) ขึ้น Sheets แล้วยืนยันด้วยการอ่านกลับ — ไม่สำเร็จก็ยังค้างไว้ส่งเมื่อเปิดเดือนนั้น */
+async function sendOM(y,m){const by=$('fb').value.trim();if(!by||!navigator.onLine)return false;const od=omLoad(y,m),ks=Object.keys(od.dt);if(!ks.length)return true;
+ const rows=ks.map(x=>{const j=x.lastIndexOf('|'),k=x.slice(0,j),p=k.indexOf('|'),d=+x.slice(j+1),s=(od.a[k]||{})[d]||'',nt=s?((od.n[k]||{})[d]||''):'';return{x,k,d,s,nt,row:{day:d,shift:k.slice(0,p),name:k.slice(p+1),status:s,note:nt}};}).filter(z=>z.k.indexOf('|')>0&&z.d>=1&&z.d<=31);
+ try{await fx(gasUrl(),{method:'POST',mode:'no-cors',body:JSON.stringify({year:y,month:m,day:rows[0].d,by,rows:rows.map(z=>z.row)})},1);
+  const j=await getJSON(gasUrl()+'?year='+y+'&month='+m+'&_='+Date.now());if(!j.ok||!Array.isArray(j.rows))return false;const mp={};j.rows.forEach(r=>{const n=normRow(r);if(n)mp[n.k+'|'+n.d]=sg(n.st,n.nt);});
+  const o2=omLoad(y,m);let left=0;rows.forEach(z=>{const cs=(o2.a[z.k]||{})[z.d]||'',cn=cs?((o2.n[z.k]||{})[z.d]||''):'',rv=mp[z.x]||sg('','');if(rv===sg(z.s,z.nt.slice(0,120))&&cs===z.s&&cn===z.nt){delete o2.dt[z.x];o2.rm[z.x]=rv;}else left++;});
+  setLS(ATT(y,m),JSON.stringify(o2));pendScan();return!left;}catch(e){return false;}}
+/* คู่สลับจากเดือนก่อน/ถัดไปที่ชี้มาเดือนนี้ แต่เดือนนี้ยังไม่มีบันทึก (เช่น บันทึกจากเครื่องอื่น หรือข้อมูลก่อน v37) */
+function swIncoming(){const out=[];[-1,1].forEach(o=>{const ym=adjYM(o),X=rosterC(ym.y,ym.m);if(!X)return;const od=omRead(ym.y,ym.m);
+ R.staff.forEach((s,i)=>{const z=omStaff(X,s);if(!z)return;const kz=key(z),a=od.a[kz]||{},n=od.n[kz]||{},k=key(s);
+  Object.keys(a).forEach(dd=>{const d=+dd,v=a[dd];if(v!=='w'&&v!=='s')return;const p=swPartner(n[dd],d,X.month);if(!p||p.m!==R.month||p.d<1||p.d>R.days)return;
+   const need=v==='w'?'s':'w',cur=(A[k]||{})[p.d]||'';if(cur===need)return;const fit=need==='s'?!s.off.includes(p.d):s.off.includes(p.d);
+   out.push({i,s,k,X,d,v,pd:p.d,need,cur,ok:!cur&&fit,fit,rs:(n[dd]||'').split(' — ')[1]||''});});});});return out;}
+function incApply(j){if(LK){lockMsg();return;}const z=swIncoming()[j];if(!z)return;if(!z.ok){toast(z.cur?'วันที่ '+z.pd+' มีสถานะ “'+stNm(z.cur)+'” อยู่แล้ว — แก้ช่องนั้นก่อน':'วันที่ '+z.pd+' ไม่ตรงกับตารางเวรเดือนนี้ ('+(z.need==='s'?'เป็นวันหยุดประจำ':'ไม่ใช่วันหยุดประจำ')+') — กรุณาตรวจสอบ',false);return;}
+ const pre=[snapPre(z.k,z.pd)];A[z.k]=A[z.k]||{};NT[z.k]=NT[z.k]||{};A[z.k][z.pd]=z.need;NT[z.k][z.pd]=swTxX(z.X,z.d,z.rs);DT[z.k+'|'+z.pd]=1;logChg(z.k,z.pd,'','',z.need);pushUndo('รับคู่สลับข้ามเดือน '+shortNm(z.s.name),pre);save();rf();if(!$('swp').hidden){swFill();renderSwList();}incScan();
+ toast('บันทึกแล้ว: '+shortNm(z.s.name)+' '+(z.need==='s'?'หยุดแทน':'มาทำ')+' วันที่ '+z.pd+' ⇄ '+ymTx(z.X,z.d),true,{t:'↩ เลิกทำ',f:()=>{undoCells(pre);incScan();}});}
+function incScan(){const L=swIncoming();notice('inc',L.length?`🔀 มีการเปลี่ยนวันหยุด<b>ข้ามเดือน</b> ${L.length} รายการ (จาก${[...new Set(L.map(z=>MON[z.X.month]))].join('/')}) ที่ยังไม่ได้บันทึกในเดือนนี้ <button data-swopen="1">🔁 ดูและบันทึก</button>`:null);}
+function draftNote(){notice('draft',lsg(RDF(R.year,R.month))==='1'?'📝 ตารางเวรเดือนนี้เป็น<b>ฉบับร่าง</b>ที่สร้างล่วงหน้าจากวันหยุดประจำสัปดาห์ของเดือนก่อน — ตรวจสอบวันหยุด หรือนำเข้าไฟล์ตารางเวรจริงทับได้ที่ 📥 นำเข้าตารางเวร':null);}
+
+function swOpts(i,off){const sd=swSide(off),want=off?'w':'s',o=['<option value="">'+(off?'เลือกวันหยุดเดิม…':'เลือกวันที่หยุดแทน…')+'</option>'];
+ if(sd.o&&!sd.X)return`<option value="">— ยังไม่มีตารางเวรเดือน ${MON[sd.ym.m]} (สร้างล่วงหน้าได้ที่เมนูเลือกเดือน) —</option>`;
+ if(!sd.s)return'<option value="">— ไม่พบชื่อพนักงานคนนี้ในตารางเวรเดือนนั้น —</option>';
+ const X=sd.X,s=sd.s,k=key(s),a=sd.o?(sd.od.a[k]||{}):(A[k]||{}),n=sd.o?(sd.od.n[k]||{}):(NT[k]||{}),mx=sd.o?' '+MON[X.month]:'';
+ for(let d=1;d<=X.days;d++){if(s.off.includes(d)!==off)continue;const v=a[d]||'',p=v===want?swPartner(n[d],d,X.month):null,ok=!v||v===want,lb=off?(v?(XOFF[v]?LBL[XOFF[v]]:v):''):(v?LBL[v]:'');
+  o.push(`<option value="${d}"${ok?'':' disabled'}>วันที่ ${d}${mx} (${AB[wdOf(X,d)]})${v===want?' — '+(off?'สล':'หย')+(p?' คู่กับวันที่ '+p.d+(p.m!==X.month?'/'+(p.m+1):''):' (ยังไม่มีคู่)'):v?' — มี “'+esc(lb)+'” แล้ว':''}</option>`);}
  return o.join('');}
 function swOpen(i){if(i==null){i=sel?sel.i:R.staff.findIndex(s=>tab==='all'||s.shift===tab);if(i<0)i=0;}
  if(shOn)closeSheet(true);const g=[['day','sup','กะกลางวัน • หัวหน้า/ตรวจการ'],['day','guard','กะกลางวัน • รปภ.'],['night','sup','กะกลางคืน • หัวหน้า/ตรวจการ'],['night','guard','กะกลางคืน • รปภ.']];
  $('swS').innerHTML=g.map(x=>{const b=R.staff.map((s,j)=>[s,j]).filter(([s])=>s.shift===x[0]&&s.role===x[1]);return b.length?`<optgroup label="${x[2]}">${b.map(([s,j])=>`<option value="${j}">${esc(s.name)} — หยุด${esc(s.dayOff||'-')}</option>`).join('')}</optgroup>`:'';}).join('');
- $('swS').value=i;$('swR').value='';$('swM').textContent=MON[R.month]+' '+yTh();swFill();renderSwList();$('swp').hidden=false;document.body.style.overflow='hidden';setTimeout(()=>$('swS').focus(),30);}
+ $('swS').value=i;$('swR').value='';swMonths();$('swA').innerHTML='';$('swB').innerHTML='';$('swM').textContent=MON[R.month]+' '+yTh();swFill();$('swp').hidden=false;renderSwList();/* v37: แสดงหน้าต่างก่อนวาดรายการ (เดิมวาดตอนยังซ่อน → รายการว่างเมื่อเปิดครั้งแรก) */document.body.style.overflow='hidden';setTimeout(()=>$('swS').focus(),30);}
 function swClose(){$('swp').hidden=true;document.body.style.overflow='';}
-function swFill(){const i=+$('swS').value;$('swA').innerHTML=swOpts(i,true);$('swB').innerHTML=swOpts(i,false);swPrev();}
-function swPrev(){const i=+$('swS').value,s=R.staff[i],da=+$('swA').value,db=+$('swB').value,el=$('swP');let ok=false,h;
- if(!s)h='กรุณาเลือกพนักงาน';else if(!s.off.length)h='พนักงานคนนี้ไม่มีวันหยุดประจำในตารางเวรเดือนนี้';else if(!da||!db)h=`เลือก ① วันหยุดเดิมที่ <b>${esc(shortNm(s.name))}</b> มาทำงาน และ ② วันทำงานปกติที่หยุดแทน`;
- else{const r=$('swR').value.trim();ok=true;h=`✅ <b>${esc(shortNm(s.name))}</b> มาทำงาน<b>วัน${TH[wdOf(R,da)]}ที่ ${da}</b> (วันหยุดเดิม → บันทึก “สล”) ⇄ หยุด<b>วัน${TH[wdOf(R,db)]}ที่ ${db}</b> (→ บันทึก “หย”)${r?'<br>เหตุผล: '+esc(r):''}`;}
- el.innerHTML=h;el.classList.toggle('bad',!ok&&!!s&&!s.off.length);$('swOk').disabled=!ok;}
-function swSave(){const i=+$('swS').value,s=R.staff[i];if(!s)return;const k=key(s),da=+$('swA').value,db=+$('swB').value,r=$('swR').value.replace(/\s+/g,' ').trim();
+function swFill(){const i=+$('swS').value,va=$('swA').value,vb=$('swB').value;$('swA').innerHTML=swOpts(i,true);$('swB').innerHTML=swOpts(i,false);
+ [['swA',va],['swB',vb]].forEach(([id,v])=>{const op=[...$(id).options].find(x=>x.value===v&&!x.disabled);if(op)$(id).value=v;});swPrev();}
+function swPrev(){const i=+$('swS').value,s=R.staff[i],SA=swSide(true),SB=swSide(false),da=+$('swA').value,db=+$('swB').value,el=$('swP');let ok=false,h;
+ const f=(sd,d)=>`วัน${TH[wdOf(sd.X,d)]}ที่ ${d} ${MON[sd.X.month]}`;
+ if(!s)h='กรุณาเลือกพนักงาน';else if(SA.o&&SB.o)h='⚠️ ต้องมีอย่างน้อย 1 วันอยู่ในเดือนที่เปิดอยู่ ('+MON[R.month]+')';
+ else if(!SA.o&&!s.off.length)h='พนักงานคนนี้ไม่มีวันหยุดประจำในตารางเวรเดือนนี้';
+ else if(!da||!db)h=`เลือก ① วันหยุดเดิมที่ <b>${esc(shortNm(s.name))}</b> มาทำงาน และ ② วันทำงานปกติที่หยุดแทน • ถ้าวันคู่อยู่คนละเดือน เลือกเดือนที่ช่องเดือนของฝั่งนั้น`;
+ else{const r=$('swR').value.trim(),cx=SA.o||SB.o;ok=true;h=`✅ <b>${esc(shortNm(s.name))}</b> มาทำงาน<b>${f(SA,da)}</b> (วันหยุดเดิม → “สล”) ⇄ หยุด<b>${f(SB,db)}</b> (→ “หย”)${r?'<br>เหตุผล: '+esc(r):''}`+(cx?`<br>🔀 <b>คู่ข้ามเดือน</b> — บันทึกให้ทั้ง 2 เดือน (เดือน${MON[(SA.o?SA:SB).X.month]}ส่งขึ้น Sheets ให้ทันทีเมื่อกรอกชื่อผู้บันทึกแล้ว)`:'');}
+ el.innerHTML=h;el.classList.toggle('bad',!ok&&!!s&&(SA.o&&SB.o||!SA.o&&!s.off.length));$('swOk').disabled=!ok;}
+function swSave(){if(LK){lockMsg();return;}const i=+$('swS').value,s=R.staff[i];if(!s)return;const SA=swSide(true),SB=swSide(false),da=+$('swA').value,db=+$('swB').value,r=$('swR').value.replace(/\s+/g,' ').trim();
+ if(SA.o&&SB.o){toast('ต้องมีอย่างน้อย 1 วันอยู่ในเดือนที่เปิดอยู่',false);return;}
+ if(!da||!db||!SA.s||!SB.s||!SA.s.off.includes(da)||SB.s.off.includes(db)){toast('กรุณาเลือกวันหยุดเดิม และวันทำงานปกติให้ครบ',false);return;}
+ if(!SA.o&&!SB.o)return swSaveSame(i,s,da,db,r);
+ /* คู่ข้ามเดือน: cur = ฝั่งเดือนนี้ | oth = ฝั่งเดือนอื่น */
+ const oth=SA.o?SA:SB,dc=SA.o?db:da,dx=SA.o?da:db,stc=SA.o?'s':'w',stx=SA.o?'w':'s',k=key(s),k2=key(oth.s),ym=oth.ym,od=omLoad(ym.y,ym.m);
+ A[k]=A[k]||{};NT[k]=NT[k]||{};od.a[k2]=od.a[k2]||{};od.n[k2]=od.n[k2]||{};const vc=A[k][dc]||'',vx=od.a[k2][dx]||'';
+ if((vc&&vc!==stc)||(vx&&vx!==stx)){toast('วันที่เลือกมีสถานะอื่นอยู่แล้ว — กรุณาเลือกวันอื่น',false);swFill();return;}
+ const pre=[{k,d:dc,s:vc,n:NT[k][dc]||''}],opv={s:vx,n:od.n[k2][dx]||''};
+ od.a[k2][dx]=stx;od.n[k2][dx]=swTxX(R,dc,r);od.dt[k2+'|'+dx]=1;
+ if(!setLS(ATT(ym.y,ym.m),JSON.stringify(od))){toast('บันทึกข้อมูลเดือน'+MON[ym.m]+'ในเครื่องไม่ได้ (พื้นที่เก็บเต็ม) — ยังไม่ได้บันทึกรายการนี้',false);return;}
+ A[k][dc]=stc;NT[k][dc]=swTxX(oth.X,dx,r);DT[k+'|'+dc]=1;logChg(k,dc,pre[0].s,pre[0].n,stc);pushUndo('เปลี่ยนวันหยุดข้ามเดือน '+shortNm(s.name),pre);save();rf();swFill();renderSwList();pendScan();
+ const lab=`วันที่ ${da} ${MON[SA.X.month]} ⇄ หยุดวันที่ ${db} ${MON[SB.X.month]}`;
+ toast(`บันทึกแล้ว (ข้ามเดือน): ${shortNm(s.name)} มาทำ${lab}`,true,{t:'↩ เลิกทำ',f:()=>{undoCells(pre);const o2=omLoad(ym.y,ym.m);o2.a[k2]=o2.a[k2]||{};o2.n[k2]=o2.n[k2]||{};opv.s?o2.a[k2][dx]=opv.s:delete o2.a[k2][dx];opv.n?o2.n[k2][dx]=opv.n:delete o2.n[k2][dx];o2.dt[k2+'|'+dx]=1;setLS(ATT(ym.y,ym.m),JSON.stringify(o2));sendOM(ym.y,ym.m);pendScan();if(!$('swp').hidden){swFill();renderSwList();}}});
+ sendOM(ym.y,ym.m).then(ok=>{if(!ok&&$('fb').value.trim())toast('ข้อมูลเดือน'+MON[ym.m]+'ยังส่งขึ้น Sheets ไม่สำเร็จ — เก็บไว้ในเครื่อง จะส่งเมื่อเปิดเดือนนั้น',false);});}
+function swSaveSame(i,s,da,db,r){const k=key(s);
  if(!da||!db||!s.off.includes(da)||s.off.includes(db)){toast('กรุณาเลือกวันหยุดเดิม และวันทำงานปกติให้ครบ',false);return;}
  A[k]=A[k]||{};NT[k]=NT[k]||{};const va=A[k][da]||'',vb=A[k][db]||'';if((va&&va!=='w')||(vb&&vb!=='s')){toast('วันที่เลือกมีสถานะอื่นอยู่แล้ว — กรุณาเลือกวันอื่น',false);swFill();return;}
  const pre=[],snap=d=>{if(!pre.some(z=>z.d===d))pre.push({k,d,s:A[k][d]||'',n:NT[k][d]||''});};
@@ -1466,9 +1548,13 @@ function swSave(){const i=+$('swS').value,s=R.staff[i];if(!s)return;const k=key(
 function swPairs(){const L=[];R.staff.forEach((s,i)=>{const k=key(s),a=A[k]||{},n=NT[k]||{},used=new Set();
   for(let d=1;d<=R.days;d++){const ev=s.off.includes(d)?XOFF[a[d]]:a[d];if((ev!=='w'&&ev!=='s')||used.has(d))continue;used.add(d);const p=swPartner(n[d],d),pv=p&&p.m===R.month?(s.off.includes(p.d)?XOFF[a[p.d]]:a[p.d]):null,mate=p&&p.m===R.month&&pv&&pv!==ev&&(pv==='w'||pv==='s');
    if(mate)used.add(p.d);const w=ev==='w'?d:(mate?p.d:null),x=ev==='s'?d:(mate?p.d:null),rs=(n[d]||'').split(' — ')[1]||'';L.push({i,s,k,w,x,cross:p&&p.m!==R.month?p:null,rs});}});return L;}
-function renderSwList(){const L=swPairs();$('swN').textContent=L.length;const b=$('bswn');b.hidden=!L.length;b.textContent=L.length;if($('swp').hidden)return;
+/* ยกเลิกคู่ข้ามเดือน → ล้างช่องคู่ในเดือนนั้นด้วย (เฉพาะช่องที่ยังชี้กลับมาวันนี้) */
+function swClearOther(z){const p=z.cross;const o=[-1,1].find(o=>adjYM(o).m===p.m);if(o==null)return;const ym=adjYM(o),X=rosterC(ym.y,ym.m),zz=omStaff(X,z.s);if(!zz)return;const od=omLoad(ym.y,ym.m),k2=key(zz),v=(od.a[k2]||{})[p.d];
+ if(v!=='w'&&v!=='s')return;const q=swPartner((od.n[k2]||{})[p.d],p.d,ym.m),me=z.w||z.x;if(!q||q.m!==R.month||q.d!==me)return;delete od.a[k2][p.d];if(od.n[k2])delete od.n[k2][p.d];od.dt[k2+'|'+p.d]=1;setLS(ATT(ym.y,ym.m),JSON.stringify(od));sendOM(ym.y,ym.m);pendScan();}
+function renderSwList(){const L=swPairs(),IN=swIncoming();$('swN').textContent=L.length;const b=$('bswn');b.hidden=!(L.length+IN.length);b.textContent=L.length+IN.length;b.title=IN.length?'มีคู่ข้ามเดือนรอบันทึก '+IN.length+' รายการ':'';if($('swp').hidden)return;
  $('swL').innerHTML=L.length?L.map((z,j)=>`<div class="swr"><div class="wn2"><b>${esc(shortNm(z.s.name))}</b> <small>${z.s.shift==='day'?'กลางวัน':'กลางคืน'}</small><br>${z.w?`<span class="swt sw">สล</span> มาทำ ${dl(z.w)}`:'<span class="wnx">ยังไม่ระบุวันมาทำ</span>'} ⇄ ${z.x?`<span class="swt sx">หย</span> หยุด ${dl(z.x)}`:'<span class="wnx">ยังไม่ระบุวันหยุดแทน</span>'}${z.cross?` <small>(คู่ข้ามเดือน ${z.cross.d}/${z.cross.m+1})</small>`:''}${z.rs?`<br><small>${esc(z.rs)}</small>`:''}</div><button data-sw="${j}" title="ยกเลิกการเปลี่ยนวันหยุดคู่นี้">🗑 ยกเลิก</button></div>`).join(''):'<div class="lg" style="padding:6px 2px">ยังไม่มีการเปลี่ยนวันหยุดในเดือนนี้</div>';
- $('swL').onclick=e=>{const bt=e.target.closest('button[data-sw]');if(!bt)return;const z=L[+bt.dataset.sw];if(!z)return;if(LK){lockMsg();return;}A[z.k]=A[z.k]||{};const pre=[];[z.w,z.x].filter(Boolean).forEach(d=>{pre.push({k:z.k,d,s:A[z.k][d]||'',n:(NT[z.k]||{})[d]||''});delete A[z.k][d];if(NT[z.k])delete NT[z.k][d];DT[z.k+'|'+d]=1;});
+ if(IN.length)$('swL').insertAdjacentHTML('afterbegin','<div class="swin"><b>📥 คู่สลับข้ามเดือนที่ยังไม่ได้บันทึกในเดือนนี้ ('+IN.length+')</b>'+IN.map((z,j)=>`<div class="swr"><div class="wn2"><b>${esc(shortNm(z.s.name))}</b> <small>${z.s.shift==='day'?'กลางวัน':'กลางคืน'}</small><br>เดือน${MON[z.X.month]}: ${z.v==='w'?'มาทำ':'หยุด'}วันที่ ${z.d} ⇄ เดือนนี้ต้อง${z.need==='s'?'<span class="swt sx">หย</span> หยุด':'<span class="swt sw">สล</span> มาทำ'}วันที่ ${z.pd}${z.ok?'':` <span class="wnx">${z.cur?'(มี “'+esc(stNm(z.cur))+'” อยู่แล้ว)':'(ไม่ตรงตารางเวร)'}</span>`}</div><button data-inc="${j}"${z.ok?'':' disabled'}>✔ บันทึก</button></div>`).join('')+'</div>');
+ $('swL').onclick=e=>{const bi=e.target.closest('button[data-inc]');if(bi){incApply(+bi.dataset.inc);return;}const bt=e.target.closest('button[data-sw]');if(!bt)return;const z=L[+bt.dataset.sw];if(!z)return;if(LK){lockMsg();return;}if(z.cross)swClearOther(z);A[z.k]=A[z.k]||{};const pre=[];[z.w,z.x].filter(Boolean).forEach(d=>{pre.push({k:z.k,d,s:A[z.k][d]||'',n:(NT[z.k]||{})[d]||''});delete A[z.k][d];if(NT[z.k])delete NT[z.k][d];DT[z.k+'|'+d]=1;});
   pre.forEach(p=>logChg(p.k,p.d,p.s,p.n,''));pushUndo('ยกเลิกการเปลี่ยนวันหยุด '+shortNm(z.s.name),pre);save();rf();swFill();renderSwList();toast('ยกเลิกการเปลี่ยนวันหยุดของ '+shortNm(z.s.name)+' แล้ว',true,{t:'↩ เลิกทำ',f:()=>{undoCells(pre);if(!$('swp').hidden){swFill();renderSwList();}}});};}
 /* v30: เสาร์-อาทิตย์ (คำนวณจากปฏิทินจริงของเดือนที่เปิด) */
 const WEND=d=>{const w=wdOf(R,d);return w===0||w===6;};
@@ -1671,7 +1757,7 @@ function rpPages(){const M=thr(),rows=mkRows('all','all',''),sm=f=>rows.reduce((
  if(rpGridOn())rpGrid(rows,LD,mo,sn).forEach(h=>P.push(h));/* v28: แนบตาราง Working Schedule รายวัน (ติ๊กทุกวัน) เป็นภาคผนวก */
  const sg=`<div class="rn">เกณฑ์: ต้องมีวันทำงานอย่างน้อย ${M} วัน (นับ “สาย” และวันที่มาทำ OT/ทำแทน/สลับมาทำ เป็นวันทำงาน; “ลา” และ “หยุดเปลี่ยน” ไม่นับเป็นขาด) • ความครบถ้วนข้อมูล ${cpl}% • ${stt}</div>${sigBlock()}`;
  // ช่องลงชื่อแยกไปหน้าใหม่ถ้าหน้าสุดท้ายแน่นเกินไป (หน้า .pg ตายตัว A4 + overflow:hidden)
- if(SIGNEW)P.push('<div class="rs">การรับรองรายงาน</div>'+sg);else P[P.length-1]+=sg;
+ if(SIGNEW)P.push(sg);else P[P.length-1]+=sg;
  return rpWrap(P,{title:'รายงานสรุปการปฏิบัติงานเจ้าหน้าที่รักษาความปลอดภัย ประจำเดือน '+mo,sub:`ข้อมูลวันที่ 1–${LD} ${mo}`+(full?' • ข้อมูลครบถ้วนทั้งเดือน':interim?' (เดือนยังไม่สิ้นสุด)':` • บันทึกแล้ว ${cpl}%`),no,fn:no+'_รายงานประจำเดือน_'+MON[R.month]});}
 /* ================= v11: ระบบออกรายงานแบบทางการ (ตัวอย่างก่อนออก • รายวัน / รายเดือน / รายปี • ผู้จัดทำลงชื่อเอง) ================= */
 const p2=x=>String(x).padStart(2,'0'),thDate=n=>n.getDate()+' '+MON[n.getMonth()]+' '+(n.getFullYear()+543);
@@ -1695,8 +1781,7 @@ const stc=l=>{const c=/ขาด|ต้องมาเพิ่ม/.test(l)?'a':
 const PVS={name:'',pos:'',date:'',sig:''};// ข้อมูลผู้จัดทำ (ชื่อ/ตำแหน่ง/ลายเซ็น จำไว้ในเครื่อง)
 const SIGOK=/^data:image\/png;base64,[A-Za-z0-9+/=]+$/;// รับเฉพาะรูป PNG จากกรอบเซ็นชื่อ (กันโค้ดแปลกปลอมจาก localStorage)
 // ช่องลงชื่อผู้จัดทำ (ช่องเดียว) — ไม่กรอกชื่อ/ตำแหน่ง/วันที่ = เว้นเส้นประให้เขียนด้วยมือ
-function sigBlock(){const dots=n=>'<span class="dts">'+'.'.repeat(n)+'</span>',sg=SIGOK.test(PVS.sig)?PVS.sig:'';
- return`<div class="sg1"><div class="sgb"><div>ลงชื่อ <span class="sline">${sg?`<img src="${sg}" alt="ลายเซ็น">`:''}</span> ผู้จัดทำรายงาน</div><div>( ${PVS.name?esc(PVS.name):dots(46)} )</div><div>ตำแหน่ง ${PVS.pos?esc(PVS.pos):dots(48)}</div><div>วันที่ ${PVS.date?esc(PVS.date):'........ / ........ / ............'}</div></div></div>`;}
+function sigBlock(){return'';}/* v37: นำช่องลงชื่อออกจากรายงานทุกแบบตามคำขอ */
 // กรอบหน้า A4 แบบทางการ (พื้นขาว ตัวอักษรดำ เส้นตารางเทา ไม่มีลายน้ำ)
 function rpWrap(P,m){const n=bkk(),pd=thDate(n),tm=p2(n.getHours())+':'+p2(n.getMinutes());RPM={fn:m.fn};
  const lg=rpLogo();return P.map((b,i)=>`<div class="pg fm"><div class="rh">${lg?`<img class="lgi" src="${lg}" alt="โลโก้">`:'<span></span>'}<div><div class="o1">ฝ่ายรักษาความปลอดภัย ศูนย์การค้า ซีคอนบางแค</div><div class="t1">${m.title}</div><div class="o2">${m.sub}</div></div><div class="rr">เลขที่เอกสาร <b>${m.no}</b><br>วันที่จัดทำ ${pd} เวลา ${tm} น.<br>หน้า ${i+1} / ${P.length}</div></div>${b}<div class="rf"><span>SBK Security Working Schedule • ระบบตารางเวรและเช็คการมาทำงาน</span><span>เลขที่เอกสาร ${m.no} • หน้า ${i+1}/${P.length}</span></div></div>`).join('');}
@@ -1754,7 +1839,7 @@ function rpDaily(d){d=Math.min(R.days,Math.max(1,d|0));const rows=mkRows('all','
  const pages=paginate(its,[Math.max(3,14-(lvr.length?lvz+4:0)-CAPADJ),28-(CAPADJ>>1)]),P=[];let lr=0,cap=14;
  pages.forEach((pg,i)=>{P.push((i?'':head)+`<div class="rs">${lvr.length?4:3}. รายชื่อและสถานะการปฏิบัติงาน ${i?'(ต่อ)':''}</div><table class="cmp"><tr><th style="width:40px">#</th><th>ชื่อ-สกุล</th><th style="width:150px">ตำแหน่ง</th><th style="width:170px">สถานะ</th><th>หมายเหตุ</th></tr>${pg.map(row).join('')}</table>`);lr=pg.length;cap=i?28:14;});
  const sg=`<div class="rn">หมายเหตุ: “มาจริง” = มา + สาย + มาทำในวันหยุด (OT / ทำแทน / สลับมาทำ) • “ต้องปฏิบัติงาน” ไม่รวมวันหยุดประจำ ลา และหยุดเปลี่ยน • ข้อมูลจากระบบ ณ เวลาที่จัดทำรายงาน</div>${sigBlock()}`;
- if(SIGNEW)P.push('<div class="rs">การรับรองรายงาน</div>'+sg);else P[P.length-1]+=sg;/* ช่องลงชื่อสูงราว 8 บรรทัดตาราง */
+ if(SIGNEW)P.push(sg);else P[P.length-1]+=sg;/* ช่องลงชื่อสูงราว 8 บรรทัดตาราง */
  return rpWrap(P,{title:'รายงานการปฏิบัติงานประจำวัน เจ้าหน้าที่รักษาความปลอดภัย',sub:dtx+(fut?' • ยังมาไม่ถึง':''),no,fn:no+'_รายงานประจำวัน'});}
 
 /* ---------- รายงานประจำปี: รวบรวมข้อมูลทุกเดือนของปี (ตารางเวร + การเช็คชื่อ จาก Sheets / เครื่องนี้) ---------- */
@@ -1789,7 +1874,7 @@ function rpYearly(yBE,data){const nf=x=>Number(x).toLocaleString('th-TH'),pc=(a,
  const row=it=>{if(it.h)return`<tr class="gh2"><td colspan="13">${it.h}</td></tr>`;const a=it.a;return`<tr><td>${it.i}</td><td>${snm(a.s)}</td><td>${roleN(a.s)}</td><td>${a.mo}</td><td>${a.plan}</td><td>${a.attReg}</td><td>${a.late}</td><td>${a.abs}</td><td>${a.leave}</td><td>${a.ot}/${a.cover}/${a.swIn}</td><td>${a.swOut}</td><td><b>${a.att}</b></td><td>${a.cmo?a.pass+'/'+a.cmo:'-'}</td></tr>`;};
  let lr=0;paginate(its,[18-(CAPADJ>>1),18-(CAPADJ>>1)]).forEach((pg,i)=>{P.push(`<div class="rs">4. สรุปรายบุคคลทั้งปี ${i?'(ต่อ)':''}</div><table><tr><th>#</th><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>จำนวนเดือน</th><th>แผน (วัน)</th><th>มาทำงาน (รวมสาย)</th><th>สาย</th><th>ขาด</th><th>ลา</th><th>OT/แทน/สลับ</th><th>หยุดเปลี่ยน</th><th>รวมวันทำงาน</th><th>ถึงเกณฑ์ (เดือน)</th></tr>${pg.map(row).join('')}</table>`);lr=pg.length;});
  const sg=`<div class="rn">เกณฑ์รายเดือนใช้ค่าที่บันทึกกับตารางเวรแต่ละเดือน • นับ “สาย” และวันที่มาทำ OT/ทำแทน/สลับมาทำ เป็นวันทำงาน; “ลา” และ “หยุดเปลี่ยน” ไม่นับเป็นขาด</div>${sigBlock()}`;
- if(SIGNEW)P.push('<div class="rs">การรับรองรายงาน</div>'+sg);else P[P.length-1]+=sg;
+ if(SIGNEW)P.push(sg);else P[P.length-1]+=sg;
  return rpWrap(P,meta);}
 
 /* ================= v13: ข้อมูลข้ามเดือน (ใช้ร่วม รายสัปดาห์/รายปี) + รายงานประจำสัปดาห์ ================= */
@@ -1895,7 +1980,7 @@ function rpWeekly(W){const nf=x=>Number(x).toLocaleString('th-TH'),pc=(a,b)=>b?(
  for(let q=0;q<SP.length;q+=16){const ch=SP.slice(q,q+16);P.push(`<div class="rs">5. รายการพิเศษและหมายเหตุ ${q?'(ต่อ)':''}</div><table class="cmp"><tr><th style="width:120px">วัน</th><th>ชื่อ-สกุล</th><th style="width:90px">กะ</th><th style="width:150px">สถานะ</th><th>หมายเหตุ</th></tr>${ch.map(z=>`<tr><td>${TH[z.x.dt.getDay()]} ${z.x.d} ${MS[z.x.dt.getMonth()]}</td><td>${snm(z.st)}</td><td>${shN(z.st.shift)}</td><td>${stc(LBL[z.e])}</td><td>${z.nt?esc(z.nt.length>60?z.nt.slice(0,59)+'…':z.nt):'-'}</td></tr>`).join('')}</table>`);}
  const srcs=[...new Set(D.filter(x=>x.md&&!x.md.none).map(x=>x.md.src))].join(', '),errs=[...new Set(D.filter(x=>x.md&&x.md.err).map(x=>x.md.err))];
  const sg=`<div class="rn">แหล่งข้อมูล: ${srcs}${errs.length?' • ⚠️ '+esc(errs.join('; ')):''} • “ต้องปฏิบัติงาน” ไม่รวมวันหยุดประจำ ลา และหยุดเปลี่ยน</div>${sigBlock()}`;
- if(SIGNEW)P.push('<div class="rs">การรับรองรายงาน</div>'+sg);else P[P.length-1]+=sg;
+ if(SIGNEW)P.push(sg);else P[P.length-1]+=sg;
  return rpWrap(P,meta);}
 
 /* ---------- หน้าต่างตัวอย่างรายงาน ---------- */
@@ -2009,7 +2094,7 @@ function handleEvents(){layoutTB();window.addEventListener('resize',layoutTB);
  renderLock();renderUndo();
 
   $('bsw').onclick=()=>swOpen();$('swX').onclick=swClose;$('swC').onclick=swClose;$('swp').onclick=e=>{if(e.target.id==='swp')swClose();};
-  $('swS').onchange=swFill;$('swA').onchange=swPrev;$('swB').onchange=swPrev;$('swR').oninput=swPrev;$('swOk').onclick=swSave;
+  $('swS').onchange=swFill;$('swAM').onchange=()=>{if(+$('swAM').value&&+$('swBM').value)$('swBM').value='0';swFill();};$('swBM').onchange=()=>{if(+$('swBM').value&&+$('swAM').value)$('swAM').value='0';swFill();};$('swA').onchange=swPrev;$('swB').onchange=swPrev;$('swR').oninput=swPrev;$('swOk').onclick=swSave;
   $('swQ').onclick=e=>{const b=e.target.closest('button[data-r]');if(!b)return;$('swR').value=b.dataset.r;swPrev();};
   // ปุ่มล้างวัน: ต้องกดยืนยันซ้ำภายใน 3.5 วินาที กันกดพลาดแล้วข้อมูลหาย
   $('bc').onclick=()=>setDay('');// v23: เลือกกะในหน้าต่างยืนยันแทนการกดซ้ำ
@@ -2039,7 +2124,7 @@ function handleEvents(){layoutTB();window.addEventListener('resize',layoutTB);
   /* v26: เปิดหลายแท็บ/หน้าต่าง — เดิมแต่ละแท็บถือข้อมูลชุดของตัวเองแล้วเขียนทับกัน (ช่องที่อีกแท็บติ๊กหาย) → อีกแท็บบันทึกเมื่อไร โหลดข้อมูลเดือนนั้นใหม่ทันที */
   window.addEventListener('storage',e=>{try{if(!e.key)return;if(e.key===SK()){load(true);CF={};rf();if(!$('pd').hidden){clearTimeout(rdT);rdT=setTimeout(rd,300);}renderNote();}
    else if(/^sbk_roster_\d+_\d+$/.test(e.key))fillMonths();else if(/^sbk_att2_/.test(e.key))pendScan();}catch(x){onAppErr(x.message);}});
-  $('dw').onclick=e=>{const x=e.target.closest('button[data-nx]'),g=e.target.closest('button[data-goto]');if(x)notice(x.dataset.nx,null);else if(g)switchMonth(g.dataset.goto);};window.addEventListener('offline',renderSync);
+  $('dw').onclick=e=>{const x=e.target.closest('button[data-nx]'),g=e.target.closest('button[data-goto]');if(x)notice(x.dataset.nx,null);else if(g)switchMonth(g.dataset.goto);else if(e.target.closest('button[data-swopen]'))swOpen();};window.addEventListener('offline',renderSync);
  ['ds','dr'].forEach(i=>$(i).onchange=rd);$('dq').oninput=()=>{clearTimeout(rdT);rdT=setTimeout(rd,180);};/* พิมพ์ค้นหาไม่กระตุก | v26: เดิม handler ของเกณฑ์วันทำงานถูกคอมเมนต์ // กลืนทั้งบรรทัด จึงไม่ทำงาน */
  $('dm').oninput=()=>{clearTimeout(rdT);rdT=setTimeout(rd,180);};$('dm').addEventListener('change',()=>{$('dm').value=thr();rd();});
  $('bt').onclick=()=>{const d=document.documentElement,dk=d.dataset.theme==='dark';d.dataset.theme=dk?'light':'dark';$('bt').innerHTML=dk?'🌙<span class="bl"> โหมดมืด</span>':'☀️<span class="bl"> โหมดสว่าง</span>';if(!$('pd').hidden)rd();};
@@ -2082,7 +2167,7 @@ function handleEvents(){layoutTB();window.addEventListener('resize',layoutTB);
       N=parseRoster(XLSX.utils.sheet_to_json(ws,{header:1,defval:null,range:rg}));N.sheet=nm;break;}catch(x){er.push('ชีต “'+nm+'”: '+x.message);}}
     if(!N)throw new Error(er[0]||'ไม่พบชีตที่เป็นตารางเวร');
     const prev=R;R=N;monthPicked=true;if(N.minDays)$('dm').value=N.minDays;
-    N.minDays=N.minDays||thr();closeSheet(true);storeRoster(N);lss(RAT(N.year,N.month),new Date().toISOString());lss('sbk_last',N.year+'_'+N.month);
+    N.minDays=N.minDays||thr();closeSheet(true);storeRoster(N);lss(RDF(N.year,N.month),'');lss(RAT(N.year,N.month),new Date().toISOString());lss('sbk_last',N.year+'_'+N.month);
     initMonth();if(!$('pd').hidden)rd();showImport(N,prev);pushRoster(N).then(ok=>{const e=$('irs');if(e)e.innerHTML=ok?'☁️ บันทึกตารางเวรขึ้น Google Sheets แล้ว — เครื่องอื่นจะเห็นตารางเวรนี้เองและเลือกเดือนได้':'⚠️ บันทึกตารางเวรในเครื่องนี้แล้ว แต่ส่งขึ้น Google Sheets ไม่สำเร็จ — เครื่องอื่นจะยังไม่เห็น (ตรวจสอบ Code_v8.gs และอินเทอร์เน็ต แล้วนำเข้าอีกครั้ง)';});toast('นำเข้าตารางเวรสำเร็จ ('+N.staff.length+' คน)'+(N.warn.length?' • มี '+N.warn.length+' ข้อสังเกต':''));}
    catch(err){toast('นำเข้าไม่สำเร็จ: '+err.message+' — กรุณาใช้ไฟล์ตารางเวรรูปแบบเดิม',false);}
    $('bi').disabled=false;$('bi').innerHTML='📥<span class="bl"> นำเข้าตารางเวร</span>';e.target.value='';};
