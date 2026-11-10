@@ -346,7 +346,9 @@ tr.rkn td{background:rgba(166,61,47,.07)}
 /* ===== v16: แถบสัญลักษณ์ + บันทึกเปลี่ยนวันหยุด ===== */
 .lgbar{display:flex;flex-wrap:wrap;gap:5px;margin:2px 0 8px}.lgbar span{padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}.lgbar .lgp{background:transparent;border:1px dashed var(--bd);color:var(--mu)}
 #ts{z-index:90}/* แจ้งเตือน (มีปุ่มเลิกทำ) ต้องอยู่เหนือหน้าต่างเปลี่ยนวันหยุด/ตัวอย่างรายงาน */
-td .pd{display:block;font-size:9.5px;line-height:1;font-weight:700;opacity:.85;margin-top:1px;letter-spacing:-.2px}
+td .pd{display:block;font-size:9.5px;line-height:1;font-weight:800;opacity:.95;margin-top:1px;letter-spacing:-.2px}
+td .pd.cv2{color:#0B5E52}html[data-theme=dark] td .pd.cv2{color:#5EEAD4}
+#nbcd{min-height:38px;border-radius:10px;border:1px solid color-mix(in srgb,#0F766E 40%,var(--bd));background:color-mix(in srgb,#14B8A6 8%,var(--card));font-weight:700}
 .bswn{display:inline-block;min-width:18px;padding:0 5px;margin-left:5px;border-radius:9px;background:var(--ax);color:#fff;font-size:11px;line-height:18px;text-align:center}
 #swp{position:fixed;inset:0;z-index:66;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;padding:14px}
 .swb{background:var(--card);color:var(--tx);width:min(600px,100%);max-height:calc(100vh - 28px);overflow:auto;border-radius:20px;padding:14px 16px 16px;box-shadow:0 18px 50px rgba(0,0,0,.35);border-top:5px solid var(--sec)}
@@ -789,7 +791,7 @@ html[data-theme=dark] .swin>b{color:#C7D2FE}
 <noscript><style>#sp{display:none}</style></noscript>
 <div class="w">
 <header id="hd" data-pg="f">
- <h1><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><span>SBK Security Working Schedule <b class="ver" title="เวอร์ชันของโปรแกรม">v37</b><small id="sub"></small></span></h1>
+ <h1><svg class="lgo" aria-hidden="true"><use href="#lg"/></svg><span>SBK Security Working Schedule <b class="ver" title="เวอร์ชันของโปรแกรม">v38</b><small id="sub"></small></span></h1>
  <nav class="navt hnav" role="tablist" aria-label="เลือกหน้า"><button id="nf" class="on" role="tab">📝 ฟอร์มเช็คชื่อ</button><button id="nd" role="tab">📊 แดชบอร์ดสรุป</button></nav>
  <div class="hact">
   <span class="sy" id="syh" role="button" tabindex="0" title="สถานะการซิงค์ Google Sheets (แตะเพื่อซิงค์ตอนนี้)"></span><select id="mo" aria-label="เลือกเดือนตารางเวร" hidden></select><button id="bi" title="นำเข้าตารางเวร (Excel)" aria-label="นำเข้าตารางเวร">📥<span class="bl"> นำเข้าตารางเวร</span></button><input type="file" id="fi" accept=".xlsx,.xls" hidden>
@@ -829,7 +831,7 @@ html[data-theme=dark] .swin>b{color:#C7D2FE}
    </div>
   </div>
   <div id="lkbar" class="lkbar lk" role="status" aria-live="polite"></div>
-  <div class="lgd lgbar" aria-label="ความหมายสัญลักษณ์"><span class="lgs-p">✓ มา</span><span class="lgs-l">ส สาย</span><span class="lgs-a">✗ ขาด</span><span class="lgs-i">ป่วย ลาป่วย</span><span class="lgs-b">กิจ ลากิจ</span><span class="lgs-h">พร ลาพักร้อน</span><span class="lgs-e">Extra ลาแทนวันหยุดประจำปี</span><span class="lgs-v">ลา ลาอื่น ๆ</span><span class="lgs-sx">หย เปลี่ยนวันหยุด</span><span class="lgs-o">off วันหยุด</span><span class="lgs-ot">OT ทำวันหยุด</span><span class="lgs-cv">แทน ทำงานแทน</span><span class="lgs-sw">สล มาทำแทนวันที่เปลี่ยน</span><span class="lgwe">ส อา = เสาร์-อาทิตย์ (แถบสีฟ้าอ่อน)</span><span class="lgp">⇄9 = วันคู่ที่สลับ</span></div>
+  <div class="lgd lgbar" aria-label="ความหมายสัญลักษณ์"><span class="lgs-p">✓ มา</span><span class="lgs-l">ส สาย</span><span class="lgs-a">✗ ขาด</span><span class="lgs-i">ป่วย ลาป่วย</span><span class="lgs-b">กิจ ลากิจ</span><span class="lgs-h">พร ลาพักร้อน</span><span class="lgs-e">Extra ลาแทนวันหยุดประจำปี</span><span class="lgs-v">ลา ลาอื่น ๆ</span><span class="lgs-sx">หย เปลี่ยนวันหยุด</span><span class="lgs-o">off วันหยุด</span><span class="lgs-ot">OT ทำวันหยุด</span><span class="lgs-cv">แทน ทำงานแทน</span><span class="lgs-sw">สล มาทำแทนวันที่เปลี่ยน</span><span class="lgwe">ส อา = เสาร์-อาทิตย์ (แถบสีฟ้าอ่อน)</span><span class="lgp">⇄9 = วันคู่ที่สลับ</span><span class="lgp">↷12 = ทำแทนของวันที่ 12</span></div>
  <details id="hp" class="hint2 lg" open><summary>❓ วิธีใช้ และความหมายของสถานะ (พับเก็บได้ ระบบจำค่าให้)</summary><div class="lg hint">👆 <b>แตะช่องว่าง = “มา” ทันที</b> • แตะช่องที่มีสถานะแล้ว (หรือช่อง off) = เปิดหน้าต่างเลือก <b>สถานะ + หมายเหตุ</b> พร้อมปุ่มลัด • “เปลี่ยนวันหยุด” กดปุ่ม <b>🔁 เปลี่ยนวันหยุด</b> ด้านบน (หรือแตะช่องแล้วเลือกวันคู่) ระบบบันทึกให้ครบทั้ง 2 วัน และแสดงวันคู่ในช่อง (⇄) • <b>เส้นประสีทอง</b> = ยังไม่มีหมายเหตุ, <b>มุมสามเหลี่ยม</b> = มีหมายเหตุแล้ว • คลิกหัววันที่เพื่อเลือกวัน • บันทึกอัตโนมัติในเครื่อง • ระบบส่งขึ้น Sheets ให้เองหลังแก้ไข 6 วินาที (เมื่อกรอกชื่อผู้บันทึกแล้ว)</div><ul><li><b>มา / สาย</b> — มาปฏิบัติงานในวันทำงานปกติ (สาย = มาช้ากว่าเวลา) นับเป็นวันทำงานทั้งคู่</li><li><b>ขาด</b> — ไม่มาโดยไม่ได้ลา ไม่นับเป็นวันทำงาน</li><li><b>ป่วย ลาป่วย</b> • <b>กิจ ลากิจ</b> • <b>พร ลาพักร้อน</b> • <b>Extra ลาแทนวันหยุดประจำปี</b> • <b>ลา ลาอื่น ๆ</b> (ลาคลอด/ลาบวช/ลาไม่รับค่าจ้าง ฯลฯ) — ช่องตารางแสดงชนิดการลาเลย ทุกชนิดไม่นับเป็นวันขาด และไม่นับในแผนวันทำงาน แต่แยกยอดในแดชบอร์ดและรายงาน (แยกกะกลางวัน/กลางคืนด้วย)</li><li><b>🛡️ ป้องกันกดพลาด</b> — ตารางล็อกอยู่เมื่อเปิดหน้า/ไม่ได้ใช้งาน (แตะ “ปลดล็อก” ก่อนแก้ไข) • ทุกการแก้ไขเลิกทำได้ด้วยปุ่ม ↩ หรือ Ctrl+Z • “📜 ประวัติแก้ไข” ย้อนกลับรายช่องได้ • แตะตอนเลื่อนจอจะไม่ถูกนับ • ติ๊กมาทั้งหมด/ล้างวัน มีถามยืนยันก่อน • เปิด “แตะ 2 ครั้งเพื่อติ๊ก” ได้ถ้าต้องการกันเผลอเพิ่ม</li><li><b>หย เปลี่ยนวันหยุด</b> — วันปกติที่หยุด เพราะไปทำงานในวันหยุดเดิมแทน (จับคู่กับ “สล”)</li><li><b>OT</b> — มาทำในวันหยุด (off) ตามคำสั่ง • <b>แทน</b> — มาทำแทนเพื่อนที่ไม่มา/ลา • <b>สล</b> — มาทำในวันหยุด เพราะไปหยุดวันอื่นแทน (จับคู่กับ “หย”) — ทั้ง 3 แบบนับเป็นวันทำงาน</li></ul></details>
  <div id="fg"></div><div id="fe" class="em" hidden>ไม่พบข้อมูลตามตัวกรอง</div>
 </div>
@@ -917,7 +919,8 @@ html[data-theme=dark] .swin>b{color:#C7D2FE}
  <div class="shf"><button id="shPrev" aria-label="คนก่อนหน้า">◀ ก่อน</button><button id="shNext" aria-label="คนถัดไป">ถัดไป ▶</button><span class="sp"></span><button id="shClr">🧹 ล้างช่องนี้</button><button id="shDone" class="on">✔ เสร็จ</button></div>
 </div></div>
 <script>
-/* v37 — เปลี่ยนวันหยุดข้ามเดือน (บันทึกทั้ง 2 เดือน + แสดงในเดือนถัดไป) • สร้างตารางเวรเดือนถัดไปล่วงหน้า • นำช่องลงชื่อออกจากรายงาน
+/* v38 — ช่อง “ทำแทน” ระบุและแสดงวันที่ที่เกี่ยวข้องได้ (แทน ↷วันที่) ทั้งตารางฟอร์มและแดชบอร์ด
+   v37 — เปลี่ยนวันหยุดข้ามเดือน (บันทึกทั้ง 2 เดือน + แสดงในเดือนถัดไป) • สร้างตารางเวรเดือนถัดไปล่วงหน้า • นำช่องลงชื่อออกจากรายงาน
    v36 — ตัวหนังสือแถวยอดรวมเป็นสีขาวหนาบนแถบสีเข้ม (ชัดในโหมดสว่าง)
    v35 — แถวยอดรวม หัวหน้า/ตรวจการ (ทอง) และ รปภ. (น้ำเงิน) สีแยกชัด
    v34 — หน้าฟอร์มเช็คชื่อโทนสดใส (ช่องสถานะ คำอธิบายสัญลักษณ์ พื้นหลัง หัว/ท้ายตาราง)
@@ -1335,7 +1338,11 @@ function chipHtml(n){const e=n.e,btn=(t,c)=>`<button data-t="${esc(t)}"${c?` cla
   if(!c.m.length&&!c.o.length)h+='<span class="lg">ไม่มีวันที่จับคู่ได้ในเดือนนี้ — พิมพ์หมายเหตุเองได้</span>';
   return h;}
  if(e==='c'){const w=R.staff.filter(x=>x.shift===n.s.shift&&x!==n.s&&!x.off.includes(n.d)&&['v','i','b','h','e','a','s'].includes((A[key(x)]||{})[n.d])).slice(0,6);
-  return w.map(x=>btn('ทำแทน '+shortNm(x.name))).join('')+btn('ทำแทนเพื่อนร่วมงาน');}
+  const cur=cvDay((NT[n.k]||{})[n.d]||'',n.d);
+  let h='<div class="nbl">👥 ทำแทนใคร (แตะชื่อ):</div>'+w.map(x=>btn('ทำแทน '+shortNm(x.name))).join('')+btn('ทำแทนเพื่อนร่วมงาน');
+  /* v38: ระบุวันที่ที่การทำแทนนี้เกี่ยวข้อง (ไม่บังคับ) → แสดงในช่องตารางเป็น แทน ↷วันที่ */
+  h+=`<div class="nbl">📅 ทำแทนของวันที่ (ไม่บังคับ — จะแสดงในตารางเป็น “แทน ↷วันที่”):</div><select id="nbcd"><option value="">${cur?'✓ วันที่ '+cur+' — เปลี่ยนเป็น…':'เลือกวันที่…'}</option>${[...Array(R.days)].map((_,x)=>x+1).filter(x=>x!==n.d).map(x=>`<option value="${x}">${dl(x)}</option>`).join('')}${cur?'<option value="x">✕ ลบวันที่ออกจากหมายเหตุ</option>':''}</select>`;
+  return h;}
  return(QN[e]||[]).map(t=>btn(t)).join('');}
 function renderNote(){const sh=$('sh'),n=shOn?noteInfo():null;
  if(!n){sh.hidden=true;document.body.style.paddingBottom='';document.documentElement.style.setProperty('--shh','0px');return;}
@@ -1558,13 +1565,15 @@ function renderSwList(){const L=swPairs(),IN=swIncoming();$('swN').textContent=L
   pre.forEach(p=>logChg(p.k,p.d,p.s,p.n,''));pushUndo('ยกเลิกการเปลี่ยนวันหยุด '+shortNm(z.s.name),pre);save();rf();swFill();renderSwList();toast('ยกเลิกการเปลี่ยนวันหยุดของ '+shortNm(z.s.name)+' แล้ว',true,{t:'↩ เลิกทำ',f:()=>{undoCells(pre);if(!$('swp').hidden){swFill();renderSwList();}}});};}
 /* v30: เสาร์-อาทิตย์ (คำนวณจากปฏิทินจริงของเดือนที่เปิด) */
 const WEND=d=>{const w=wdOf(R,d);return w===0||w===6;};
+/* v38: วันที่ที่เกี่ยวข้องของช่อง “ทำแทน” จากหมายเหตุ — แสดงในช่องตารางเป็น ↷วันที่ (เหมือน ⇄ ของการสลับ) */
+const cvDay=(nt,d)=>{const m=/วันที่\s*(\d{1,2})/.exec(nt||'');if(!m)return null;const x=+m[1];return x>=1&&x<=31&&x!==d?x:null;};
 function grid(rows,ed){let h='';const[d1,d2]=ed?rng():[1,R.days];
  for(const sh of['day','night'])for(const ro of['sup','guard']){const b=rows.filter(r=>r.s.shift===sh&&r.s.role===ro);if(!b.length)continue;
   const HM=holMonth(R);let th='<th class="n">ชื่อ-สกุล</th>';for(let d=d1;d<=d2;d++){const w=wdOf(R,d),hl=HM[d];th+=`<th ${ed?`data-d="${d}"`:''} class="${w==0||w==6?'wk':''} ${ed&&d==day?'sel':''} ${hl?(hl.every(x=>x.t==='gov')?'hol hol-g':'hol'):''}" ${hl?`title="🎌 ${esc(hl.map(x=>x.n).join(', '))}"`:''}>${AB[w]}<br>${d}${hl?'<i class="hdot"></i>':''}</th>`;}
   th+=ed?'<th class="t">รวม</th>':'<th>Day Off</th><th>วันทำงาน</th><th>OT</th><th>แทน</th><th>สลับ</th><th>หยุดเปลี่ยน</th><th>สาย</th><th>ขาด</th><th>เกณฑ์</th>';
   let tr='';b.forEach(r=>{const a=A[key(r.s)]||{},t=r.t;tr+=`<tr><td class="n" title="${esc(r.s.name)}">${esc(ed?r.s.name.replace(/^(นาย|น\.ส\.|นาง)\s*/,''):r.s.name)}</td>`;
    for(let d=d1;d<=d2;d++){const wk=WEND(d),off=r.s.off.includes(d),v=a[d]||'',cl=off?(v?(CLS[v]||'ot'):'o'):(v==='s'?'sx':(!v||ST[v])?v:(CLS[v]||'ot')),tx=off?(v?(TXT[v]||'OT'):'off'):(v==='s'?'หย':(ST[v]||TXT[v]||''));
-    const nt=v?((NT[key(r.s)]||{})[d]||''):'',ev=off?XOFF[v]:v,pp=(ev==='s'||ev==='w')?swPartner(nt,d):null;tr+=`<td class="${cl}${wk?' we':''} ${ed?'c':''} ${ed&&d==day?'sel':''} ${nt?'hn':''} ${ed&&!nt&&NEED.has(ev)?'nn':''} ${ed&&sel&&sel.i===r.i&&sel.d===d?'cs':''} ${ed&&POP===key(r.s)+'|'+d?'pop':''}" ${nt&&!ed?`title="${esc(nt)}"`:''} ${ed?`data-i="${r.i}" data-d="${d}"`:''}>${tx}${pp?`<small class="pd">⇄${pp.m===R.month?pp.d:pp.d+'/'+(pp.m+1)}</small>`:''}</td>`;}
+    const nt=v?((NT[key(r.s)]||{})[d]||''):'',ev=off?XOFF[v]:v,pp=(ev==='s'||ev==='w')?swPartner(nt,d):null,cvd=ev==='c'?cvDay(nt,d):null;tr+=`<td class="${cl}${wk?' we':''} ${ed?'c':''} ${ed&&d==day?'sel':''} ${nt?'hn':''} ${ed&&!nt&&NEED.has(ev)?'nn':''} ${ed&&sel&&sel.i===r.i&&sel.d===d?'cs':''} ${ed&&POP===key(r.s)+'|'+d?'pop':''}" ${nt&&!ed?`title="${esc(nt)}"`:''} ${ed?`data-i="${r.i}" data-d="${d}"`:''}>${tx}${pp?`<small class="pd">⇄${pp.m===R.month?pp.d:pp.d+'/'+(pp.m+1)}</small>`:cvd?`<small class="pd cv2">↷${cvd}</small>`:''}</td>`;}
    tr+=ed?`<td><b>${t.att}</b></td></tr>`:`<td>${esc(r.s.dayOff||'-')}</td><td><b>${t.att}</b></td><td>${t.ot}</td><td>${t.cover}</td><td>${t.swIn}</td><td>${t.swOut}</td><td>${t.late}</td><td>${t.abs}</td><td><span class="bd ${t.pass?'ok':t.fail?'no':'wn'}">${t.pass?'ผ่าน':t.fail?'ต้องมาเพิ่ม':'กำลังนับ'}</span></td></tr>`;});
   let ft=`<td class="n">${ro==='sup'?'ยอดรวม หัวหน้า / ตรวจการ':'ยอดรวม รปภ.'}</td>`;for(let d=d1;d<=d2;d++)ft+=`<td${WEND(d)?' class="we"':''}><b>${b.filter(r=>here(r.s.off.includes(d),(A[key(r.s)]||{})[d])).length}</b></td>`;
   h+=`<div class="sec ${sh==='day'?'dy':'ng'}">${sh==='day'?'☀️ กะกลางวัน 09.00 - 21.00 น.':'🌙 กะกลางคืน 21.00 - 09.00 น.'} • ${ro==='sup'?'หัวหน้า / ตรวจการ':'รปภ.'}</div><div class="tw"><table class="gt${ed?' fit':''}"><thead><tr>${th}</tr></thead><tbody>${tr}</tbody><tfoot class="ft-${ro}"><tr>${ft}${ed?'<td></td>':'<td colspan="9"></td>'}</tr></tfoot></table></div>`;}
@@ -2102,7 +2111,9 @@ function handleEvents(){layoutTB();window.addEventListener('resize',layoutTB);
   $('shg').onclick=e=>{const b=e.target.closest('button[data-s]');if(b)setStatus(b.dataset.s);};
   $('nbc').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.p){pairSwap(+b.dataset.p);return;}
    const i=$('nbi'),v=i.value.trim(),t=b.dataset.t;if(!t)return;if(v.split('; ').includes(t))return;i.value=v?v+'; '+t:t;saveNote(i.value);};
-  $('nbc').onchange=e=>{if(e.target.id==='nbp'&&e.target.value)pairSwap(+e.target.value);};
+  $('nbc').onchange=e=>{if(e.target.id==='nbp'&&e.target.value){pairSwap(+e.target.value);return;}
+  if(e.target.id==='nbcd'&&e.target.value){const n=noteInfo();if(!n)return;const v=e.target.value,old=((NT[n.k]||{})[n.d]||'').replace(/;?\s*ทำแทนของวันที่\s*\d{1,2}\s*(\([^)]*\))?/g,'').replace(/^;\s*/,'').trim();
+   const t=v==='x'?old:(old?old+'; ':'')+'ทำแทนของวันที่ '+v+' ('+AB[wdOf(R,+v)]+')';saveNote(t);toast(v==='x'?'ลบวันที่ออกจากหมายเหตุแล้ว':'บันทึกแล้ว: ทำแทนของวันที่ '+v+' — ช่องตารางแสดง “แทน ↷'+v+'”');}};
   $('nbi').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();saveNote(e.target.value);e.target.blur();}};$('nbi').onchange=e=>saveNote(e.target.value);
   $('shx').onclick=$('shDone').onclick=()=>closeSheet();$('shClr').onclick=clearCell;
   $('shPrev').onclick=()=>stepPerson(-1);$('shNext').onclick=()=>stepPerson(1);
